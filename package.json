@@ -25,6 +25,7 @@
     "@iconify-json/lucide": "1.1.145",
     "@nuxt/image": "1.1.0",
     "@nuxt/ui": "2.11.1",
+    "@vercel/analytics": "^1.5.0",
     "postcss-custom-properties": "^14.0.5",
     "vue-use-fixed-header": "^2.0.0"
   },
