@@ -14,13 +14,7 @@
       احصل على إشعار عندما أقوم بنشر شيء جديد، ويمكنك إلغاء الاشتراك في أي وقت.
     </p>
     <div class="flex items-center gap-3 mt-6">
-      <UInput
-        placeholder="Email Address"
-        icon="i-heroicons-envelope"
-        class="flex-1"
-        size="lg"
-      />
-      <UButton label="Join &rarr;" size="lg" color="black" />
+       <iframe src="https://gohodhod.com/@sufyanfarea/embed?withoutProfile=true" width="100%" height="100" frameborder="0"></iframe>
     </div>
   </div>
 </template>
