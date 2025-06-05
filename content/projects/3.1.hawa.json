@@ -1,7 +1,7 @@
 {
-  "name": "Hawa",
-  "url": "https://github.com/fayazara/hawa",
-  "description": "A simple white noise app which sits in the menubar",
+  "name": "تواصل",
+  "url": "/",
+  "description": "منصة واتساب الأعمال",
   "thumbnail": "/projects/hawa.png",
   "status": "Active",
   "opensource": true
