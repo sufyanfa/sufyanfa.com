@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2 class="uppercase text-xs font-semibold text-gray-400 mb-4">FIND ME ON</h2>
+    <h2 class="uppercase text-xs font-semibold text-gray-400 mb-4">
+      تجدني
+    </h2>
     <div class="space-y-5">
       <NuxtLink
         v-for="link in links"
@@ -25,23 +27,23 @@
 <script lang="ts" setup>
 const links = [
   {
-    name: "Twitter",
-    url: "https://twitter.com/fayazara",
+    name: "X",
+    url: "https://x.com/sufyanfa",
     icon: "mdi:twitter",
   },
   {
-    name: "GitHub",
-    url: "https://github.com/fayazara",
-    icon: "mdi:github",
-  },
-  {
     name: "Linkedin",
-    url: "https://www.linkedin.com/in/fayaz-aralikatti/",
+    url: "https://www.linkedin.com/in/sufyanfa/",
     icon: "mdi:linkedin",
   },
   {
+    name: "GitHub",
+    url: "https://github.com/sufyanfa",
+    icon: "mdi:github",
+  },
+  {
     name: "Telegram",
-    url: "https://t.me/fayazara",
+    url: "https://t.me/sufyanfa",
     icon: "mdi:telegram",
   },
 ];

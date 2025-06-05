@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/content",
     "@nuxthq/studio",
-    "@vueuse/nuxt"
+    "@vueuse/nuxt",
+    "@nuxtjs/seo",
   ],
   ui: {
     icons: ["heroicons", "lucide"],
@@ -17,11 +18,12 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
     head: {
       htmlAttrs: {
-        lang: "en",
+        lang: "ar",
+        dir: "rtl",
         class: "h-full",
       },
       bodyAttrs: {
-        class: "antialiased bg-gray-50 dark:bg-black min-h-screen",
+        class: "antialiased bg-gray-50 dark:bg-black min-h-screen font-sans",
       },
     },
   },

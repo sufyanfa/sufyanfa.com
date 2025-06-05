@@ -18,7 +18,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        "Inter",
+        "Vazirmatn",
         "Avenir Next",
         "Roboto",
         "-apple-system",
