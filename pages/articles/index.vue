@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen">
-    <AppHeader class="mb-16" title="Articles" :description="description" />
+    <AppHeader class="mb-16" title="المدونة" :description="description" />
     <ul class="space-y-16">
       <li v-for="(article, id) in articles" :key="id">
         <AppArticleCard :article="article" />
@@ -11,9 +11,9 @@
 
 <script setup>
 const description =
-  "All of my long-form thoughts on programming, user interfaces, product design, and more, collected in chronological order.";
+  "مقالات حول البرمجة والتصميم وتطوير المنتجات وتجربة المستخدم، بالإضافة إلى مواضيع أخرى تتعلق بالتكنولوجيا والابتكار.";
 useSeoMeta({
-  title: "Articles | Fayaz Ahmed",
+  title: "المدونة | سفيان فارع",
   description,
 });
 
