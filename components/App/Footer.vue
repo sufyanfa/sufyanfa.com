@@ -4,7 +4,7 @@
   >
     <br>
     <p>
-      Sufyan Farah © 2023. All rights reserved.
+      Sufyan Farea © 2023. All rights reserved.
     </p>
   </footer>
 </template>
