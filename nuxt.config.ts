@@ -22,14 +22,12 @@ export default defineNuxtConfig({
         dir: "rtl",
         class: "h-full",
       },
-      // added srcipt for Google Analytics
       script: [
         {
-          src: "ttps://cloud.umami.is/script.js",
+          src: "https://cloud.umami.is/script.js",
           async: true,
           "data-website-id": "0de1b8da-46e2-4a95-b550-425dcf3b2bb3",
         },
-        
       ],
       bodyAttrs: {
         class: "antialiased bg-gray-50 dark:bg-black min-h-screen font-sans",
