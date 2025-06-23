@@ -30,7 +30,7 @@ export default defineNuxtConfig({
         },
       ],
       bodyAttrs: {
-        class: "antialiased bg-gray-50 dark:bg-black min-h-screen font-sans",
+        class: "antialiased bg-gray-50 dark:bg-black min-h-screen font-rubik",
       },
     },
   },
@@ -41,8 +41,10 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     display: "swap",
+    download: true,
     families: {
       Inter: [400, 500, 600, 700, 800, 900],
+      Rubik: [400, 500, 600, 700, 800, 900],
     },
   },
 });

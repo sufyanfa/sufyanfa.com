@@ -14,6 +14,9 @@ import { Analytics } from '@vercel/analytics/nuxt';
 </template>
 
 <style>
+body{
+  font-family: "Rubik", sans-serif;
+}
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s;
