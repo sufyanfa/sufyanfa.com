@@ -27,24 +27,19 @@
 <script lang="ts" setup>
 const links = [
   {
-    name: "X",
-    url: "https://x.com/sufyanfa",
-    icon: "mdi:twitter",
-  },
-  {
     name: "Linkedin",
     url: "https://www.linkedin.com/in/sufyanfa/",
     icon: "mdi:linkedin",
   },
   {
+    name: "X",
+    url: "https://x.com/sufyanfa",
+    icon: "mdi:twitter",
+  },
+  {
     name: "GitHub",
     url: "https://github.com/sufyanfa",
     icon: "mdi:github",
-  },
-  {
-    name: "Telegram",
-    url: "https://t.me/sufyanfa",
-    icon: "mdi:telegram",
   },
 ];
 </script>

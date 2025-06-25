@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxthq/studio",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
+    "motion-v/nuxt",
   ],
   ui: {
     icons: ["heroicons", "lucide"],

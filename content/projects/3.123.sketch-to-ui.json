@@ -1,8 +1,8 @@
 {
-  "name": "Sketch to UI",
-  "url": "https://github.com/fayazara/sketch-to-ui",
-  "description": "Covert bad hand drawn UI sketch to code using GPT 4 Vision model",
-  "thumbnail": "/projects/sketch-to-ui.png",
+  "name": "GroupsEdu",
+  "url": "https://groupsedu.netlify.app/",
+  "description": "منصة البحث عن قروبات الجامعات",
+  "thumbnail": "/projects/education.png",
   "status": "Active",
   "opensource": true
 }
