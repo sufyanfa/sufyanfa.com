@@ -4,7 +4,7 @@
   >
     <br>
     <p>
-      Sufyan Farea © 2025. All rights reserved.
+      Sufyan Farea
     </p>
   </footer>
 </template>
