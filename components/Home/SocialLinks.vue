@@ -37,6 +37,11 @@ const links = [
     icon: "mdi:twitter",
   },
   {
+    name: "Telegram",
+    url: "https://t.me/sufyanfa",
+    icon: "mdi:telegram",
+  },
+  {
     name: "GitHub",
     url: "https://github.com/sufyanfa",
     icon: "mdi:github",

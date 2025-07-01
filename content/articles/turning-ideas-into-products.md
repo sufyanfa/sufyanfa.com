@@ -113,3 +113,6 @@ slug: "turning-ideas-into-products"
 
 لديك الفكرة، لديك الأدوات. وقت التنفيذ.
 [Buildpad](https://buildpad.io/?via=mena)
+
+تحتاج مساعدة أو لديك إستفسار لا تتردد في التواصل معي
+[هنا](https://t.me/sufyanfa)
