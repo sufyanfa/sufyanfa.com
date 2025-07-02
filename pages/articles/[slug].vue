@@ -16,9 +16,9 @@
 const route = useRoute();
 const { slug } = route.params;
 useSeoMeta({
-  ogImage: `https://fayazahmed.com/articles/${slug}.png`,
+  ogImage: `https://sufyanfa.com/articles/${slug}.jpg`,
   twitterCard: "summary_large_image",
-  articleAuthor: "Fayaz Ahmed",
+  articleAuthor: "Sufyan Farea",
 });
 </script>
 <style>
