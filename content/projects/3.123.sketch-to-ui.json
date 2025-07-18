@@ -4,5 +4,6 @@
   "description": "منصة البحث عن قروبات الجامعات",
   "thumbnail": "/projects/education.png",
   "status": "Active",
-  "opensource": true
+  "opensource": true,
+  "icon" : "solar:link-minimalistic-2-line-duotone"
 }

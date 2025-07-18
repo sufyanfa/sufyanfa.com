@@ -1,10 +1,12 @@
 <template>
   <main class="min-h-screen">
-    <div class="space-y-24">
+    <div class="space-y-12">
       <HomeIntro />
-      <HomeSocialLinks />
+      <HomeCTAButtons />
+      <HomeFeaturedServices />
       <HomeFeaturedProjects />
       <HomeFeaturedArticles />
+      <HomeSocialLinks />
       <HomeNewsletter />
     </div>
   </main>

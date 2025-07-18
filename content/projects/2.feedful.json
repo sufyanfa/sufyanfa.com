@@ -3,5 +3,6 @@
   "url": "https://araam.info",
   "description": "منصة مواعيد التسجيل في الجامعات",
   "thumbnail": "/projects/araam.png",
-  "status": "Active"
+  "status": "Active",
+  "icon": "solar:branching-paths-up-line-duotone"
 }

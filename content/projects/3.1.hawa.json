@@ -4,5 +4,6 @@
   "description": "منصة واتساب الأعمال",
   "thumbnail": "/projects/whatsapp.png",
   "status": "Active",
-  "opensource": true
+  "opensource": true,
+  "icon": "solar:chat-square-2-line-duotone"
 }

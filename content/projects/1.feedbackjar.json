@@ -4,5 +4,6 @@
   "description": "منصة إدارة الفعاليات والتواصل",
   "thumbnail": "/projects/azzam.png",
   "status": "WIP",
-  "opensource": true
+  "opensource": true,
+  "icon": "solar:ticker-star-line-duotone"
 }
