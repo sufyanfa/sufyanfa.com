@@ -1,0 +1,14 @@
+{
+  "name": "تواصل",
+  "url": "/",
+  "description": "منصة واتساب الأعمال",
+  "thumbnail": "/projects/whatsapp.png",
+  "status": "Active",
+  "opensource": true,
+  "icon": "solar:chat-square-2-line-duotone",
+  "features": [
+    "نظام لإدارة علاقات العملاء (CRM)",
+    "تكامل مع WhatsApp Business API",
+    "تتبع وتحليل الحملات التسويقية"
+  ]
+}

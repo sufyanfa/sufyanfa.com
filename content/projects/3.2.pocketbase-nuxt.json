@@ -1,9 +1,0 @@
-{
-  "name": "روابط",
-  "url": "/",
-  "description": "منصة إختصار وتحليل الروابط",
-  "thumbnail": "/projects/link.png",
-  "status": "Active",
-  "opensource": true,
-  "icon" : "solar:square-share-line-line-duotone"
-}

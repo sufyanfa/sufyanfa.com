@@ -5,5 +5,9 @@
   "thumbnail": "/projects/education.png",
   "status": "Active",
   "opensource": true,
-  "icon" : "solar:link-minimalistic-2-line-duotone"
+  "icon" : "solar:link-minimalistic-2-line-duotone",
+  "features": [
+    "تجميع قروبات الجامعات في مكان واحد",
+    "سهولة البحث والتصفح"
+  ]
 }

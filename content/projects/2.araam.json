@@ -1,0 +1,13 @@
+{
+  "name": "آرام",
+  "url": "https://araam.info",
+  "description": "منصة مواعيد التسجيل في الجامعات",
+  "thumbnail": "/projects/araam.png",
+  "status": "Active",
+  "icon": "solar:branching-paths-up-line-duotone",
+  "features": [
+    "أكثر من 200 ألف مستفيد",
+    "تحقيق 35 ألف زيارة شهرية",
+    "أكثر من 57 جامعة ومؤسسة تعليمية"
+  ]
+}

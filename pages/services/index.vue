@@ -12,11 +12,10 @@
 </template>
 
 <script setup>
-const description =
-  "مجموعة من أهم المشاريع التي طورتها، والتي تعكس خبرتي في مجالات مختلفة من التطوير والتصميم.";
+const description = "حلول تقنية متكاملة تساعدك في تحويل فكرتك إلى منتج رقمي ناجح. من الاستشارة إلى التطوير والإطلاق.";
 useSeoMeta({
   title: "الخدمات | سفيان فارع",
-  description,
+  description
 });
 
 const { data: services } = await useAsyncData("services-all", () =>
