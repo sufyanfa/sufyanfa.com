@@ -10,7 +10,7 @@
   >
     <NuxtLink
       to="https://cal.com/sufyanfa/15min/"
-      class="w-full sm:w-auto inline-flex h-[34px] items-center justify-center gap-2.5 pl-4 pr-3 py-0 bg-[#020618] rounded-[99px] hover:bg-[#020618]/90 text-slate-50 font-medium text-[13px] leading-5"
+      class="w-full sm:w-auto inline-flex h-[34px] items-center justify-center gap-2.5 pl-4 pr-3 py-0 bg-[#020618] dark:bg-white rounded-[99px] hover:bg-[#020618]/90 text-slate-50 dark:text-black font-medium text-[13px] leading-5"
       aria-label="Get a free consultation"
       target="_blank"
     >
@@ -20,7 +20,7 @@
         width="12"
         height="12"
         viewBox="0 0 12 12"
-        class="text-slate-50 rotate-180"
+        class="text-slate-50 dark:text-black rotate-180"
         aria-label="chevron-right"
         role="img"
       >
