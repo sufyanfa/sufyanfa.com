@@ -15,9 +15,6 @@
         </li>
       </ul>
       <div class="flex items-center gap-x-2">
-        <span class="text-xs text-gray-500 dark:text-gray-200">{{ service.price }}
-          <img v-if="service.price !== 'مجاني'" src="/Saudi_Riyal.svg" alt="coin icon" class="inline-block w-4 h-4 bg-white" />
-        </span>
         <NuxtLink to="https://cal.com/sufyanfa/15min/"
           class="w-auto inline-flex h-[34px] items-center justify-center gap-2.5 pl-4 pr-3 py-0 bg-[#020618] dark:bg-teal-50 rounded-[99px] hover:bg-[#020618]/90 text-slate-50 dark:text-slate-900 font-medium text-[13px] leading-5"
           aria-label="Get a free consultation" target="_blank">
