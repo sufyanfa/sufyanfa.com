@@ -7,7 +7,7 @@
       </h2>
       <p class="text-gray-600 text-sm dark:text-gray-300">{{ service.description }}</p>
       <p class="text-gray-400 text-xs dark:text-gray-300">
-        الميزات:
+        ما ستحصل عليه:
       </p>
       <ul class="list-disc list-inside space-y-2">
         <li v-for="(feature, index) in service.features" :key="index" class="text-gray-800 text-sm dark:text-gray-300">

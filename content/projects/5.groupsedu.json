@@ -6,6 +6,7 @@
   "status": "Active",
   "opensource": true,
   "icon" : "solar:link-minimalistic-2-line-duotone",
+  "role": "مطور رئيسي",
   "features": [
     "تجميع قروبات الجامعات في مكان واحد",
     "سهولة البحث والتصفح"

@@ -6,6 +6,7 @@
   "status": "Active",
   "opensource": true,
   "icon" : "solar:square-share-line-line-duotone",
+  "role": "مؤسس",
   "features": [
     "إدارة وتحليل الروابط المختصرة",
     "تتبع الأداء والإحصائيات",

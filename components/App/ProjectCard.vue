@@ -11,9 +11,9 @@
   >
     <div class="max-w-sm">
       <h3 class="font-medium group-hover:text-primary-600">
-        {{ project.name }}
+        {{ project.name }} <span v-if="$route.path == '/projects'" class="text-gray-500 text-xs">({{ project.role }})</span>
       </h3>
-      <p class="text-gray-400">{{ project.description }}</p>
+      <p class="text-gray-400 text-sm">{{ project.description }}</p>
       <ul v-if="$route.path == '/projects'" class="mt-2 space-y-1">
         <li v-for="(feature, index) in project.features" :key="index" class="text-xs text-gray-500">
           - {{ feature }}
