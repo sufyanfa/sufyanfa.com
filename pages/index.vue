@@ -9,5 +9,6 @@
       <HomeSocialLinks />
       <HomeNewsletter />
     </div>
+    <HomeProductAlert />
   </main>
 </template>
