@@ -65,6 +65,21 @@ const bookmarks = [
     label: "Open-source alternatives, beautifully curated",
     url: "https://openalternative.co/"
   },
+  {
+    id: 7,
+    label: "UI components built with Tailwind CSS",
+    url: "https://ui.shadcn.com/"
+  },
+  {
+    id: 8,
+    label: "Linear - Issue tracking and project management",
+    url: "https://linear.app/"
+  },
+  {
+    id: 9,
+    label: "Open-source Firebase alternative",
+    url: "https://supabase.com/"
+  },
 ];
 
 function getHost(url) {
