@@ -8,6 +8,7 @@
           <h1>{{ doc.title }}</h1>
           <ContentRenderer :value="doc" />
         </article>
+        <AppSocialShare :title="doc.title" />
       </ContentDoc>
     </div>
   </main>
