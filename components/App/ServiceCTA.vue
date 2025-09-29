@@ -15,18 +15,22 @@
         </li>
       </ul>
       <div class="flex items-center gap-x-2">
-        <NuxtLink to="https://cal.com/sufyanfa/15min/"
+        <UButton
+          @click="openContactModal"
           class="w-auto inline-flex h-[34px] items-center justify-center gap-2.5 pl-4 pr-3 py-0 bg-[#020618] dark:bg-teal-50 rounded-[99px] hover:bg-[#020618]/90 text-slate-50 dark:text-slate-900 font-medium text-[13px] leading-5"
-          aria-label="Get a free consultation" target="_blank">
+          variant="solid"
+          size="sm"
+        >
           <span>طلب الخدمة</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"
-            class="text-slate-50 dark:text-slate-900 rotate-180" aria-label="chevron-right" role="img">
-            <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" stroke="currentColor">
-              <polyline points="4.25 10.25 8.5 6 4.25 1.75"></polyline>
-            </g>
-          </svg>
-        </NuxtLink>
+          <Icon name="lucide:arrow-left" class="w-3 h-3" />
+        </UButton>
       </div>
+
+    <!-- Service Contact Modal -->
+    <AppServiceContactModal
+      v-model="isContactModalOpen"
+      :selectedService="service.name"
+    />
     </div>
   </div>
 </template>
@@ -38,4 +42,10 @@ defineProps({
     required: true,
   },
 });
+
+const isContactModalOpen = ref(false)
+
+const openContactModal = () => {
+  isContactModalOpen.value = true
+}
 </script>

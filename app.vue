@@ -11,6 +11,9 @@ import { Analytics } from '@vercel/analytics/nuxt';
   </UContainer>
   <div class="h-32"></div>
   <AppFooter />
+
+  <!-- Toast notifications -->
+  <UNotifications />
 </template>
 
 <style>

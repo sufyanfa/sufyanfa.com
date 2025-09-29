@@ -1,5 +1,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  runtimeConfig: {
+    resendApiKey: process.env.RESEND_API_KEY,
+  },
   modules: [
     "@nuxt/ui",
     "nuxt-icon",
