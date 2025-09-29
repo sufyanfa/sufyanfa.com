@@ -1,5 +1,14 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  nitro: {
+    preset: 'cloudflare-pages',
+    externals: {
+      inline: ['resend']
+    },
+    alias: {
+      '@react-email/render': 'unenv/runtime/mock/empty'
+    }
+  },
   runtimeConfig: {
     resendApiKey: process.env.RESEND_API_KEY,
   },

@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import { Analytics } from '@vercel/analytics/nuxt';
-</script>
 <template>
   <NuxtLoadingIndicator color="#14b8a6" />
-  <Analytics />
   <AppNavbar />
   <div class="h-32"></div>
   <UContainer>
