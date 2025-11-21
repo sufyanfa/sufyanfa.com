@@ -15,10 +15,28 @@
 </template>
 
 <script setup>
-const description = "حلول تقنية متكاملة تساعدك في تحويل فكرتك إلى منتج رقمي ناجح. من الاستشارة إلى التطوير والإطلاق.";
+const title = "المختبر | تجارب ومشاريع تقنية تفاعلية | سفيان فارع";
+const description = "مختبر المشاريع التقنية: أدوات وتطبيقات تفاعلية مبنية باستخدام أحدث التقنيات. استكشف حلول الذكاء الاصطناعي والأدوات المبتكرة.";
+
 useSeoMeta({
-  title: "المشاريع | سفيان فارع",
-  description: description,
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: 'https://sufyanfa.com/preview.png',
+  ogUrl: 'https://sufyanfa.com/build',
+  ogType: 'website',
+  ogLocale: 'ar_SA',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: 'https://sufyanfa.com/preview.png',
+});
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://sufyanfa.com/build' }
+  ]
 });
 
 const projects  = [

@@ -1,5 +1,14 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  site: {
+    url: 'https://sufyanfa.com',
+    name: 'سفيان فارع',
+    description: 'مطور ويب ومستشار تقني متخصص في بناء المنتجات الرقمية',
+    defaultLocale: 'ar',
+    identity: {
+      type: 'Person'
+    }
+  },
   nitro: {
     preset: 'cloudflare-pages',
     externals: {
@@ -24,6 +33,9 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "motion-v/nuxt",
   ],
+  seo: {
+    fallbackTitle: false,
+  },
   ui: {
     icons: ["heroicons", "lucide"],
   },

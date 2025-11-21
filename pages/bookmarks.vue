@@ -27,11 +27,28 @@
 </template>
 
 <script setup>
-const description =
-  "الأدوات والتقنيات المفضلة لدي - كل ما أحتاجه لبناء منتجات رقمية رائعة";
+const title = "المراجع | أدوات وموارد تطوير الويب | سفيان فارع";
+const description = "مجموعة مختارة من أفضل الأدوات والموارد التقنية: منصات التطوير، أدوات التصميم، خدمات السحابة، والمصادر المفيدة لبناء منتجات رقمية احترافية.";
+
 useSeoMeta({
-  title: "المراجع | سفيان فارع",
+  title,
   description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: 'https://sufyanfa.com/preview.png',
+  ogUrl: 'https://sufyanfa.com/bookmarks',
+  ogType: 'website',
+  ogLocale: 'ar_SA',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: 'https://sufyanfa.com/preview.png',
+});
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://sufyanfa.com/bookmarks' }
+  ]
 });
 
 const bookmarks = [

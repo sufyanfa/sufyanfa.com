@@ -13,11 +13,28 @@
 </template>
 
 <script setup>
-const description =
-  "مقالات حول البرمجة والتصميم وتطوير المنتجات وتجربة المستخدم، بالإضافة إلى مواضيع أخرى تتعلق بالتقنية والابتكار.";
+const title = "المدونة | مقالات عن البرمجة وتطوير المنتجات | سفيان فارع";
+const description = "مقالات تقنية متخصصة: البرمجة، تطوير المنتجات الرقمية، تجربة المستخدم، ريادة الأعمال التقنية. رؤى وخبرات عملية في بناء المنتجات الناجحة.";
+
 useSeoMeta({
-  title: "المدونة | سفيان فارع",
+  title,
   description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: 'https://sufyanfa.com/preview.png',
+  ogUrl: 'https://sufyanfa.com/articles',
+  ogType: 'website',
+  ogLocale: 'ar_SA',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: 'https://sufyanfa.com/preview.png',
+});
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://sufyanfa.com/articles' }
+  ]
 });
 
 const { data: articles } = await useAsyncData("all-articles", () =>
