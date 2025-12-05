@@ -16,6 +16,17 @@ export default defineNuxtConfig({
     },
     alias: {
       '@react-email/render': 'unenv/runtime/mock/empty'
+    },
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/',
+        '/projects',
+        '/articles',
+        '/bookmarks',
+        '/services',
+        '/build',
+      ]
     }
   },
   runtimeConfig: {
@@ -33,10 +44,12 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "motion-v/nuxt",
   ],
+  // SEO Configuration
   seo: {
     fallbackTitle: false,
   },
   ui: {
+
     icons: ["heroicons", "lucide"],
   },
   app: {

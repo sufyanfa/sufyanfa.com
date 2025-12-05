@@ -1,3 +1,27 @@
+# robots.txt for https://sufyanfa.com
+# Allow all search engines to crawl the site
+
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /api/
+Disallow: /_nuxt/
+Disallow: /.nuxt/
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# Sitemap location
 Sitemap: https://sufyanfa.com/sitemap.xml
