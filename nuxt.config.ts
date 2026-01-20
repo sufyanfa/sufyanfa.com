@@ -19,6 +19,8 @@ export default defineNuxtConfig({
     },
     prerender: {
       crawlLinks: true,
+      failOnError: false,
+      ignore: ['/build/ai-agent-v1'],
       routes: [
         '/',
         '/projects',

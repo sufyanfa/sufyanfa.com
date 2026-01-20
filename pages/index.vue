@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-const title = "سفيان فارع | مهندس برمجيات ومستشار تقني - تحويل الأفكار إلى منتجات رقمية";
-const description = "مهندس برمجيات ومستشار تقني متخصص في بناء المنتجات الرقمية. خبرة في تطوير المواقع والتطبيقات، استشارات تقنية، وتحويل الأفكار إلى حلول ناجحة للشركات والمؤسسات.";
+const title = "سفيان فارع | شريك تقني لبناء منتجات رقمية";
+const description = "شريك تقني متخصص في بناء منتجات رقمية ناجحة. أساعد رواد الأعمال والشركات في تحويل أفكارهم إلى منتجات رقمية ملموسة من التخطيط إلى الإطلاق.";
 
 useSeoMeta({
   title,
@@ -34,7 +34,29 @@ useSeoMeta({
 
 useHead({
   link: [
-    { rel: 'canonical', href: 'https://sufyanfa.com' }
+    { rel: 'canonical', href: 'https://sufyanfa.com' },
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "سفيان فارع",
+        "alternateName": "Sufyan Farea",
+        "jobTitle": "شريك تقني لبناء منتجات رقمية",
+        "description": "شريك تقني متخصص في بناء منتجات رقمية ناجحة. أساعد رواد الأعمال والشركات في تحويل أفكارهم إلى منتجات رقمية ملموسة.",
+        "url": "https://sufyanfa.com",
+        "image": "https://sufyanfa.com/preview.png",
+        "knowsAbout": ["Software Engineering", "Web Development", "Technical Consulting", "Product Development", "Vue.js", "Nuxt", "React", "Node.js"],
+        "sameAs": [
+          "https://github.com/sufyanfarea",
+          "https://twitter.com/sufyanfarea",
+          "https://linkedin.com/in/sufyanfarea"
+        ]
+      })
+    }
   ]
 });
 </script>
