@@ -1,0 +1,14 @@
+{
+  "name": "نمو",
+  "url": "https://numuw.onrender.com/",
+  "description": "بيانات موقعك مفهومة بالذكاء الاصطناعي",
+  "thumbnail": "/projects/azzam.png",
+  "status": "WIP",
+  "opensource": true,
+  "icon": "solar:chart-2-line-duotone",
+  "role": "مؤسس",
+  "features": [
+    "تحليل البيانات باستخدام الذكاء الاصطناعي",
+    "تقديم رؤى قابلة للتنفيذ لتحسين أداء الموقع"
+  ]
+}

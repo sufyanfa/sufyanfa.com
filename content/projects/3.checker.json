@@ -1,0 +1,14 @@
+{
+  "name": "Checker",
+  "url": "https://checkersa.com",
+  "description": "حماية فورية لصحتك وصحة عائلتك",
+  "thumbnail": "/projects/azzam.png",
+  "status": "WIP",
+  "opensource": true,
+  "icon": "solar:health-linear",
+  "role": "شريك تقني",
+  "features": [
+    "فحص الحساسيات الغذائية",
+    "البحث عن البدائل الغذائية"
+  ]
+}
