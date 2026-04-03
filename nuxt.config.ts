@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "motion-v/nuxt",
+    "nuxt-gtag",
   ],
   // SEO Configuration
   seo: {
@@ -78,6 +79,9 @@ export default defineNuxtConfig({
     highlight: {
       theme: "github-dark",
     },
+  },
+  gtag: {
+    id: 'G-WTRJ9XBY85',
   },
   googleFonts: {
     display: "swap",
