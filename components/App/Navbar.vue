@@ -3,22 +3,10 @@
     <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 h-[68px] flex items-center gap-7">
       <NuxtLink
         to="/"
-        class="flex items-center gap-3 text-ink hover:opacity-80 transition-opacity"
+        class="font-extrabold text-[15px] sm:text-base text-ink tracking-tight hover:opacity-80 transition-opacity"
         aria-label="الصفحة الرئيسية"
       >
-        <NuxtImg
-          src="/sufyan.jpeg"
-          alt="سفيان فارع"
-          class="w-10 h-10 rounded-full object-cover ring-1 ring-black/[0.06]"
-          sizes="40px"
-          format="webp"
-          placeholder
-        />
-        <span
-          class="font-bold text-[15px] leading-[0.95] tracking-tight flex flex-col gap-[2px]"
-        >
-          <span>سفيان</span>
-        </span>
+        سفيان فارع
       </NuxtLink>
 
       <ul class="hidden md:flex items-center gap-7 text-sm text-ink-soft">

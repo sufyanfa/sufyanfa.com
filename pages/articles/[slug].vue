@@ -20,10 +20,69 @@
 <script setup>
 const route = useRoute();
 const { slug } = route.params;
+
+const { data: article } = await useAsyncData(`article-${slug}`, () =>
+  queryContent("/articles").where({ _path: `/articles/${slug}` }).findOne()
+);
+
+const url = `https://sufyanfa.com/articles/${slug}`;
+const ogImage = `https://sufyanfa.com/articles/${slug}.jpg`;
+const title = article.value?.title
+  ? `${article.value.title} | سفيان فارع`
+  : "مقال | سفيان فارع";
+const description = article.value?.description ?? "";
+const published = article.value?.published
+  ? new Date(article.value.published).toISOString()
+  : undefined;
+
 useSeoMeta({
-  ogImage: `https://sufyanfa.com/articles/${slug}.jpg`,
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: url,
+  ogImage,
+  ogType: "article",
+  ogLocale: "ar_SA",
   twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: ogImage,
+  twitterSite: "@sufyanfa",
+  twitterCreator: "@sufyanfa",
   articleAuthor: "Sufyan Farea",
+  articlePublishedTime: published,
+});
+
+useHead({
+  link: [{ rel: "canonical", href: url }],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.value?.title,
+        description,
+        datePublished: published,
+        author: {
+          "@type": "Person",
+          name: "سفيان فارع",
+          url: "https://sufyanfa.com",
+        },
+        publisher: {
+          "@type": "Person",
+          name: "سفيان فارع",
+          url: "https://sufyanfa.com",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": url,
+        },
+        image: ogImage,
+      }),
+    },
+  ],
 });
 </script>
 

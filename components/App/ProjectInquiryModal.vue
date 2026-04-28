@@ -149,35 +149,12 @@
 
               <div
                 v-if="error"
-                class="text-xs text-red-700 bg-red-50 border border-red-100 rounded-xl p-3 leading-relaxed"
+                class="bg-red-50 border border-red-100 rounded-xl p-4 flex flex-col gap-3"
               >
-                تعذّر إرسال الرسالة الآن. تواصل معي مباشرة عبر واتساب أو لينكدإن أدناه.
-              </div>
-
-              <div class="flex items-center justify-between gap-4 pt-2">
-                <p class="text-[11px] text-ink-mute leading-relaxed">
-                  سرّية كاملة. أرد خلال 24 ساعة.
+                <p class="text-xs text-red-700 leading-relaxed">
+                  تعذّر إرسال الرسالة الآن. تواصل معي مباشرة:
                 </p>
-                <button
-                  type="submit"
-                  :disabled="loading"
-                  class="inline-flex items-center gap-2 bg-ink text-white rounded-full px-6 py-3 text-sm font-semibold hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-                >
-                  <span v-if="loading">جاري الإرسال…</span>
-                  <span v-else>إرسال</span>
-                  <span v-if="!loading" class="text-xs" aria-hidden="true">←</span>
-                </button>
-              </div>
-
-              <div
-                class="pt-5 mt-1 border-t border-cream-deep flex flex-col items-center gap-3"
-              >
-                <p
-                  class="text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute"
-                >
-                  تواصل سريع
-                </p>
-                <div class="flex items-center gap-2.5">
+                <div class="flex items-center gap-2.5 flex-wrap">
                   <NuxtLink
                     :to="whatsappLink"
                     target="_blank"
@@ -197,6 +174,21 @@
                     لينكدإن
                   </NuxtLink>
                 </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-4 pt-2">
+                <p class="text-[11px] text-ink-mute leading-relaxed">
+                  سرّية كاملة. أرد خلال 24 ساعة.
+                </p>
+                <button
+                  type="submit"
+                  :disabled="loading"
+                  class="inline-flex items-center gap-2 bg-ink text-white rounded-full px-6 py-3 text-sm font-semibold hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                >
+                  <span v-if="loading">جاري الإرسال…</span>
+                  <span v-else>إرسال</span>
+                  <span v-if="!loading" class="text-xs" aria-hidden="true">←</span>
+                </button>
               </div>
             </form>
 

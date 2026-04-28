@@ -47,13 +47,40 @@ useSeoMeta({
   twitterImage: "https://sufyanfa.com/preview.png",
 });
 
-useHead({
-  link: [{ rel: "canonical", href: "https://sufyanfa.com/services" }],
-});
-
 const { data: services } = await useAsyncData("services-all", () =>
   queryContent("/services").sort({ order: 1 }).find()
 );
+
+useHead({
+  link: [{ rel: "canonical", href: "https://sufyanfa.com/services" }],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: title,
+        description,
+        numberOfItems: services.value?.length ?? 0,
+        itemListElement: (services.value ?? []).map((s: any, i: number) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Service",
+            name: s.name,
+            description: s.tagline ?? s.description,
+            url: `https://sufyanfa.com${s.url}`,
+            provider: {
+              "@type": "Person",
+              name: "سفيان فارع",
+              url: "https://sufyanfa.com",
+            },
+          },
+        })),
+      }),
+    },
+  ],
+});
 
 const modalOpen = ref(false);
 const active = ref({

@@ -64,13 +64,35 @@ useSeoMeta({
   twitterImage: "https://sufyanfa.com/projects.png",
 });
 
-useHead({
-  link: [{ rel: "canonical", href: "https://sufyanfa.com/projects" }],
-});
-
 const { data: projects } = await useAsyncData("projects-all", () =>
   queryContent("/projects").sort({ order: 1 }).find()
 );
+
+useHead({
+  link: [{ rel: "canonical", href: "https://sufyanfa.com/projects" }],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: title,
+        description,
+        numberOfItems: projects.value?.length ?? 0,
+        itemListElement: (projects.value ?? []).map((p: any, i: number) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "CreativeWork",
+            name: p.name,
+            description: p.outcome ?? p.tagline,
+            url: p.url,
+          },
+        })),
+      }),
+    },
+  ],
+});
 
 const companies = [
   { name: "هيئة تطوير منطقة عسير", logo: "/companies/asser.svg" },
