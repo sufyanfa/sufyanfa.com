@@ -1,14 +1,12 @@
 {
   "name": "عُقاب",
   "url": "https://getuqab.com/",
-  "description": "بيانات موقعك مفهومة بالذكاء الاصطناعي",
+  "tagline": "تحليل بيانات المواقع بالذكاء الاصطناعي",
+  "outcome": "بُنيت من الصفر إلى 100 مستخدم في 3 أشهر، وتقدّم رؤى قابلة للتنفيذ لتحسين أداء الموقع.",
   "thumbnail": "/projects/azzam.png",
-  "status": "WIP",
-  "opensource": true,
-  "icon": "solar:chart-2-line-duotone",
+  "status": "live",
   "role": "مؤسس",
-  "features": [
-    "تحليل البيانات باستخدام الذكاء الاصطناعي",
-    "تقديم رؤى قابلة للتنفيذ لتحسين أداء الموقع"
-  ]
+  "year": "2024",
+  "tone": "sage",
+  "order": "03"
 }

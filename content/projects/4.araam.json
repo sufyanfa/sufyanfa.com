@@ -1,14 +1,12 @@
 {
   "name": "آرام",
   "url": "https://araam.info",
-  "description": "منصة مواعيد التسجيل في الجامعات",
+  "tagline": "منصة مواعيد التسجيل في الجامعات",
+  "outcome": "+200 ألف مستفيد، 35 ألف زيارة شهرية، 57 جامعة ومؤسسة تعليمية.",
   "thumbnail": "/projects/araam.png",
-  "status": "Active",
-  "icon": "solar:branching-paths-up-line-duotone",
+  "status": "live",
   "role": "مطور رئيسي",
-  "features": [
-    "أكثر من 200 ألف مستفيد",
-    "تحقيق 35 ألف زيارة شهرية",
-    "أكثر من 57 جامعة ومؤسسة تعليمية"
-  ]
+  "year": "2022",
+  "tone": "sage",
+  "order": "07"
 }

@@ -1,72 +1,98 @@
 <template>
-  <div ref="headerRef" :style="styles" class="fixed top-0 w-full z-50">
-    <nav class="mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
-      <ul
-        class="flex items-center my-4 px-3 text-sm font-medium text-gray-800 rounded-full shadow-lg bg-white/90 shadow-gray-800/5 ring-1 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200 dark:ring-white/20 ring-gray-900/5"
+  <nav class="sticky top-0 z-50 bg-cream/90 backdrop-blur">
+    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 h-[68px] flex items-center gap-7">
+      <NuxtLink
+        to="/"
+        class="flex items-center gap-3 text-ink hover:opacity-80 transition-opacity"
+        aria-label="الصفحة الرئيسية"
       >
+        <NuxtImg
+          src="/sufyan.jpeg"
+          alt="سفيان فارع"
+          class="w-10 h-10 rounded-full object-cover ring-1 ring-black/[0.06]"
+          sizes="40px"
+          format="webp"
+          placeholder
+        />
+        <span
+          class="font-bold text-[15px] leading-[0.95] tracking-tight flex flex-col gap-[2px]"
+        >
+          <span>سفيان</span>
+        </span>
+      </NuxtLink>
+
+      <ul class="hidden md:flex items-center gap-7 text-sm text-ink-soft">
         <li v-for="item in items" :key="item.path">
-          <UTooltip
-            :text="item.name"
-            :ui="{ popper: { strategy: 'absolute' } }"
+          <NuxtLink
+            :to="item.path"
+            class="hover:text-ink transition-colors"
+            active-class="text-ink font-semibold"
           >
-            <ULink
-              :to="item.path"
-              class="relative px-3 py-4 flex items-center justify-center transition hover:text-primary-500 dark:hover:text-primary-400"
-              active-class="text-primary-600 dark:text-primary-400"
-            >
-              <Icon aria-hidden="true" :name="item.icon" class="w-5 h-5 z-10" />
-              <span
-                v-if="$route.path === item.path"
-                class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary-500/0 via-primary-500/70 to-primary-500/0 dark:from-primary-400/0 dark:via-primary-400/40 dark:to-primary-400/0"
-              ></span>
-              <span
-                v-if="$route.path === item.path"
-                class="absolute h-8 w-8 z-0 rounded-full bg-gray-100 dark:bg-white/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              ></span>
-              <span class="sr-only">{{ item.name }}</span>
-            </ULink>
-          </UTooltip>
-        </li>
-        <li class="flex-1"></li>
-        <li>
-          <AppThemeToggle />
+            {{ item.name }}
+          </NuxtLink>
         </li>
       </ul>
-    </nav>
-  </div>
+
+      <div class="flex-1"></div>
+
+      <NuxtLink
+        to="https://cal.com/sufyanfa/15min/"
+        target="_blank"
+        external
+        class="hidden sm:inline-flex items-center gap-2 bg-ink text-white rounded-full px-5 py-2 text-[13px] font-semibold hover:bg-ink/90 transition-colors"
+      >
+        احجز جلسة مجانية
+      </NuxtLink>
+
+      <button
+        class="md:hidden p-2 -mr-2 text-ink"
+        aria-label="القائمة"
+        @click="open = !open"
+      >
+        <Icon :name="open ? 'lucide:x' : 'lucide:menu'" class="w-6 h-6" />
+      </button>
+    </div>
+
+    <div
+      v-if="open"
+      class="md:hidden bg-cream border-t border-cream-deep/40"
+    >
+      <ul class="px-6 py-4 flex flex-col gap-1 text-[15px]">
+        <li v-for="item in items" :key="item.path">
+          <NuxtLink
+            :to="item.path"
+            class="block py-3 text-ink-soft hover:text-ink"
+            active-class="text-ink font-semibold"
+            @click="open = false"
+          >
+            {{ item.name }}
+          </NuxtLink>
+        </li>
+        <li class="pt-3">
+          <NuxtLink
+            to="https://cal.com/sufyanfa/15min/"
+            target="_blank"
+            external
+            class="block bg-ink text-white text-center rounded-full px-5 py-3 text-[14px] font-semibold"
+            @click="open = false"
+          >
+            احجز جلسة مجانية
+          </NuxtLink>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
-<script setup>
-import { useFixedHeader } from 'vue-use-fixed-header'
-const headerRef = ref(null);
-const { styles } = useFixedHeader(headerRef);
+<script setup lang="ts">
+const open = ref(false);
 
 const items = [
-  { name: "Home", path: "/", icon: "solar:home-smile-outline" },
-  {
-    name: "Services",
-    path: "/services",
-    icon: "solar:backpack-linear",
-  },
-  {
-    name: "Projects",
-    path: "/projects",
-    icon: "solar:folder-with-files-outline",
-  },
-  {
-    name: "Articles",
-    path: "/articles",
-    icon: "solar:document-add-outline",
-  },
-  // {
-  //   name: "What's in my bag?",
-  //   path: "/whats-in-my-bag",
-  //   icon: "solar:backpack-outline",
-  // },
-  {
-    name: "Bookmarks",
-    path: "/bookmarks",
-    icon: "solar:bookmark-linear",
-  },
+  { name: "الخدمات", path: "/services" },
+  { name: "المشاريع", path: "/projects" },
+  { name: "المقالات", path: "/articles" },
 ];
+
+const route = useRoute();
+watch(() => route.path, () => (open.value = false));
 </script>

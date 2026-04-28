@@ -3,7 +3,6 @@ import { Resend } from 'resend'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  // Validate required fields
   if (!body.name || !body.email || !body.message || !body.service) {
     throw createError({
       statusCode: 400,
@@ -11,7 +10,6 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // Get Resend API key from environment
   const config = useRuntimeConfig()
   const resendApiKey = config.resendApiKey
 
@@ -24,59 +22,61 @@ export default defineEventHandler(async (event) => {
 
   const resend = new Resend(resendApiKey)
 
-  try {
-    const emailContent = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0;">
-        <h1 style="color: white; margin: 0; text-align: center;">طلب خدمة جديد</h1>
+  const escape = (s: string) =>
+    String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+
+  const messageHtml = escape(body.message).replace(/\n/g, '<br>')
+
+  const emailContent = `<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+  <body style="margin:0;padding:24px;background:#F4F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;color:#1A1A1A;">
+    <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px rgba(59,90,59,0.08);">
+      <div style="background:#F4F1EA;padding:24px 28px;border-bottom:1px solid #E5DFD0;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3B5A3B;margin-bottom:6px;">طلب جديد</div>
+        <div style="font-size:20px;font-weight:700;color:#1A1A1A;">${escape(body.service)}</div>
       </div>
 
-      <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
-        <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-          <h2 style="color: #333; margin-top: 0;">تفاصيل الطلب</h2>
-
-          <div style="margin-bottom: 15px;">
-            <strong style="color: #667eea;">الخدمة المطلوبة:</strong>
-            <span style="margin-right: 10px;">${body.service}</span>
-          </div>
-
-          <div style="margin-bottom: 15px;">
-            <strong style="color: #667eea;">الاسم:</strong>
-            <span style="margin-right: 10px;">${body.name}</span>
-          </div>
-
-          <div style="margin-bottom: 15px;">
-            <strong style="color: #667eea;">البريد الإلكتروني:</strong>
-            <span style="margin-right: 10px;">${body.email}</span>
-          </div>
-
+      <div style="padding:28px;">
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <tr>
+            <td style="padding:10px 0;color:#857F75;width:120px;font-size:12px;">الاسم</td>
+            <td style="padding:10px 0;color:#1A1A1A;font-weight:600;">${escape(body.name)}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 0;color:#857F75;font-size:12px;">البريد</td>
+            <td style="padding:10px 0;"><a href="mailto:${escape(body.email)}" style="color:#3B5A3B;text-decoration:none;font-weight:600;" dir="ltr">${escape(body.email)}</a></td>
+          </tr>
           ${body.phone ? `
-          <div style="margin-bottom: 15px;">
-            <strong style="color: #667eea;">رقم الهاتف:</strong>
-            <span style="margin-right: 10px;">${body.phone}</span>
-          </div>
+          <tr>
+            <td style="padding:10px 0;color:#857F75;font-size:12px;">الهاتف</td>
+            <td style="padding:10px 0;color:#1A1A1A;font-weight:600;" dir="ltr">${escape(body.phone)}</td>
+          </tr>
           ` : ''}
+        </table>
 
-          <div style="margin-bottom: 15px;">
-            <strong style="color: #667eea;">تفاصيل المشروع:</strong>
-            <div style="margin-top: 10px; padding: 15px; background: #f8f9fa; border-radius: 5px; line-height: 1.6;">
-              ${body.message.replace(/\n/g, '<br>')}
-            </div>
-          </div>
-
-          <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
-            <p style="color: #666; margin: 0;">تم إرسال هذا الطلب من موقع sufyanfa.com</p>
-            <p style="color: #666; margin: 5px 0 0 0;">التاريخ: ${new Date().toLocaleString('ar-SA')}</p>
-          </div>
+        <div style="margin-top:20px;padding:18px 20px;background:#F4F1EA;border-radius:12px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#857F75;margin-bottom:10px;">تفاصيل المشروع</div>
+          <div style="font-size:14px;line-height:1.7;color:#1A1A1A;">${messageHtml}</div>
         </div>
       </div>
-    </div>
-    `
 
+      <div style="padding:18px 28px;background:#1A1A1A;color:#ffffff;font-size:11px;text-align:center;">
+        sufyanfa.com · ${new Date().toLocaleDateString('ar-SA-u-ca-gregory-nu-latn', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </div>
+    </div>
+  </body>
+</html>`
+
+  try {
     const { data, error } = await resend.emails.send({
-      from: 'طلبات الخدمات <noreply@sufyanfa.com>',
+      from: 'sufyanfa.com <noreply@sufyanfa.com>',
       to: ['sfmu1998@gmail.com'],
-      subject: `طلب خدمة جديد: ${body.service} - ${body.name}`,
+      subject: `طلب جديد: ${body.service} — ${body.name}`,
       html: emailContent,
       replyTo: body.email
     })
@@ -93,7 +93,6 @@ export default defineEventHandler(async (event) => {
       success: true,
       messageId: data?.id
     }
-
   } catch (error) {
     console.error('Email sending error:', error)
     throw createError({

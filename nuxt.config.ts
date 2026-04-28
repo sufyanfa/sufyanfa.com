@@ -71,7 +71,7 @@ export default defineNuxtConfig({
         },
       ],
       bodyAttrs: {
-        class: "antialiased bg-gray-50 dark:bg-black min-h-screen font-rubik",
+        class: "antialiased bg-white text-ink min-h-screen font-rubik",
       },
     },
   },

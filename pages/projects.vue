@@ -1,113 +1,90 @@
 <template>
-  <main class="min-h-screen">
-    <AppHeader class="mb-12" title="المشاريع" :description="description" />
-    <section class="mb-16">
-      <div class="mb-8">
-        <p class="text-gray-600 dark:text-gray-400 text-sm flex items-center gap-2">
-          المؤسسات والشركات التي ساهمت في تطوير مشاريعها ودعمها تقنياً
-        </p>
-      </div>
-      
-      <div class="relative overflow-hidden" dir="ltr">
-        <div class="companies-scroll inline-flex gap-8">
-          <div 
-            v-for="(company, index) in [...companies, ...companies]" 
-            :key="`${company.name}-${index}`"
-            class="flex-shrink-0"
-          >
-            <div class="w-32 h-32 flex items-center justify-center p-4 bg-transparent">
-              <img 
-                :src="company.logo" 
+  <main>
+    <section class="bg-cream">
+      <AppHeader title="المشاريع" :description="description" eyebrow="أعمال مختارة" />
+
+      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 pb-14 sm:pb-16">
+        <div
+          class="text-center text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-6"
+        >
+          بنيت لهم
+        </div>
+        <div class="relative overflow-hidden" dir="ltr">
+          <div class="companies-scroll inline-flex gap-12">
+            <div
+              v-for="(company, index) in [...companies, ...companies]"
+              :key="`${company.name}-${index}`"
+              class="flex-shrink-0"
+            >
+              <img
+                :src="company.logo"
                 :alt="`شعار ${company.name}`"
-                class="w-full h-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 dark:invert dark:brightness-0 dark:contrast-200 dark:opacity-70 dark:hover:invert-0 dark:hover:brightness-100 dark:hover:contrast-100 dark:hover:opacity-100 transition-all duration-300"
+                class="block h-10 sm:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 loading="lazy"
-                width="128"
-                height="128"
               />
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section>    
-      <div class="space-y-4">
-        <AppProjectCard
-          v-for="(project, id) in projects"
-          :key="id"
-          :project="project"
-        />
+
+    <section class="bg-gray-50 border-y border-black/[0.04]">
+      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-16 sm:py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <AppProjectCard
+            v-for="(project, id) in projects"
+            :key="id"
+            :project="(project as any)"
+          />
+        </div>
       </div>
     </section>
+
+    <HomeFinalCTA />
   </main>
 </template>
 
-<script setup>
-const title = "المشاريع التقنية | بناء مواقع وأنظمة | سفيان فارع";
+<script setup lang="ts">
+const title = "المشاريع التقنية | سفيان فارع";
 const description =
-  "مجموعة من المشاريع التقنية التي قمت بتطويرها، وتشمل مواقع الويب، الأنظمة الرقمية، تطوير الواجهات، إنشاء الخدمات، وتقديم حلول تقنية للجهات الحكومية والشركات.";
+  "مجموعة من المشاريع التقنية التي بنيتها أو شاركت في بنائها - منتجات رقمية لمؤسسات حكومية وشركات ناشئة.";
 
 useSeoMeta({
   title,
   description,
   ogTitle: title,
   ogDescription: description,
-  ogImage: 'https://sufyanfa.com/projects.png',
-  ogUrl: 'https://sufyanfa.com/projects',
-  ogType: 'website',
-  ogLocale: 'ar_SA',
-  twitterCard: 'summary_large_image',
+  ogImage: "https://sufyanfa.com/projects.png",
+  ogUrl: "https://sufyanfa.com/projects",
+  ogType: "website",
+  ogLocale: "ar_SA",
+  twitterCard: "summary_large_image",
   twitterTitle: title,
   twitterDescription: description,
-  twitterImage: 'https://sufyanfa.com/projects.png',
+  twitterImage: "https://sufyanfa.com/projects.png",
 });
 
 useHead({
-  link: [
-    { rel: 'canonical', href: 'https://sufyanfa.com/projects' }
-  ]
+  link: [{ rel: "canonical", href: "https://sufyanfa.com/projects" }],
 });
 
 const { data: projects } = await useAsyncData("projects-all", () =>
-  queryContent("/projects").find()
+  queryContent("/projects").sort({ order: 1 }).find()
 );
 
 const companies = [
-  {
-    name: "هيئة تطوير منطقة عسير",
-    logo: "/companies/asser.svg"
-  },
-  {
-    name: "مجلس الجمعيات الأهلية",
-    logo: "/companies/ccsa.svg"
-  },
-  {
-    name: "إمارة منطقة عسير",
-    logo: "/companies/assir.svg"
-  },
-  {
-    name: "هيئة الغذاء والدواء",
-    logo: "/companies/sfda.svg"
-  },
-  {
-    name: "جامعة الملك خالد",
-    logo: "/companies/kku.svg"
-  },
-  {
-    name: "الهيئة الملكية للجبيل وينبع",
-    logo: "/companies/rcjy.svg"
-  },
-  {
-    name: "جامعة الملك فهد للبترول والمعادن",
-    logo: "/companies/kfupm.svg"
-  },
-  {
-    name: "تراحم",
-    logo: "/companies/trahum.svg"
-  },
+  { name: "هيئة تطوير منطقة عسير", logo: "/companies/asser.svg" },
+  { name: "مجلس الجمعيات الأهلية", logo: "/companies/ccsa.svg" },
+  { name: "إمارة منطقة عسير", logo: "/companies/assir.svg" },
+  { name: "هيئة الغذاء والدواء", logo: "/companies/sfda.svg" },
+  { name: "جامعة الملك خالد", logo: "/companies/kku.svg" },
+  { name: "الهيئة الملكية للجبيل وينبع", logo: "/companies/rcjy.svg" },
+  { name: "جامعة الملك فهد للبترول والمعادن", logo: "/companies/kfupm.svg" },
+  { name: "تراحم", logo: "/companies/trahum.svg" },
 ];
 </script>
 
-<style>
+<style scoped>
 @keyframes companies-scroll-animation {
   0% {
     transform: translateX(0);
@@ -116,12 +93,10 @@ const companies = [
     transform: translateX(-50%);
   }
 }
-
 .companies-scroll {
   animation: companies-scroll-animation 40s linear infinite;
   will-change: transform;
 }
-
 .companies-scroll:hover {
   animation-play-state: paused;
 }

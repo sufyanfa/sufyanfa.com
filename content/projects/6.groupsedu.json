@@ -1,14 +1,12 @@
 {
   "name": "GroupsEdu",
   "url": "https://groupsedu.netlify.app/",
-  "description": "منصة البحث عن قروبات الجامعات",
+  "tagline": "البحث عن قروبات الجامعات",
+  "outcome": "تجميع قروبات الجامعات في مكان واحد، مع بحث وتصفح بسيط للطلاب.",
   "thumbnail": "/projects/education.png",
-  "status": "Active",
-  "opensource": true,
-  "icon" : "solar:link-minimalistic-2-line-duotone",
+  "status": "live",
   "role": "مطور رئيسي",
-  "features": [
-    "تجميع قروبات الجامعات في مكان واحد",
-    "سهولة البحث والتصفح"
-  ]
+  "year": "2021",
+  "tone": "sage",
+  "order": "09"
 }

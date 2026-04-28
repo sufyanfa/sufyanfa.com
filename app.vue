@@ -1,31 +1,24 @@
 <template>
-  <NuxtLoadingIndicator color="#14b8a6" />
+  <NuxtLoadingIndicator color="#3B5A3B" />
   <AppNavbar />
-  <div class="h-32"></div>
-  <UContainer>
+  <main>
     <NuxtPage />
-  </UContainer>
-  <div class="h-32"></div>
+  </main>
   <AppFooter />
-
-  <!-- Toast notifications -->
-  <UNotifications />
 </template>
 
 <style>
-body{
+body {
   font-family: "Rubik", sans-serif;
 }
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s;
 }
-
 .page-leave-to {
   opacity: 0;
   transform: translateY(-5px);
 }
-
 .page-enter-from {
   opacity: 0;
   transform: translateY(5px);

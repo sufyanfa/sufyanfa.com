@@ -1,15 +1,12 @@
 {
   "name": "تواصل",
   "url": "/",
-  "description": "منصة واتساب الأعمال",
+  "tagline": "منصة واتساب الأعمال",
+  "outcome": "نظام CRM متكامل مع WhatsApp Business API، يتتبع ويحلّل الحملات التسويقية.",
   "thumbnail": "/projects/whatsapp.png",
-  "status": "Active",
-  "opensource": true,
-  "icon": "solar:chat-square-2-line-duotone",
+  "status": "live",
   "role": "مدير مشروع",
-  "features": [
-    "نظام لإدارة علاقات العملاء (CRM)",
-    "تكامل مع WhatsApp Business API",
-    "تتبع وتحليل الحملات التسويقية"
-  ]
+  "year": "2023",
+  "tone": "lavender",
+  "order": "08"
 }

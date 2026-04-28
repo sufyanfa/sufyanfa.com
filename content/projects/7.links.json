@@ -1,15 +1,12 @@
 {
   "name": "روابط",
   "url": "/",
-  "description": "منصة إختصار وتحليل الروابط",
+  "tagline": "إختصار وتحليل الروابط",
+  "outcome": "إدارة وتحليل الروابط المختصرة مع تتبع الأداء - استضافة ذاتية و Serverless.",
   "thumbnail": "/projects/link.png",
-  "status": "Active",
-  "opensource": true,
-  "icon" : "solar:square-share-line-line-duotone",
+  "status": "live",
   "role": "مؤسس",
-  "features": [
-    "إدارة وتحليل الروابط المختصرة",
-    "تتبع الأداء والإحصائيات",
-    "إستضافة ذاتية و Serverless"
-  ]
+  "year": "2023",
+  "tone": "lavender",
+  "order": "10"
 }

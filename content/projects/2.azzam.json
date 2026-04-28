@@ -1,15 +1,12 @@
 {
   "name": "عزام",
   "url": "https://azzam.sa",
-  "description": "شركة متخصصة في إدارة الفعاليات والتواصل",
+  "tagline": "إدارة الفعاليات والتواصل",
+  "outcome": "نظام SaaS يخدم قطاع الأعمال B2B، أدار +700 فعالية كشريك تقني معتمد من Meta.",
   "thumbnail": "/projects/azzam.png",
-  "status": "WIP",
-  "opensource": true,
-  "icon": "solar:ticker-star-line-duotone",
+  "status": "live",
   "role": "شريك مؤسس",
-  "features": [
-    "نظام SaaS يخدم قطاع الأعمال B2B",
-    "أكثر من 700 فعالية تم إدارتها",
-    "شريك تقني معتمد من Meta"
-  ]
+  "year": "2022",
+  "tone": "lavender",
+  "order": "02"
 }

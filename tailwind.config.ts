@@ -10,15 +10,34 @@ module.exports = {
   ],
   theme: {
     extend: {
-      boxShadow: {
-        zoop: "rgba(102, 109, 128, 0.08) 0px 1.2672px 1.2672px 0px, rgba(102, 109, 128, 0.08) 0px 5.06879px 10.1376px 0px",
-        zoopdark:
-          "rgba(10, 10, 10, 0.2) 0px 1.2672px 1.2672px 0px, rgba(10, 10, 10, 0.2) 0px 5.06879px 10.1376px 0px",
+      colors: {
+        cream: {
+          DEFAULT: "#F4F1EA",
+          deep: "#E5DFD0",
+        },
+        forest: {
+          DEFAULT: "#3B5A3B",
+          deep: "#2A4128",
+          soft: "#E4ECE0",
+        },
+        ink: {
+          DEFAULT: "#1A1A1A",
+          soft: "#5A5650",
+          mute: "#857F75",
+        },
+        success: "#16A34A",
       },
-    },
-    fontFamily: {
-      sans: ["Inter", "sans-serif"],
-      rubik: ["Rubik", "sans-serif"],
+      fontFamily: {
+        sans: ["Rubik", "Inter", "sans-serif"],
+        rubik: ["Rubik", "sans-serif"],
+      },
+      maxWidth: {
+        site: "1080px",
+      },
+      letterSpacing: {
+        display: "-0.035em",
+        h2: "-0.025em",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

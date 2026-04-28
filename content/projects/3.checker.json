@@ -1,14 +1,12 @@
 {
   "name": "Checker",
   "url": "https://checkersa.com",
-  "description": "حماية فورية لصحتك وصحة عائلتك",
+  "tagline": "حماية فورية لصحتك وصحة عائلتك",
+  "outcome": "تطبيق لفحص الحساسيات الغذائية والبحث عن البدائل، يخدم آلاف العائلات.",
   "thumbnail": "/projects/azzam.png",
-  "status": "WIP",
-  "opensource": true,
-  "icon": "solar:health-linear",
+  "status": "live",
   "role": "شريك تقني",
-  "features": [
-    "فحص الحساسيات الغذائية",
-    "البحث عن البدائل الغذائية"
-  ]
+  "year": "2023",
+  "tone": "lavender",
+  "order": "04"
 }
