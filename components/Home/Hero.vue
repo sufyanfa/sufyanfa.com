@@ -60,8 +60,10 @@
               alt="سفيان فارع"
               class="absolute inset-0 w-full h-full object-cover"
               sizes="320px sm:360px"
-              placeholder
               format="webp"
+              loading="eager"
+              fetchpriority="high"
+              preload
             />
 
             <div

@@ -23,11 +23,13 @@ export default defineNuxtConfig({
       ignore: ['/build/ai-agent-v1'],
       routes: [
         '/',
+        '/about',
         '/projects',
         '/articles',
         '/bookmarks',
         '/services',
         '/build',
+        '/resources',
       ]
     }
   },
@@ -63,6 +65,9 @@ export default defineNuxtConfig({
         dir: "rtl",
         class: "h-full",
       },
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
+      ],
       script: [
         {
           src: "https://cloud.umami.is/script.js",
@@ -87,8 +92,7 @@ export default defineNuxtConfig({
     display: "swap",
     download: true,
     families: {
-      Inter: [400, 500, 600, 700, 800, 900],
-      Rubik: [400, 500, 600, 700, 800, 900],
+      Rubik: [400, 500, 600, 700, 800],
     },
   },
 });

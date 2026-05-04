@@ -23,12 +23,12 @@ module.exports = {
         ink: {
           DEFAULT: "#1A1A1A",
           soft: "#5A5650",
-          mute: "#857F75",
+          mute: "#6B6660",
         },
-        success: "#16A34A",
+        success: "#166534",
       },
       fontFamily: {
-        sans: ["Rubik", "Inter", "sans-serif"],
+        sans: ["Rubik", "sans-serif"],
         rubik: ["Rubik", "sans-serif"],
       },
       maxWidth: {

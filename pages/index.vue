@@ -32,7 +32,6 @@ useSeoMeta({
 useHead({
   link: [
     { rel: "canonical", href: "https://sufyanfa.com" },
-    { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
   ],
   script: [
     {

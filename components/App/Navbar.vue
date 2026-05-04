@@ -3,10 +3,10 @@
     <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 h-[68px] flex items-center gap-7">
       <NuxtLink
         to="/"
-        class="font-extrabold text-[15px] sm:text-base text-ink tracking-tight hover:opacity-80 transition-opacity"
+        class="hover:opacity-80 transition-opacity"
         aria-label="الصفحة الرئيسية"
       >
-        سفيان فارع
+        <img src="/logo.svg" alt="سفيان فارع" class="h-6 sm:h-7 w-auto" />
       </NuxtLink>
 
       <ul class="hidden md:flex items-center gap-7 text-sm text-ink-soft">
@@ -76,9 +76,11 @@
 const open = ref(false);
 
 const items = [
+  { name: "عني", path: "/about" },
   { name: "الخدمات", path: "/services" },
   { name: "المشاريع", path: "/projects" },
   { name: "المقالات", path: "/articles" },
+  { name: "الموارد", path: "/resources" },
 ];
 
 const route = useRoute();
