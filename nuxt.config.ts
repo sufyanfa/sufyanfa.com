@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
-      ignore: ['/build/ai-agent-v1'],
+      ignore: ['/build/ai-agent-v1', '/admin', '/admin/**', '/p/**'],
       routes: [
         '/',
         '/about',
@@ -35,6 +35,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     resendApiKey: process.env.RESEND_API_KEY,
+    sessionSecret: process.env.SESSION_SECRET || 'dev-only-change-me-in-production',
   },
   modules: [
     "@nuxt/ui",
@@ -48,6 +49,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "motion-v/nuxt",
     "nuxt-gtag",
+    "nitro-cloudflare-dev",
   ],
   // SEO Configuration
   seo: {

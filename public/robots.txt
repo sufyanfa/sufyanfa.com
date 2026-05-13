@@ -6,6 +6,8 @@ Allow: /
 Disallow: /api/
 Disallow: /_nuxt/
 Disallow: /.nuxt/
+Disallow: /admin/
+Disallow: /p/
 
 # Google
 User-agent: Googlebot

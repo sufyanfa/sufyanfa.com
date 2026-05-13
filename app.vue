@@ -1,16 +1,11 @@
 <template>
   <NuxtLoadingIndicator color="#15803D" />
-  <AppNavbar />
-  <main>
+  <NuxtLayout>
     <NuxtPage />
-  </main>
-  <AppFooter />
+  </NuxtLayout>
 </template>
 
 <script setup>
-const route = useRoute();
-const isHome = computed(() => route.path === "/");
-
 useSeoMeta({
   ogSiteName: "سفيان فارع",
   ogLocale: "ar_SA",

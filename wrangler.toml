@@ -1,7 +1,16 @@
 name = "sufyanfa-com"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
 
 pages_build_output_dir = "dist"
 
 # Environment variables (set these in Cloudflare Dashboard or via wrangler)
-# RESEND_API_KEY - Required for contact form functionality
+# RESEND_API_KEY  - Required for contact form
+# SESSION_SECRET  - Random 32+ byte string for JWT signing
+
+# D1 — proposals system
+[[d1_databases]]
+binding = "DB"
+database_name = "sufyanfa-proposals"
+database_id = "64bb4647-75e6-4e0c-ba5a-65d04155ede3"
+migrations_dir = "migrations"
