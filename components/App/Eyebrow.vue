@@ -1,25 +1,13 @@
 <template>
   <span
-    class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold"
-    :class="toneClass"
+    class="inline-block text-[11px] font-semibold uppercase tracking-wide text-ink-mute"
   >
     <slot />
   </span>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    tone?: "sage" | "lavender" | "white";
-  }>(),
-  {
-    tone: "lavender",
-  }
-);
-
-const toneClass = computed(() => {
-  if (props.tone === "sage") return "bg-cream text-ink";
-  if (props.tone === "white") return "bg-white text-forest border border-black/5";
-  return "bg-forest-soft text-forest";
-});
+defineProps<{
+  tone?: "sage" | "lavender" | "white";
+}>();
 </script>

@@ -76,11 +76,9 @@
 const open = ref(false);
 
 const items = [
-  { name: "عني", path: "/about" },
   { name: "الخدمات", path: "/services" },
   { name: "المشاريع", path: "/projects" },
   { name: "المقالات", path: "/articles" },
-  { name: "الموارد", path: "/resources" },
 ];
 
 const route = useRoute();

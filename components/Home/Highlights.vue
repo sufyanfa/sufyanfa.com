@@ -1,19 +1,27 @@
 <template>
-  <section class="bg-white border-y border-black/[0.04]">
-    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-10 sm:py-12">
-      <div class="grid grid-cols-3 gap-6 sm:gap-8 text-center mb-9 sm:mb-10">
-        <div v-for="(item, i) in stats" :key="i">
+  <section class="bg-white">
+    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 pb-16 sm:pb-20">
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-14 sm:mb-16">
+        <div
+          v-for="(item, i) in stats"
+          :key="i"
+          class="group relative bg-cream-deep rounded-[24px] sm:rounded-[28px] p-6 sm:p-8 text-right border border-transparent hover:border-black/[0.06] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.08)] transition-all duration-300"
+        >
           <div
-            class="text-2xl sm:text-3xl font-extrabold text-ink leading-none mb-1.5 tracking-h2"
+            class="text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-3 sm:mb-4 leading-tight"
+          >
+            {{ item.label }}
+          </div>
+          <div
+            class="text-3xl sm:text-5xl lg:text-6xl font-bold text-ink leading-none tracking-tight tabular-nums"
           >
             {{ item.value }}
           </div>
-          <div class="text-[11px] sm:text-xs text-ink-soft">{{ item.label }}</div>
         </div>
       </div>
 
       <div
-        class="text-center text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-5"
+        class="text-[11px] font-semibold tracking-wide uppercase text-ink-mute mb-6 text-center"
       >
         بنيت لهم
       </div>
@@ -28,7 +36,7 @@
             <img
               :src="company.logo"
               :alt="`شعار ${company.name}`"
-              class="block h-8 sm:h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              class="block h-7 sm:h-9 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
               loading="lazy"
             />
           </div>

@@ -1,85 +1,124 @@
 <template>
-  <section class="bg-white">
-    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-20 sm:py-24">
-      <div class="text-center mb-12 sm:mb-14">
-        <AppEyebrow tone="lavender" class="mb-6">ما أقدّمه</AppEyebrow>
-        <h2
-          class="font-extrabold text-ink leading-tight tracking-h2 text-[28px] sm:text-[36px] lg:text-[40px]"
+  <section class="bg-cream-deep">
+    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-20 sm:py-24 lg:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mb-14 sm:mb-16">
+        <div class="lg:col-span-7 text-right">
+          <div
+            class="inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold uppercase tracking-wide text-ink-mute mb-5"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+            <span>ما أقدّمه</span>
+          </div>
+
+          <h2
+            class="font-bold text-ink leading-[1.3] tracking-display text-[30px] sm:text-[40px] lg:text-[48px] mb-5"
+          >
+            كيف
+            <span class="relative inline-block">
+              <span class="relative">أساعدك</span>
+              <span
+                class="absolute -inset-x-1 bottom-1 sm:bottom-2 h-2.5 sm:h-3 lg:h-3.5 bg-[#15803D]/10 -z-0"
+                aria-hidden="true"
+              ></span>
+            </span>؟
+          </h2>
+
+          <p class="text-[15px] sm:text-[17px] text-ink-soft leading-[1.85] max-w-xl">
+            ثلاث طرق نشتغل بها معًا — مع
+            <strong class="font-semibold text-ink">شريك تقني واحد</strong>
+            يفهم السياق التجاري والتقني.
+          </p>
+        </div>
+
+        <div
+          class="lg:col-span-5 flex items-end justify-start lg:justify-end"
         >
-          كيف أساعدك؟
-        </h2>
+          <div
+            class="inline-flex flex-wrap items-center gap-x-2 gap-y-2 text-[12px] sm:text-[13px]"
+          >
+            <span
+              class="inline-flex items-center gap-1.5 bg-white rounded-full px-3.5 py-1.5 border border-black/[0.05] text-ink"
+            >
+              <span class="w-1 h-1 rounded-full bg-[#15803D]"></span>
+              MVP
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 bg-white rounded-full px-3.5 py-1.5 border border-black/[0.05] text-ink"
+            >
+              <span class="w-1 h-1 rounded-full bg-[#15803D]"></span>
+              منتج قائم
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 bg-white rounded-full px-3.5 py-1.5 border border-black/[0.05] text-ink"
+            >
+              <span class="w-1 h-1 rounded-full bg-[#15803D]"></span>
+              استشارة
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-16 sm:mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         <article
           v-for="(s, i) in scenarios"
           :key="i"
-          class="rounded-3xl p-7 sm:p-8 flex flex-col"
-          :class="s.tone === 'lavender' ? 'bg-forest-soft' : 'bg-cream'"
+          class="group rounded-2xl sm:rounded-3xl p-8 sm:p-9 flex flex-col bg-white border border-black/[0.05] transition-all duration-300 hover:border-black/[0.12] hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1"
         >
+          <div class="flex items-start justify-between mb-7">
+            <div
+              class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#15803D]/10 text-[#15803D] group-hover:bg-ink group-hover:text-white transition-colors"
+            >
+              <Icon :name="s.icon" class="w-5 h-5" />
+            </div>
+            <span class="text-[12px] font-bold text-ink-mute/40 tabular-nums">
+              0{{ i + 1 }}
+            </span>
+          </div>
+
           <div
-            class="text-[11px] font-semibold tracking-[0.1em] uppercase mb-3"
-            :class="s.tone === 'lavender' ? 'text-forest' : 'text-ink-soft'"
+            class="text-[11px] font-semibold tracking-wide uppercase text-ink-mute mb-2.5"
           >
             {{ s.condition }}
           </div>
 
-          <h3 class="text-xl sm:text-[22px] font-bold text-ink leading-tight tracking-tight mb-4">
-            {{ s.solution }}
+          <h3
+            class="text-xl sm:text-[22px] font-bold text-ink leading-tight tracking-tight mb-3"
+          >
+            {{ s.solution }}.
           </h3>
 
-          <p class="text-sm text-ink-soft leading-relaxed mb-6 flex-1">{{ s.description }}</p>
+          <p class="text-[14px] text-ink-soft leading-[1.7] mb-7 flex-1">
+            {{ s.description }}
+          </p>
 
           <button
             v-if="s.modal"
             type="button"
-            class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:underline self-start"
+            class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:opacity-60 transition-colors self-start"
             @click="openModal(s)"
           >
             {{ s.cta }}
-            <span class="text-xs">←</span>
+            <Icon
+              name="lucide:arrow-left"
+              class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"
+            />
           </button>
           <NuxtLink
             v-else
             :to="s.url!"
             :target="s.external ? '_blank' : undefined"
             :external="s.external || undefined"
-            class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:underline self-start"
+            class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:opacity-60 transition-colors self-start"
           >
             {{ s.cta }}
-            <span class="text-xs">←</span>
+            <Icon
+              name="lucide:arrow-left"
+              class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"
+            />
           </NuxtLink>
         </article>
       </div>
 
-      <div class="text-center">
-        <div
-          class="text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-6"
-        >
-          كيف نعمل معًا
-        </div>
-        <div class="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
-          <span
-            v-for="(step, i) in steps"
-            :key="step"
-            class="contents"
-          >
-            <span
-              class="rounded-full px-5 py-2 text-sm font-semibold text-ink"
-              :class="i % 2 === 0 ? 'bg-cream' : 'bg-forest-soft'"
-            >
-              {{ step }}
-            </span>
-            <span
-              v-if="i < steps.length - 1"
-              class="text-ink-mute text-base"
-              aria-hidden="true"
-            >
-              ←
-            </span>
-          </span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -98,7 +137,7 @@ type Scenario = {
   solution: string;
   description: string;
   cta: string;
-  tone: string;
+  icon: string;
   modal?: boolean;
   service?: string;
   placeholder?: string;
@@ -112,7 +151,7 @@ const scenarios: Scenario[] = [
     solution: "نحوّلها إلى MVP",
     description: "خطة واقعية وإطلاق نسخة أولى قابلة للاختبار خلال 2-4 أسابيع.",
     cta: "ابدأ المشروع",
-    tone: "sage",
+    icon: "lucide:lightbulb",
     modal: true,
     service: "تطوير منتج جديد (MVP)",
     placeholder: "اشرح لي فكرتك باختصار، الجمهور المستهدف، والهدف من النسخة الأولى.",
@@ -122,7 +161,7 @@ const scenarios: Scenario[] = [
     solution: "نطوّره ونرافقك",
     description: "إرشاد مستمر للقرارات التقنية والمنتج مع فريقك.",
     cta: "تواصل معي",
-    tone: "lavender",
+    icon: "lucide:rocket",
     modal: true,
     service: "تطوير منتج قائم / إرشاد مستمر",
     placeholder: "اشرح لي وضع منتجك الحالي، ما الذي يعمل وما الذي تريد تحسينه.",
@@ -132,13 +171,11 @@ const scenarios: Scenario[] = [
     solution: "نحلّها استشاريًا",
     description: "جلسة موجَّهة للخروج بخريطة طريق واضحة.",
     cta: "احجز استشارة",
-    tone: "sage",
+    icon: "lucide:compass",
     url: "https://cal.com/sufyanfa/consultation",
     external: true,
   },
 ];
-
-const steps = ["مكالمة", "خطة", "تنفيذ"];
 
 const modalOpen = ref(false);
 const active = ref({

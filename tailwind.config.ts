@@ -12,18 +12,18 @@ module.exports = {
     extend: {
       colors: {
         cream: {
-          DEFAULT: "#F4F1EA",
-          deep: "#E5DFD0",
+          DEFAULT: "#FFFFFF",
+          deep: "#F5F5F7",
         },
         forest: {
-          DEFAULT: "#3B5A3B",
-          deep: "#2A4128",
-          soft: "#E4ECE0",
+          DEFAULT: "#1D1D1F",
+          deep: "#000000",
+          soft: "#F5F5F7",
         },
         ink: {
-          DEFAULT: "#1A1A1A",
-          soft: "#5A5650",
-          mute: "#6B6660",
+          DEFAULT: "#000000",
+          soft: "#424245",
+          mute: "#6E6E73",
         },
         success: "#166534",
       },
@@ -35,8 +35,9 @@ module.exports = {
         site: "1080px",
       },
       letterSpacing: {
-        display: "-0.035em",
-        h2: "-0.025em",
+        display: "-0.04em",
+        h2: "-0.03em",
+        wide: "0.18em",
       },
     },
   },

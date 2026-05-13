@@ -3,49 +3,108 @@
     :to="project.url"
     target="_blank"
     external
-    class="group rounded-3xl p-7 sm:p-8 h-full flex flex-col transition-transform hover:-translate-y-0.5"
-    :class="project.tone === 'lavender' ? 'bg-forest-soft' : 'bg-cream'"
+    class="group rounded-2xl sm:rounded-3xl h-full flex flex-col bg-cream-deep border border-transparent overflow-hidden hover:border-black/[0.08] hover:bg-white hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300"
   >
-    <header class="flex justify-between items-start mb-4">
-      <span
-        class="text-[11px] font-semibold tracking-[0.1em] uppercase"
-        :class="project.tone === 'lavender' ? 'text-forest' : 'text-ink-soft'"
-      >
-        {{ project.role }} · {{ project.year }}
-      </span>
+    <div
+      v-if="project.thumbnail"
+      class="relative aspect-[16/10] overflow-hidden bg-cream-deep"
+    >
+      <NuxtImg
+        :src="project.thumbnail"
+        :alt="project.name"
+        class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+        sizes="500px sm:600px"
+        format="webp"
+        loading="lazy"
+      />
       <span
         v-if="project.status === 'live'"
-        class="text-[11px] font-semibold text-success inline-flex items-center gap-1.5"
+        class="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#15803D] inline-flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
       >
-        حيّ <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+        حيّ
+        <span class="relative flex w-1.5 h-1.5">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-[#15803D] opacity-60 animate-ping"
+          ></span>
+          <span class="relative inline-flex rounded-full w-1.5 h-1.5 bg-[#15803D]"></span>
+        </span>
       </span>
-    </header>
+    </div>
 
-    <h3 class="text-xl sm:text-[22px] font-bold text-ink leading-tight tracking-tight mb-2.5">
-      {{ project.name }}
-    </h3>
-    <p class="text-sm text-ink-soft leading-relaxed mb-5 flex-1">{{ project.outcome }}</p>
+    <div class="p-7 sm:p-8 flex flex-col flex-1">
+      <header class="flex justify-between items-start mb-5">
+        <div class="flex items-center gap-3">
+          <span class="text-[12px] font-bold text-ink-mute/40 tabular-nums">
+            0{{ (index ?? 0) + 1 }}
+          </span>
+          <span class="w-px h-3 bg-ink-mute/20"></span>
+          <span
+            class="text-[11px] font-semibold tracking-wide uppercase text-ink-mute"
+          >
+            {{ project.role }} · {{ project.year }}
+          </span>
+        </div>
+        <span
+          v-if="!project.thumbnail && project.status === 'live'"
+          class="text-[11px] font-semibold text-[#15803D] inline-flex items-center gap-1.5"
+        >
+          حيّ
+          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+        </span>
+      </header>
 
-    <div
-      class="self-start inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/60 group-hover:bg-ink group-hover:text-white text-ink transition-colors"
-      aria-hidden="true"
-    >
-      <Icon name="lucide:arrow-up-left" class="w-4 h-4" />
+      <h3
+        class="text-xl sm:text-[22px] font-bold text-ink leading-tight tracking-tight mb-3"
+      >
+        {{ project.name }}.
+      </h3>
+      <p class="text-[14px] text-ink-soft leading-[1.7] mb-7 flex-1">
+        {{ project.outcome }}
+      </p>
+
+      <div class="flex items-center justify-between">
+        <span
+          class="text-[13px] font-semibold text-ink inline-flex items-center gap-1.5 group-hover:opacity-60 transition-colors"
+        >
+          زيارة المشروع
+          <Icon
+            name="lucide:arrow-left"
+            class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"
+          />
+        </span>
+
+        <div
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border border-black/[0.06] group-hover:bg-ink group-hover:text-white group-hover:border-ink text-ink transition-all"
+          aria-hidden="true"
+        >
+          <Icon
+            name="lucide:arrow-up-left"
+            class="w-4 h-4 transition-transform group-hover:rotate-[-12deg]"
+          />
+        </div>
+      </div>
     </div>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  project: {
-    name: string;
-    url: string;
-    tagline?: string;
-    outcome?: string;
-    role?: string;
-    year?: string;
-    status?: string;
-    tone?: string;
-  };
-}>();
+withDefaults(
+  defineProps<{
+    project: {
+      name: string;
+      url: string;
+      tagline?: string;
+      outcome?: string;
+      role?: string;
+      year?: string;
+      status?: string;
+      tone?: string;
+      thumbnail?: string;
+    };
+    index?: number;
+  }>(),
+  {
+    index: 0,
+  }
+);
 </script>

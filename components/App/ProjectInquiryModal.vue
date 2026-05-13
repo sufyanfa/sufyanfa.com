@@ -29,13 +29,14 @@
             :aria-labelledby="`inquiry-title-${uid}`"
           >
             <div
-              class="bg-cream px-6 sm:px-8 py-6 sm:py-7 border-b border-cream-deep flex items-start justify-between gap-4"
+              class="bg-white px-6 sm:px-8 py-6 sm:py-7 border-b border-black/[0.06] flex items-start justify-between gap-4"
             >
               <div class="min-w-0 flex-1">
                 <div
-                  class="text-[11px] font-semibold tracking-[0.12em] uppercase text-forest mb-2"
+                  class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wide uppercase text-ink-mute mb-3"
                 >
-                  {{ eyebrow }}
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+                  <span>{{ eyebrow }}</span>
                 </div>
                 <h2
                   :id="`inquiry-title-${uid}`"
@@ -197,9 +198,9 @@
               class="p-8 sm:p-10 text-center flex flex-col items-center gap-4"
             >
               <div
-                class="w-14 h-14 rounded-full bg-forest-soft text-forest flex items-center justify-center text-2xl font-bold"
+                class="w-14 h-14 rounded-full bg-[#15803D]/10 text-[#15803D] flex items-center justify-center"
               >
-                ✓
+                <Icon name="lucide:check" class="w-7 h-7" stroke-width="3" />
               </div>
               <h3 class="text-xl font-bold text-ink">تم الاستلام، شكرًا!</h3>
               <p class="text-sm text-ink-soft leading-relaxed max-w-sm">
@@ -308,10 +309,10 @@ const reset = () => {
 };
 
 const inputClass = (hasError?: string) => [
-  "rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-mute transition-colors focus:outline-none",
+  "rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-mute/70 transition-all focus:outline-none bg-white",
   hasError
-    ? "bg-red-50 border border-red-300 focus:border-red-500"
-    : "bg-cream/40 border border-cream-deep/60 focus:border-forest focus:bg-white",
+    ? "border border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+    : "border border-black/[0.12] hover:border-black/[0.2] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15",
 ];
 
 watch(

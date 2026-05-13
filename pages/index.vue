@@ -1,7 +1,6 @@
 <template>
   <div>
     <HomeHero />
-    <HomeHighlights />
     <HomeApproach />
     <HomeFeaturedProjects />
     <HomeFeaturedArticles />
@@ -12,7 +11,7 @@
 <script setup>
 const title = "سفيان فارع | شريك تقني لبناء منتجات رقمية";
 const description =
-  "شريك تقني لرواد الأعمال - نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن.";
+  "شريك تقني لرواد الأعمال — نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن.";
 
 useSeoMeta({
   title,
@@ -30,9 +29,7 @@ useSeoMeta({
 });
 
 useHead({
-  link: [
-    { rel: "canonical", href: "https://sufyanfa.com" },
-  ],
+  link: [{ rel: "canonical", href: "https://sufyanfa.com" }],
   script: [
     {
       type: "application/ld+json",
