@@ -38,9 +38,9 @@ Use **yarn** for everything (install, scripts). Never npm.
    ```sh
    npx wrangler pages dev dist/ --port 8790 &
    # then:
-   /usr/bin/curl -sI -o /dev/null -w "/ %{http_code}\n" http://localhost:8790/
-   /usr/bin/curl -sI -o /dev/null -w "/admin/login %{http_code}\n" http://localhost:8790/admin/login
-   /usr/bin/curl -sI -o /dev/null -w "/p/<slug> %{http_code}\n" http://localhost:8790/p/mulsaq
+   /usr/bin/curl -s -o /dev/null -w "/ %{http_code}\n" http://localhost:8790/
+   /usr/bin/curl -s -o /dev/null -w "/admin/login %{http_code}\n" http://localhost:8790/admin/login
+   /usr/bin/curl -s -o /dev/null -w "/p/<slug> %{http_code}\n" http://localhost:8790/p/mulsaq
    ```
    All page routes must be 200. `/api/admin/me` returns 401 (expected — no session).
 5. **Deploy the verified build** (do NOT rebuild — use the `dist/` you just tested)
