@@ -49,7 +49,10 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "motion-v/nuxt",
     "nuxt-gtag",
-    "nitro-cloudflare-dev",
+    // nitro-cloudflare-dev only wires D1 bindings into the local dev server;
+    // including it in production builds leaks vite-node into the Workers
+    // bundle and breaks SSR with "undefined.startsWith".
+    ...(process.env.NODE_ENV !== "production" ? ["nitro-cloudflare-dev"] : []),
   ],
   // SEO Configuration
   seo: {
