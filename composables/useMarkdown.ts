@@ -1,23 +1,11 @@
 import { marked } from 'marked'
-import DOMPurify from 'isomorphic-dompurify'
 
 marked.setOptions({ gfm: true, breaks: true })
 
+// Markdown content is authored by the admin only — trusted input —
+// so we render via marked without an extra HTML sanitizer.
+// (DOMPurify needs a DOM, which the Cloudflare Workers runtime lacks.)
 export function renderMarkdown(md: string): string {
   if (!md) return ''
-  const html = marked.parse(md, { async: false }) as string
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: [
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'p', 'br', 'hr',
-      'strong', 'em', 'code', 'pre',
-      'ul', 'ol', 'li',
-      'blockquote',
-      'a', 'img',
-      'table', 'thead', 'tbody', 'tr', 'th', 'td',
-      'span', 'div'
-    ],
-    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'target', 'rel'],
-    ADD_ATTR: ['target'],
-  })
+  return marked.parse(md, { async: false }) as string
 }
