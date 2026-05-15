@@ -9,42 +9,54 @@
 </template>
 
 <script setup>
-const title = "سفيان فارع | شريك تقني لبناء منتجات رقمية";
+const title = "سفيان فارع | شريك تقني لرواد الأعمال في السعودية";
 const description =
-  "شريك تقني لرواد الأعمال — نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن.";
+  "شريك تقني لرواد الأعمال — نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن. خبرة +8 سنوات مع مؤسسات حكومية، جامعات، وشركات ناشئة.";
+const url = "https://sufyanfa.com";
+const ogImage = "https://sufyanfa.com/preview.png";
+const ogImageAlt = "سفيان فارع — شريك تقني لبناء منتجات رقمية";
 
 useSeoMeta({
   title,
   description,
+  author: "سفيان فارع",
+  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   ogTitle: title,
   ogDescription: description,
-  ogImage: "https://sufyanfa.com/preview.png",
-  ogUrl: "https://sufyanfa.com",
+  ogImage,
+  ogImageAlt,
+  ogImageWidth: 1905,
+  ogImageHeight: 767,
+  ogImageType: "image/png",
+  ogUrl: url,
   ogType: "website",
-  ogLocale: "ar_SA",
   twitterCard: "summary_large_image",
   twitterTitle: title,
   twitterDescription: description,
-  twitterImage: "https://sufyanfa.com/preview.png",
+  twitterImage: ogImage,
+  twitterImageAlt: ogImageAlt,
 });
 
 useHead({
-  link: [{ rel: "canonical", href: "https://sufyanfa.com" }],
+  link: [
+    { rel: "canonical", href: url },
+    { rel: "alternate", hreflang: "ar", href: url },
+    { rel: "alternate", hreflang: "x-default", href: url },
+  ],
   script: [
     {
       type: "application/ld+json",
       children: JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: "سفيان فارع",
-        url: "https://sufyanfa.com",
-        description,
-        inLanguage: "ar-SA",
-        author: {
-          "@type": "Person",
-          name: "سفيان فارع",
-          url: "https://sufyanfa.com",
-        },
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "الرئيسية",
+            item: url,
+          },
+        ],
       }),
     },
   ],

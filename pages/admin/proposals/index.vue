@@ -8,14 +8,14 @@
             <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
             لوحة التحكم
           </div>
-          <h1 class="text-3xl font-bold text-ink tracking-tight">الاقتراحات</h1>
+          <h1 class="text-3xl font-bold text-ink tracking-tight">العروض</h1>
         </div>
         <NuxtLink
           to="/admin/proposals/new"
           class="inline-flex items-center gap-2 bg-ink text-white rounded-full px-5 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           <Icon name="lucide:plus" class="w-4 h-4" />
-          اقتراح جديد
+          عرض جديد
         </NuxtLink>
       </header>
 
@@ -42,12 +42,12 @@
 
       <!-- Empty -->
       <div v-else-if="filteredProposals.length === 0" class="bg-cream-deep rounded-3xl p-12 text-center">
-        <div class="text-ink-mute text-sm">لا توجد اقتراحات.</div>
+        <div class="text-ink-mute text-sm">لا توجد عروض.</div>
         <NuxtLink
           to="/admin/proposals/new"
           class="inline-flex items-center gap-2 mt-5 bg-ink text-white rounded-full px-5 py-2.5 text-sm font-semibold"
         >
-          أنشئ أول اقتراح
+          أنشئ أول عرض
         </NuxtLink>
       </div>
 
@@ -129,7 +129,7 @@ function formatDate(d: string) {
 }
 
 useHead({
-  title: 'الاقتراحات · لوحة التحكم',
+  title: 'العروض · لوحة التحكم',
   meta: [{ name: 'robots', content: 'noindex, nofollow' }]
 })
 </script>

@@ -6,9 +6,9 @@
         <div>
           <NuxtLink to="/admin/proposals" class="inline-flex items-center gap-2 text-[13px] text-ink-mute hover:text-ink transition-colors mb-3">
             <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
-            الاقتراحات
+            العروض
           </NuxtLink>
-          <h1 class="text-3xl font-bold text-ink tracking-tight">اقتراح جديد</h1>
+          <h1 class="text-3xl font-bold text-ink tracking-tight">عرض جديد</h1>
         </div>
       </header>
 
@@ -30,7 +30,7 @@
             <AdminProposalField label="اسم العميل">
               <input v-model="form.client_name" required class="input" placeholder="مكتب أصول للمحاماة" />
             </AdminProposalField>
-            <AdminProposalField label="تاريخ الاقتراح">
+            <AdminProposalField label="تاريخ العرض">
               <input v-model="form.proposal_date" type="date" required class="input" />
             </AdminProposalField>
           </div>
@@ -95,10 +95,10 @@
             <div class="bg-white rounded-2xl p-6 mb-4">
               <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-2 inline-flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-                اقتراح
+                عرض
               </div>
               <div class="text-[12px] text-ink-soft mb-2">{{ form.proposal_date || '—' }} · {{ form.client_name || '—' }}</div>
-              <h2 class="text-2xl font-bold text-ink leading-[1.3] tracking-tight">{{ form.title || 'عنوان الاقتراح' }}</h2>
+              <h2 class="text-2xl font-bold text-ink leading-[1.3] tracking-tight">{{ form.title || 'عنوان العرض' }}</h2>
             </div>
             <div class="proposal-prose text-ink-soft text-[14px] leading-[1.85]" v-html="renderedPreview"></div>
           </div>
@@ -149,7 +149,7 @@ function genPassword() {
   form.password = `${a}-${n}`
 }
 
-const renderedPreview = computed(() => renderMarkdown(form.content_md || '_ابدأ بكتابة محتوى الاقتراح…_'))
+const renderedPreview = computed(() => renderMarkdown(form.content_md || '_ابدأ بكتابة محتوى العرض…_'))
 
 async function save() {
   error.value = ''
@@ -182,7 +182,7 @@ async function save() {
 }
 
 useHead({
-  title: 'اقتراح جديد · لوحة التحكم',
+  title: 'عرض جديد · لوحة التحكم',
   meta: [{ name: 'robots', content: 'noindex, nofollow' }]
 })
 </script>

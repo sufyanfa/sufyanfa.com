@@ -9,7 +9,7 @@
     <div v-else-if="status === 'notfound'" class="min-h-screen flex items-center justify-center px-6">
       <div class="text-center max-w-md">
         <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-3">404</div>
-        <h1 class="text-2xl font-bold text-ink mb-3">الاقتراح غير موجود</h1>
+        <h1 class="text-2xl font-bold text-ink mb-3">العرض غير موجود</h1>
         <p class="text-ink-soft text-sm leading-[1.7]">قد يكون الرابط منتهيًا أو مكتوبًا بشكل خاطئ.</p>
         <NuxtLink to="/" class="inline-block mt-6 text-sm text-ink underline-offset-4 hover:underline">العودة إلى sufyanfa.com</NuxtLink>
       </div>
@@ -19,7 +19,7 @@
     <div v-else-if="status === 'expired'" class="min-h-screen flex items-center justify-center px-6">
       <div class="text-center max-w-md">
         <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-3">انتهت الصلاحية</div>
-        <h1 class="text-2xl font-bold text-ink mb-3">هذا الاقتراح لم يعد متاحًا</h1>
+        <h1 class="text-2xl font-bold text-ink mb-3">هذا العرض لم يعد متاحًا</h1>
         <p class="text-ink-soft text-sm leading-[1.7]">للحصول على نسخة محدّثة، تواصل معي مباشرة.</p>
         <a href="mailto:hi@sufyanfa.com" class="inline-flex items-center gap-2 mt-6 bg-ink text-white rounded-full px-5 py-2.5 text-sm">
           <Icon name="lucide:mail" class="w-4 h-4" /> hi@sufyanfa.com
@@ -36,7 +36,7 @@
           </NuxtLink>
           <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-5">
             <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-            اقتراح خاص
+            عرض خاص
           </div>
           <h1 class="text-[26px] sm:text-[32px] font-bold text-ink leading-[1.3] tracking-tight mb-3">{{ meta?.title }}</h1>
           <p v-if="meta?.client_label" class="text-ink-soft text-sm">{{ meta.client_label }} · {{ formattedDate }}</p>
@@ -59,13 +59,13 @@
             :disabled="submitting || !password"
             class="w-full mt-5 bg-ink text-white rounded-full px-5 py-3 text-sm font-semibold disabled:opacity-50 hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2"
           >
-            <span>{{ submitting ? 'جارٍ الفتح…' : 'فتح الاقتراح' }}</span>
+            <span>{{ submitting ? 'جارٍ الفتح…' : 'فتح العرض' }}</span>
             <Icon name="lucide:arrow-left" class="w-4 h-4" />
           </button>
         </form>
 
         <p class="text-center text-[12px] text-ink-mute mt-8">
-          اقتراح من <span class="text-ink font-semibold">سفيان فارع</span> · sufyanfa.com
+          عرض من <span class="text-ink font-semibold">سفيان فارع</span> · sufyanfa.com
         </p>
       </div>
     </div>
@@ -76,14 +76,14 @@
       <header class="bg-cream-deep rounded-3xl p-8 sm:p-10 mb-10">
         <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-5">
           <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-          اقتراح
+          عرض
         </div>
         <div class="text-[12px] text-ink-soft mb-3">{{ formattedDate }} · {{ proposal.client_name }}</div>
         <h1 class="text-[32px] sm:text-[44px] font-bold text-ink leading-[1.3] tracking-tight">
           {{ proposal.title }}
         </h1>
         <div class="text-[13px] text-ink-mute mt-5 pt-5 border-t border-black/[0.08]">
-          اقتراح من <span class="text-ink font-semibold">سفيان فارع</span>
+          عرض من <span class="text-ink font-semibold">سفيان فارع</span>
         </div>
       </header>
 
@@ -116,7 +116,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
           قرارك
         </div>
-        <h2 class="text-xl font-bold text-ink mb-5">هل توافق على هذا الاقتراح؟</h2>
+        <h2 class="text-xl font-bold text-ink mb-5">هل توافق على هذا العرض؟</h2>
         <div class="flex flex-col sm:flex-row gap-3">
           <button
             @click="accept"
@@ -124,7 +124,7 @@
             class="inline-flex items-center justify-center gap-2 bg-ink text-white rounded-full px-6 py-3.5 text-sm font-semibold disabled:opacity-50 hover:opacity-90 transition-opacity"
           >
             <Icon name="lucide:check" class="w-4 h-4" />
-            أوافق على الاقتراح
+            أوافق على العرض
           </button>
           <button
             @click="declineOpen = true"
@@ -170,14 +170,14 @@
           <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#15803D]/10 mb-4">
             <Icon name="lucide:check" class="w-6 h-6 text-[#15803D]" />
           </div>
-          <h2 class="text-xl font-bold text-ink mb-2">تم قبول الاقتراح</h2>
+          <h2 class="text-xl font-bold text-ink mb-2">تم قبول العرض</h2>
           <p class="text-ink-soft text-sm leading-[1.7]">سأتواصل معك قريبًا للخطوة التالية.</p>
         </div>
         <div v-else class="bg-cream-deep rounded-3xl p-8 text-center">
           <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-black/[0.06] mb-4">
             <Icon name="lucide:x" class="w-6 h-6 text-ink-mute" />
           </div>
-          <h2 class="text-xl font-bold text-ink mb-2">تم رفض الاقتراح</h2>
+          <h2 class="text-xl font-bold text-ink mb-2">تم رفض العرض</h2>
           <p class="text-ink-soft text-sm leading-[1.7]">شكرًا لوقتك. أتمنى لك التوفيق.</p>
         </div>
       </div>
@@ -322,7 +322,7 @@ async function decline() {
 }
 
 useHead({
-  title: () => meta.value?.title ? `${meta.value.title} · اقتراح` : 'اقتراح',
+  title: () => meta.value?.title ? `${meta.value.title} · عرض` : 'عرض',
   meta: [{ name: 'robots', content: 'noindex, nofollow' }]
 })
 
@@ -330,43 +330,221 @@ onMounted(loadMeta)
 </script>
 
 <style>
-.proposal-prose h1, .proposal-prose h2, .proposal-prose h3, .proposal-prose h4 {
-  color: #000;
+.proposal-prose {
+  font-feature-settings: "tnum" 1, "ss01" 1;
+}
+
+/* H1 in the body is suppressed — the page header already shows the proposal title */
+.proposal-prose > h1:first-child { display: none; }
+.proposal-prose h1 {
+  font-size: 1.75rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  color: #000;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin: 2rem 0 1rem;
+}
+
+/* Section heading — hairline + chapter breathing room */
+.proposal-prose h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.03em;
   line-height: 1.3;
-  margin-top: 2.5rem;
+  margin-top: 3.25rem;
+  padding-top: 1.75rem;
   margin-bottom: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
 }
-.proposal-prose h1 { font-size: 1.875rem; }
-.proposal-prose h2 { font-size: 1.5rem; }
-.proposal-prose h3 { font-size: 1.25rem; }
-.proposal-prose h4 { font-size: 1.125rem; }
-.proposal-prose p { margin-bottom: 1.25rem; }
+.proposal-prose > h2:first-child,
+.proposal-prose > hr + h2 {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.proposal-prose h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+  margin-bottom: 0.625rem;
+}
+.proposal-prose h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Body paragraph */
+.proposal-prose p {
+  margin-bottom: 1.15rem;
+  color: #424245;
+}
+
+/* Inline emphasis */
 .proposal-prose strong { color: #000; font-weight: 700; }
-.proposal-prose a { color: #15803D; text-decoration: underline; text-underline-offset: 3px; }
-.proposal-prose ul, .proposal-prose ol { margin: 1.25rem 0; padding-inline-start: 1.5rem; }
-.proposal-prose li { margin-bottom: 0.5rem; }
-.proposal-prose ul { list-style: disc; }
-.proposal-prose ol { list-style: decimal; }
-.proposal-prose blockquote {
-  border-inline-start: 3px solid #15803D;
-  padding: 0.5rem 1.25rem;
-  margin: 1.5rem 0;
-  background: #F5F5F7;
-  border-radius: 12px;
-  font-style: italic;
+.proposal-prose em { color: #000; font-style: italic; }
+
+/* Links */
+.proposal-prose a {
+  color: #15803D;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: opacity 0.15s;
 }
-.proposal-prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95em; }
+.proposal-prose a:hover { opacity: 0.7; }
+
+/* Blockquote = editorial info card (no italic, no left bar) */
+.proposal-prose blockquote {
+  background: #F5F5F7;
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  border: 0;
+  font-style: normal;
+  font-size: 0.9375rem;
+  color: #424245;
+  line-height: 1.85;
+}
+.proposal-prose blockquote p { margin: 0.25rem 0; }
+.proposal-prose blockquote p:first-child { margin-top: 0; }
+.proposal-prose blockquote p:last-child { margin-bottom: 0; }
+.proposal-prose blockquote strong { color: #000; font-weight: 600; }
+
+/* Unordered list — green dot bullets match site pill style */
+.proposal-prose ul {
+  list-style: none;
+  margin: 1.25rem 0;
+  padding-inline-start: 0;
+}
+.proposal-prose ul li {
+  position: relative;
+  padding-inline-start: 1.5rem;
+  margin-bottom: 0.625rem;
+  color: #424245;
+}
+.proposal-prose ul li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.375rem;
+  top: 0.75rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: #15803D;
+}
+
+/* Ordered list — tabular markers */
+.proposal-prose ol {
+  list-style: decimal;
+  margin: 1.25rem 0;
+  padding-inline-start: 1.75rem;
+}
+.proposal-prose ol li {
+  margin-bottom: 0.625rem;
+  color: #424245;
+  padding-inline-start: 0.375rem;
+}
+.proposal-prose ol li::marker {
+  color: #6E6E73;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Table = editorial card */
+.proposal-prose table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.75rem 0;
+  font-size: 0.9375rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #fff;
+}
 .proposal-prose thead { background: #F5F5F7; }
-.proposal-prose th, .proposal-prose td { padding: 0.75rem 1rem; border: 1px solid rgba(0,0,0,0.08); text-align: start; }
-.proposal-prose th { font-weight: 600; color: #000; }
-.proposal-prose hr { border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 2rem 0; }
+.proposal-prose thead th {
+  font-weight: 600;
+  color: #000;
+  text-align: start;
+  padding: 0.875rem 1.125rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.proposal-prose tbody td {
+  padding: 1rem 1.125rem;
+  color: #424245;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+  line-height: 1.65;
+}
+.proposal-prose tbody tr:last-child td { border-bottom: 0; }
+.proposal-prose tbody tr td:first-child {
+  color: #000;
+  font-weight: 500;
+  width: 38%;
+}
+.proposal-prose tbody td strong { color: #000; font-weight: 700; }
+
+/* HR = three-dot ornament */
+.proposal-prose hr {
+  border: 0;
+  margin: 2.75rem auto;
+  width: 60px;
+  height: 4px;
+  background-image:
+    radial-gradient(circle, #15803D 50%, transparent 55%),
+    radial-gradient(circle, rgba(0,0,0,0.18) 50%, transparent 55%),
+    radial-gradient(circle, rgba(0,0,0,0.18) 50%, transparent 55%);
+  background-size: 4px 4px;
+  background-repeat: no-repeat;
+  background-position: 50% 0, 0 0, 100% 0;
+  opacity: 0.8;
+}
+
+/* Inline code */
 .proposal-prose code {
   background: #F5F5F7;
   padding: 0.15rem 0.4rem;
-  border-radius: 6px;
-  font-size: 0.9em;
+  border-radius: 0.5rem;
+  font-size: 0.875em;
   font-family: ui-monospace, SFMono-Regular, monospace;
+  color: #000;
+}
+
+/* Code block */
+.proposal-prose pre {
+  background: #1D1D1F;
+  color: #F5F5F7;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.proposal-prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Mobile tightening */
+@media (max-width: 640px) {
+  .proposal-prose h2 { font-size: 1.375rem; margin-top: 2.5rem; padding-top: 1.5rem; }
+  .proposal-prose blockquote { padding: 1rem 1.125rem; border-radius: 1rem; }
+  .proposal-prose table { font-size: 0.875rem; }
+  .proposal-prose thead th { padding: 0.75rem 0.875rem; }
+  .proposal-prose tbody td { padding: 0.875rem; }
 }
 </style>

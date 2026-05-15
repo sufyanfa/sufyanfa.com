@@ -11,7 +11,7 @@
           <div class="flex-1 min-w-0">
             <NuxtLink to="/admin/proposals" class="inline-flex items-center gap-2 text-[13px] text-ink-mute hover:text-ink transition-colors mb-3">
               <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
-              الاقتراحات
+              العروض
             </NuxtLink>
             <div class="flex items-center gap-3 mb-2 flex-wrap">
               <AdminStatusBadge :status="data.proposal.status" />
@@ -113,7 +113,7 @@
               <AdminProposalField label="اسم العميل">
                 <input v-model="edit.client_name" class="input" />
               </AdminProposalField>
-              <AdminProposalField label="تاريخ الاقتراح">
+              <AdminProposalField label="تاريخ العرض">
                 <input v-model="edit.proposal_date" type="date" class="input" />
               </AdminProposalField>
             </div>
@@ -210,7 +210,7 @@ interface Response {
 }
 
 const { data, pending, error: fetchError, refresh } = await useFetch<Response>(`/api/admin/proposals/${id.value}`, { lazy: true })
-const error = computed(() => fetchError.value ? 'تعذّر تحميل الاقتراح' : '')
+const error = computed(() => fetchError.value ? 'تعذّر تحميل العرض' : '')
 
 const editing = ref(false)
 const savingEdit = ref(false)
@@ -305,7 +305,7 @@ async function saveEdit() {
 
 async function confirmDelete() {
   if (!data.value) return
-  if (!confirm(`حذف الاقتراح "${data.value.proposal.title}"؟ هذا الإجراء لا يمكن التراجع عنه.`)) return
+  if (!confirm(`حذف العرض "${data.value.proposal.title}"؟ هذا الإجراء لا يمكن التراجع عنه.`)) return
   try {
     await $fetch(`/api/admin/proposals/${data.value.proposal.id}`, { method: 'DELETE' })
     await navigateTo('/admin/proposals')
@@ -313,7 +313,7 @@ async function confirmDelete() {
 }
 
 useHead({
-  title: () => data.value ? `${data.value.proposal.title} · لوحة التحكم` : 'اقتراح',
+  title: () => data.value ? `${data.value.proposal.title} · لوحة التحكم` : 'عرض',
   meta: [{ name: 'robots', content: 'noindex, nofollow' }]
 })
 </script>

@@ -1,0 +1,26 @@
+{
+  "name": "سفيان فارع — شريك تقني",
+  "short_name": "سفيان فارع",
+  "description": "شريك تقني لرواد الأعمال في السعودية. أبني منتجات رقمية واضحة الهدف بميزانية ووقت واقعيَّيْن.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/sufyan.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
