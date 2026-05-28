@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
-      ignore: ['/build/ai-agent-v1', '/admin', '/admin/**', '/p/**'],
+      ignore: ['/build/ai-agent-v1', '/admin', '/admin/**', '/p/**', '/i/**'],
       routes: [
         '/',
         '/about',

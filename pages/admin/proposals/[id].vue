@@ -31,6 +31,14 @@
               إرسال
             </button>
             <button
+              v-if="data.proposal.status !== 'draft'"
+              @click="waOpen = true"
+              class="inline-flex items-center gap-2 bg-white border border-[#25D366] text-[#15803D] hover:bg-[#25D366]/5 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors"
+            >
+              <Icon name="mdi:whatsapp" class="w-4 h-4 text-[#25D366]" />
+              إرسال واتساب
+            </button>
+            <button
               @click="editing = !editing"
               class="inline-flex items-center gap-2 bg-cream-deep hover:bg-black/[0.06] text-ink rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors"
             >
@@ -134,6 +142,14 @@
                 <input v-model="edit.cta_url" class="input" dir="ltr" />
               </AdminProposalField>
             </div>
+            <div class="grid grid-cols-2 gap-4">
+              <AdminProposalField label="السعر (ر.س. — اختياري)">
+                <input v-model="edit.priceSAR" type="number" step="0.01" min="0" class="input" dir="ltr" />
+              </AdminProposalField>
+              <AdminProposalField label="السعر بعد الخصم (ر.س. — اختياري)">
+                <input v-model="edit.priceAfterDiscountSAR" type="number" step="0.01" min="0" class="input" dir="ltr" />
+              </AdminProposalField>
+            </div>
             <AdminProposalField label="المحتوى (Markdown)">
               <textarea
                 v-model="edit.content_md"
@@ -175,6 +191,17 @@
             </li>
           </ul>
         </section>
+
+        <!-- WhatsApp Send Modal -->
+        <AdminWhatsAppSendModal
+          v-model="waOpen"
+          :customer-name="data.proposal.client_name"
+          ref-type="proposal"
+          :ref-id="data.proposal.id"
+          :offer-title="data.proposal.title"
+          :link="publicUrl"
+          initial-template-type="offer_new"
+        />
       </div>
     </div>
   </div>
@@ -202,6 +229,8 @@ interface Response {
     accepted_at: number | null
     declined_at: number | null
     decline_note: string | null
+    price: number | null
+    price_after_discount: number | null
     created_at: number
     updated_at: number
   }
@@ -219,6 +248,7 @@ const sending = ref(false)
 const copied = ref<string>('')
 const passwordRevealed = ref(false)
 const newPassword = ref('')
+const waOpen = ref(false)
 
 const edit = reactive({
   title: '',
@@ -229,7 +259,9 @@ const edit = reactive({
   expiresDate: '',
   cta_label: '',
   cta_url: '',
-  content_md: ''
+  content_md: '',
+  priceSAR: '' as string,
+  priceAfterDiscountSAR: '' as string
 })
 
 watch(data, (d) => {
@@ -243,6 +275,10 @@ watch(data, (d) => {
   edit.cta_url = p.cta_url || ''
   edit.content_md = p.content_md
   edit.expiresDate = p.expires_at ? new Date(p.expires_at).toISOString().slice(0, 10) : ''
+  edit.priceSAR = p.price !== null && p.price !== undefined ? (p.price / 100).toFixed(2) : ''
+  edit.priceAfterDiscountSAR = p.price_after_discount !== null && p.price_after_discount !== undefined
+    ? (p.price_after_discount / 100).toFixed(2)
+    : ''
 }, { immediate: true })
 
 const publicUrl = computed(() => {
@@ -277,6 +313,12 @@ async function saveEdit() {
   editError.value = ''
   savingEdit.value = true
   try {
+    const toHalalas = (s: string): number | null => {
+      if (s === '' || s === null || s === undefined) return null
+      const n = Number(s)
+      if (!Number.isFinite(n)) return null
+      return Math.round(n * 100)
+    }
     const body: Record<string, unknown> = {
       title: edit.title,
       client_name: edit.client_name,
@@ -285,7 +327,9 @@ async function saveEdit() {
       cta_label: edit.cta_label || null,
       cta_url: edit.cta_url || null,
       content_md: edit.content_md,
-      expires_at: edit.expiresDate ? new Date(edit.expiresDate).getTime() : null
+      expires_at: edit.expiresDate ? new Date(edit.expiresDate).getTime() : null,
+      price: toHalalas(edit.priceSAR),
+      price_after_discount: toHalalas(edit.priceAfterDiscountSAR)
     }
     if (edit.password) {
       body.password = edit.password
