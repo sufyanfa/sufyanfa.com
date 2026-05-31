@@ -11,9 +11,11 @@ interface PatchBody {
   cta_label?: string | null
   cta_url?: string | null
   expires_at?: number | null
+  price?: number | null
+  price_after_discount?: number | null
 }
 
-const ALLOWED = ['title', 'client_name', 'client_label', 'proposal_date', 'content_md', 'cta_label', 'cta_url', 'expires_at'] as const
+const ALLOWED = ['title', 'client_name', 'client_label', 'proposal_date', 'content_md', 'cta_label', 'cta_url', 'expires_at', 'price', 'price_after_discount'] as const
 
 export default defineEventHandler(async (event) => {
   const id = parseInt(getRouterParam(event, 'id') ?? '', 10)

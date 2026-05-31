@@ -5,7 +5,8 @@ export default defineEventHandler(async (event) => {
   const { results } = await db
     .prepare(`
       SELECT p.id, p.slug, p.title, p.client_name, p.proposal_date, p.status,
-             p.expires_at, p.accepted_at, p.declined_at, p.created_at, p.updated_at,
+             p.expires_at, p.accepted_at, p.declined_at, p.price, p.price_after_discount,
+             p.created_at, p.updated_at,
              (SELECT COUNT(*) FROM proposal_views v WHERE v.proposal_id = p.id) AS views_count,
              (SELECT MAX(viewed_at) FROM proposal_views v WHERE v.proposal_id = p.id) AS last_viewed_at
       FROM proposals p

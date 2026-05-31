@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     .prepare(`
       SELECT id, slug, title, client_name, client_label, proposal_date, content_md,
              cta_label, cta_url, status, expires_at, accepted_at, declined_at, decline_note,
-             created_at, updated_at
+             price, price_after_discount, created_at, updated_at
       FROM proposals WHERE id = ?
     `)
     .bind(id)

@@ -59,6 +59,15 @@
             </AdminProposalField>
           </div>
 
+          <div class="grid grid-cols-2 gap-4">
+            <AdminProposalField label="السعر (ر.س. — اختياري)">
+              <input v-model="form.priceSAR" type="number" step="0.01" min="0" class="input" placeholder="0.00" dir="ltr" />
+            </AdminProposalField>
+            <AdminProposalField label="السعر بعد الخصم (ر.س. — اختياري)">
+              <input v-model="form.priceAfterDiscountSAR" type="number" step="0.01" min="0" class="input" placeholder="0.00" dir="ltr" />
+            </AdminProposalField>
+          </div>
+
           <AdminProposalField label="المحتوى (Markdown)">
             <textarea
               v-model="form.content_md"
@@ -127,7 +136,9 @@ const form = reactive({
   password: '',
   content_md: '',
   cta_label: '',
-  cta_url: ''
+  cta_url: '',
+  priceSAR: '' as string,
+  priceAfterDiscountSAR: '' as string
 })
 const expiresDate = ref('')
 
@@ -156,6 +167,12 @@ async function save() {
   saving.value = true
   try {
     const expires_at = expiresDate.value ? new Date(expiresDate.value).getTime() : null
+    const toHalalas = (s: string): number | null => {
+      if (s === '' || s === null || s === undefined) return null
+      const n = Number(s)
+      if (!Number.isFinite(n)) return null
+      return Math.round(n * 100)
+    }
     const res = await $fetch<{ ok: boolean; id: number }>('/api/admin/proposals', {
       method: 'POST',
       body: {
@@ -168,7 +185,9 @@ async function save() {
         content_md: form.content_md,
         cta_label: form.cta_label || undefined,
         cta_url: form.cta_url || undefined,
-        expires_at
+        expires_at,
+        price: toHalalas(form.priceSAR),
+        price_after_discount: toHalalas(form.priceAfterDiscountSAR)
       }
     })
     await navigateTo(`/admin/proposals/${res.id}`)

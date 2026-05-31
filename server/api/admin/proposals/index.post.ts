@@ -12,6 +12,8 @@ interface CreateBody {
   cta_label?: string
   cta_url?: string
   expires_at?: number | null
+  price?: number | null
+  price_after_discount?: number | null
 }
 
 function isValidSlug(s: string): boolean {
@@ -43,8 +45,8 @@ export default defineEventHandler(async (event) => {
     .prepare(`
       INSERT INTO proposals
       (slug, title, client_name, client_label, proposal_date, password_hash, content_md,
-       cta_label, cta_url, status, expires_at, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?, ?)
+       cta_label, cta_url, status, expires_at, price, price_after_discount, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?, ?, ?, ?)
     `)
     .bind(
       body.slug,
@@ -57,6 +59,8 @@ export default defineEventHandler(async (event) => {
       body.cta_label ?? null,
       body.cta_url ?? null,
       body.expires_at ?? null,
+      body.price ?? null,
+      body.price_after_discount ?? null,
       now,
       now
     )
