@@ -229,7 +229,12 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
         </NuxtLink>
         <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
           <div>
-            <h1 class="text-2xl font-bold text-ink">{{ board.project.name }}</h1>
+            <div class="flex items-center gap-3">
+              <h1 class="text-2xl font-bold text-ink">{{ board.project.name }}</h1>
+              <NuxtLink :to="`/admin/projects/${id}/edit`" class="text-[11px] text-ink-mute hover:text-ink border border-black/[0.06] rounded-full px-3 py-1 transition-colors">
+                تعديل
+              </NuxtLink>
+            </div>
             <p class="text-sm text-ink-soft mt-1">{{ board.customer?.name }}</p>
           </div>
           <div class="flex flex-col sm:items-end gap-2">
