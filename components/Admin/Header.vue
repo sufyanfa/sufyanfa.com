@@ -16,6 +16,14 @@
         </button>
       </div>
     </div>
+    <nav class="max-w-5xl mx-auto px-6 sm:px-8 flex items-center gap-1 text-[13px] pb-2">
+      <NuxtLink to="/admin/proposals" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">العروض</NuxtLink>
+      <NuxtLink to="/admin/invoices" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">الفواتير</NuxtLink>
+      <NuxtLink to="/admin/projects" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">المشاريع</NuxtLink>
+      <NuxtLink to="/admin/customers" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">العملاء</NuxtLink>
+      <NuxtLink to="/admin/whatsapp" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">واتساب</NuxtLink>
+      <NuxtLink to="/admin/settings" class="px-3 py-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-cream-deep transition-colors">الإعدادات</NuxtLink>
+    </nav>
   </header>
 </template>
 
