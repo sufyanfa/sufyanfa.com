@@ -231,7 +231,7 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
           <div>
             <div class="flex items-center gap-3">
               <h1 class="text-2xl font-bold text-ink">{{ board.project.name }}</h1>
-              <NuxtLink :to="`/admin/projects/${id}/edit`" class="text-[11px] text-ink-mute hover:text-ink border border-black/[0.06] rounded-full px-3 py-1 transition-colors">
+              <NuxtLink :to="`/admin/projects/edit/${id}`" class="text-[11px] text-ink-mute hover:text-ink border border-black/[0.06] rounded-full px-3 py-1 transition-colors">
                 تعديل
               </NuxtLink>
             </div>
