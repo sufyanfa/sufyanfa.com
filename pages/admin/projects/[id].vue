@@ -21,6 +21,14 @@ const editPersonName = ref<{ id: number; name: string } | null>(null)
 
 const listKeys = ['future', 'this_week', 'today', 'in_progress', 'done']
 
+const listLabels: Record<string, string> = {
+  future: 'مستقبلاً',
+  this_week: 'هذا الأسبوع',
+  today: 'اليوم',
+  in_progress: 'قيد العمل',
+  done: 'تم',
+}
+
 const listColors: Record<string, string> = {
   future: 'bg-gray-100',
   this_week: 'bg-blue-50',
@@ -35,6 +43,14 @@ const listHeaderColors: Record<string, string> = {
   today: 'text-amber-700 bg-amber-200/50',
   in_progress: 'text-purple-700 bg-purple-200/50',
   done: 'text-green-700 bg-green-200/50',
+}
+
+const listDotColors: Record<string, string> = {
+  future: 'bg-gray-400',
+  this_week: 'bg-blue-500',
+  today: 'bg-amber-500',
+  in_progress: 'bg-purple-500',
+  done: 'bg-green-500',
 }
 
 function getCards(listKey: string): any[] {
@@ -111,6 +127,21 @@ async function updatePersonName(cardId: number, person_name: string) {
     editPersonName.value = null
     await refresh()
   } catch {}
+  saving.value = false
+}
+
+const changingCard = ref<number | null>(null)
+
+async function moveCard(cardId: number, toList: string) {
+  saving.value = true
+  changingCard.value = cardId
+  try {
+    const cards = getCards(toList)
+    const position = cards.length
+    await $fetch(`/api/admin/cards/${cardId}`, { method: 'PUT', body: { list_key: toList, position } })
+    await refresh()
+  } catch {}
+  changingCard.value = null
   saving.value = false
 }
 
@@ -262,6 +293,18 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
                     <Icon name="lucide:user-plus" class="w-3 h-3" />
                     أضف شخص
                   </span>
+                </div>
+
+                <!-- Card Status Selector -->
+                <div class="mt-2">
+                  <select
+                    :value="card.list_key"
+                    @change="moveCard(card.id, ($event.target as HTMLSelectElement).value)"
+                    class="w-full text-[11px] border border-black/[0.06] rounded-lg px-2 py-1 bg-transparent outline-none cursor-pointer appearance-none"
+                    :disabled="changingCard === card.id"
+                  >
+                    <option v-for="k in listKeys" :key="k" :value="k" class="text-ink">{{ listLabels[k] }}</option>
+                  </select>
                 </div>
 
                 <!-- Checklist Summary -->
