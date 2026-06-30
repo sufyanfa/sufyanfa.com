@@ -227,12 +227,12 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
           <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
           المشاريع
         </NuxtLink>
-        <div class="flex items-start justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
           <div>
             <h1 class="text-2xl font-bold text-ink">{{ board.project.name }}</h1>
             <p class="text-sm text-ink-soft mt-1">{{ board.customer?.name }}</p>
           </div>
-          <div class="flex flex-col items-end gap-2">
+          <div class="flex flex-col sm:items-end gap-2">
             <a v-if="board.project.slug" :href="`/p/${board.project.slug}`" target="_blank" class="text-[12px] text-ink-mute hover:text-[#15803D] transition-colors underline underline-offset-2">
               /p/{{ board.project.slug }}
             </a>
