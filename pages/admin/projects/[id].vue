@@ -132,6 +132,19 @@ async function updatePersonName(cardId: number, person_name: string) {
 
 const changingCard = ref<number | null>(null)
 
+const progress = computed(() => {
+  let done = 0, total = 0
+  for (const key of listKeys) {
+    for (const card of getCards(key)) {
+      for (const item of card.checklist || []) {
+        total++
+        if (item.is_complete) done++
+      }
+    }
+  }
+  return total ? Math.round((done / total) * 100) : 0
+})
+
 async function moveCard(cardId: number, toList: string) {
   saving.value = true
   changingCard.value = cardId
@@ -219,10 +232,20 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
             <h1 class="text-2xl font-bold text-ink">{{ board.project.name }}</h1>
             <p class="text-sm text-ink-soft mt-1">{{ board.customer?.name }}</p>
           </div>
-          <div class="flex items-center gap-2 text-sm text-ink-mute">
-            <span v-if="board.project.start_date" class="text-[13px]">{{ board.project.start_date }}</span>
-            <span v-if="board.project.start_date && board.project.end_date">&rarr;</span>
-            <span v-if="board.project.end_date" class="text-[13px]">{{ board.project.end_date }}</span>
+          <div class="flex flex-col items-end gap-2">
+            <div class="flex items-center gap-2 text-sm text-ink-mute">
+              <span v-if="board.project.start_date" class="text-[13px]">{{ board.project.start_date }}</span>
+              <span v-if="board.project.start_date && board.project.end_date">&rarr;</span>
+              <span v-if="board.project.end_date" class="text-[13px]">{{ board.project.end_date }}</span>
+            </div>
+            <div class="w-32">
+              <div class="flex items-center justify-between text-[11px] text-ink-mute mb-1">
+                <span>{{ progress }}%</span>
+              </div>
+              <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div :style="{ width: `${progress}%` }" class="h-full bg-[#15803D] rounded-full transition-all duration-500"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

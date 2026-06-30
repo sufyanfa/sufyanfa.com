@@ -11,6 +11,7 @@ interface ProjectRow {
   created_at: number
   customer_id: number
   customer_name: string
+  progress: number
 }
 
 const { data, refresh } = await useFetch<{ projects: ProjectRow[] }>('/api/admin/projects')
@@ -86,9 +87,10 @@ useHead({ title: 'المشاريع · لوحة التحكم', meta: [{ name: 'ro
             <tr class="grid grid-cols-12 gap-4 px-6 py-4 text-[11px] font-semibold uppercase tracking-wide text-ink-mute border-b border-black/[0.06]">
               <th class="col-span-4 text-start font-semibold">المشروع</th>
               <th class="col-span-3 text-start font-semibold">العميل</th>
+              <th class="col-span-1 text-center font-semibold">الإنجاز</th>
               <th class="col-span-2 text-start font-semibold">تاريخ البداية</th>
               <th class="col-span-1 text-center font-semibold">الحالة</th>
-              <th class="col-span-2 text-end font-semibold"></th>
+              <th class="col-span-1 text-end font-semibold"></th>
             </tr>
           </thead>
           <tbody>
@@ -100,14 +102,22 @@ useHead({ title: 'المشاريع · لوحة التحكم', meta: [{ name: 'ro
               <td class="col-span-4">
                 <NuxtLink :to="`/admin/projects/${p.id}`" class="font-semibold text-ink hover:underline">{{ p.name }}</NuxtLink>
               </td>
-              <td class="col-span-3 text-ink-soft truncate">{{ p.customer_name }}</td>
+              <td class="col-span-2 text-ink-soft truncate">{{ p.customer_name }}</td>
+              <td class="col-span-2">
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div :style="{ width: `${p.progress}%` }" class="h-full bg-[#15803D] rounded-full transition-all"></div>
+                  </div>
+                  <span class="text-[11px] text-ink-mute tabular-nums">{{ p.progress }}%</span>
+                </div>
+              </td>
               <td class="col-span-2 text-ink-mute text-[13px]">{{ fmtDate(p.start_date) }}</td>
               <td class="col-span-1 text-center">
                 <span :class="['inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold border', statusColors[p.status] || 'bg-gray-50 text-gray-700 border-gray-100']">
                   {{ statusLabels[p.status] || p.status }}
                 </span>
               </td>
-              <td class="col-span-2 text-end">
+              <td class="col-span-1 text-end">
                 <button @click="remove(p.id)" :disabled="deleting === p.id" class="text-xs text-red-500 hover:underline">
                   حذف
                 </button>
