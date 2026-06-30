@@ -1,10 +1,11 @@
 import { useDB } from '~/server/utils/db'
-import { randomSlug } from '~/server/utils/slug'
+import { uniqueSlug, nameSlug } from '~/server/utils/slug'
 import { hashPassword } from '~/server/utils/auth'
 
 interface ProjectInput {
   name: string
   customer_id: number
+  slug?: string
   password?: string
   start_date?: string
   end_date?: string
@@ -17,7 +18,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'الاسم والعميل مطلوبان' })
   }
   const db = useDB(event)
-  const slug = randomSlug()
+  const slug = body.slug?.trim()
+    ? nameSlug(body.slug)
+    : await uniqueSlug(body.name, db)
+  if (!slug) throw createError({ statusCode: 400, statusMessage: 'رابط المشروع غير صالح' })
   const password_hash = body.password ? await hashPassword(body.password) : ''
   const now = Date.now()
 

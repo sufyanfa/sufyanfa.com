@@ -5,11 +5,31 @@ const saving = ref(false)
 const error = ref<string | null>(null)
 
 const name = ref('')
+const slug = ref('')
 const customer_id = ref<number | null>(null)
 const password = ref('')
 const start_date = ref('')
 const end_date = ref('')
 const notes = ref('')
+
+const slugDirty = ref(false)
+
+function slugify(text: string) {
+  return text
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-\u0600-\u06FF]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase()
+    .slice(0, 120)
+}
+
+watch(name, (v) => {
+  if (!slugDirty.value) {
+    slug.value = slugify(v)
+  }
+})
 
 async function submit() {
   if (!name.value.trim() || !customer_id.value) {
@@ -23,6 +43,7 @@ async function submit() {
       method: 'POST',
       body: {
         name: name.value.trim(),
+        slug: slug.value || undefined,
         customer_id: customer_id.value,
         password: password.value || undefined,
         start_date: start_date.value || undefined,
@@ -52,6 +73,15 @@ useHead({ title: 'مشروع جديد · لوحة التحكم', meta: [{ name: 
       <div>
         <label class="text-sm font-semibold block mb-1.5">اسم المشروع</label>
         <input v-model="name" type="text" class="w-full border border-black/10 rounded-xl px-4 py-2.5 text-sm" />
+      </div>
+
+      <div>
+        <label class="text-sm font-semibold block mb-1.5">رابط المشروع (slug)</label>
+        <div class="flex items-center gap-2 rounded-xl border border-black/10 px-4 py-2.5 text-sm bg-white dir-ltr">
+          <span class="text-ink-soft shrink-0 text-[13px]">sufyanfa.com/p/</span>
+          <input v-model="slug" type="text" class="flex-1 border-0 outline-none p-0 bg-transparent" dir="ltr" @input="slugDirty = true" />
+        </div>
+        <p class="text-xs text-ink-mute mt-1">يسمح بالأحرف العربية واللاتينية والأرقام والشرطات فقط. الرابط اللي العميل يستخدمه.</p>
       </div>
 
       <div>

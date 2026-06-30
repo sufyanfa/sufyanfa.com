@@ -1,5 +1,6 @@
 import { useDB } from '~/server/utils/db'
 import { hashPassword } from '~/server/utils/auth'
+import { nameSlug } from '~/server/utils/slug'
 
 export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
@@ -9,7 +10,7 @@ export default defineEventHandler(async (event) => {
   if (!body) throw createError({ statusCode: 400, statusMessage: 'Body required' })
 
   const db = useDB(event)
-  const project = await db.prepare('SELECT id FROM projects WHERE id = ?').bind(id).first()
+  const project = await db.prepare('SELECT id, slug FROM projects WHERE id = ?').bind(id).first()
   if (!project) throw createError({ statusCode: 404, statusMessage: 'المشروع غير موجود' })
 
   const updates: string[] = []
@@ -24,6 +25,13 @@ export default defineEventHandler(async (event) => {
   if (body.password) {
     const password_hash = await hashPassword(body.password)
     updates.push('password_hash = ?'); values.push(password_hash)
+  }
+  if (body.slug !== undefined) {
+    const newSlug = nameSlug(body.slug)
+    if (!newSlug) throw createError({ statusCode: 400, statusMessage: 'الرابط غير صالح' })
+    const dup = await db.prepare('SELECT id FROM projects WHERE slug = ? AND id != ?').bind(newSlug, id).first()
+    if (dup) throw createError({ statusCode: 409, statusMessage: 'الرابط مستخدم مسبقاً' })
+    updates.push('slug = ?'); values.push(newSlug)
   }
   updates.push('updated_at = ?'); values.push(Date.now())
   values.push(id)
