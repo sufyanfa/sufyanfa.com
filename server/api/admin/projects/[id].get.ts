@@ -53,5 +53,10 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  return { project, customer, lists }
+  const { results: resources } = await db
+    .prepare('SELECT * FROM project_resources WHERE project_id = ? ORDER BY created_at DESC')
+    .bind(id)
+    .all() as any
+
+  return { project, customer, lists, resources }
 })

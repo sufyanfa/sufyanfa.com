@@ -19,6 +19,13 @@ const saving = ref(false)
 const editCardTitle = ref<{ id: number; title: string } | null>(null)
 const editPersonName = ref<{ id: number; name: string } | null>(null)
 
+const tab = ref<'board' | 'resources'>('board')
+const newResourceName = ref('')
+const newResourceUrl = ref('')
+const newResourceDesc = ref('')
+const editingResource = ref<number | null>(null)
+const resourceErrors = ref<string | null>(null)
+
 const listKeys = ['future', 'this_week', 'today', 'in_progress', 'done']
 
 const listLabels: Record<string, string> = {
@@ -214,6 +221,43 @@ async function updateChecklistTitle(item: any) {
   saving.value = false
 }
 
+/* -------- resources -------- */
+async function addResource() {
+  if (!newResourceName.value.trim() || !newResourceUrl.value.trim()) {
+    resourceErrors.value = 'الاسم والرابط مطلوبان'
+    return
+  }
+  saving.value = true; resourceErrors.value = null
+  try {
+    await $fetch('/api/admin/resources', {
+      method: 'POST',
+      body: { project_id: Number(id), name: newResourceName.value.trim(), url: newResourceUrl.value.trim(), description: newResourceDesc.value.trim() || undefined }
+    })
+    newResourceName.value = ''; newResourceUrl.value = ''; newResourceDesc.value = ''
+    await refresh()
+  } catch { resourceErrors.value = 'فشل الإضافة' }
+  saving.value = false
+}
+
+async function updateResource(r: any) {
+  saving.value = true
+  try {
+    await $fetch(`/api/admin/resources/${r.id}`, { method: 'PUT', body: { name: r.name, url: r.url, description: r.description } })
+    await refresh()
+  } catch {}
+  editingResource.value = null; saving.value = false
+}
+
+async function deleteResource(id: number) {
+  if (!confirm('حذف المورد؟')) return
+  saving.value = true
+  try {
+    await $fetch(`/api/admin/resources/${id}`, { method: 'DELETE' })
+    await refresh()
+  } catch {}
+  saving.value = false
+}
+
 useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوحة التحكم`, meta: [{ name: 'robots', content: 'noindex, nofollow' }] })
 </script>
 
@@ -258,8 +302,19 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
         </div>
       </div>
 
+      <!-- Tabs -->
+      <div class="max-w-5xl mx-auto mb-4 flex gap-1 border-b border-black/[0.06]">
+        <button @click="tab = 'board'" :class="['px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-[1px]', tab === 'board' ? 'border-[#15803D] text-ink' : 'border-transparent text-ink-mute hover:text-ink']">
+          البورد
+        </button>
+        <button @click="tab = 'resources'" :class="['px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-[1px]', tab === 'resources' ? 'border-[#15803D] text-ink' : 'border-transparent text-ink-mute hover:text-ink']">
+          الموارد
+          <span v-if="board.resources?.length" class="mr-1 text-xs font-normal opacity-60">{{ board.resources.length }}</span>
+        </button>
+      </div>
+
       <!-- Kanban Board -->
-      <div class="flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
+      <div v-if="tab === 'board'" class="flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
         <div v-for="listKey in listKeys" :key="listKey" class="flex-shrink-0 w-72">
           <div :class="['rounded-2xl overflow-hidden', listColors[listKey]]">
             <!-- Column Header -->
@@ -411,6 +466,61 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
                 <Icon name="lucide:plus" class="w-4 h-4" />
                 أضف بطاقة
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources Tab -->
+      <div v-if="tab === 'resources'" class="max-w-5xl mx-auto">
+        <div v-if="resourceErrors" class="text-red-600 text-sm mb-3">{{ resourceErrors }}</div>
+
+        <!-- Add Resource -->
+        <div class="bg-cream-deep rounded-2xl p-4 mb-4">
+          <div class="grid grid-cols-[1fr_1fr_80px] gap-3 items-end">
+            <div>
+              <label class="text-[11px] font-semibold text-ink-mute block mb-1">الاسم</label>
+              <input v-model="newResourceName" type="text" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm" placeholder="مثلاً: شاشة التصميم" />
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-ink-mute block mb-1">الرابط</label>
+              <input v-model="newResourceUrl" type="url" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm" placeholder="https://..." dir="ltr" />
+            </div>
+            <button @click="addResource" :disabled="saving" class="bg-ink text-white rounded-xl px-3 py-2 text-sm font-semibold whitespace-nowrap">
+              إضافة
+            </button>
+          </div>
+          <input v-model="newResourceDesc" type="text" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm mt-3" placeholder="وصف (اختياري)" />
+        </div>
+
+        <!-- Resources List -->
+        <div v-if="!board.resources?.length" class="text-center text-sm text-ink-mute py-8">
+          لا توجد موارد بعد. أضف أول رابط (فigma، Google Drive، Notion، إلخ).
+        </div>
+        <div v-else class="space-y-2">
+          <div v-for="r in board.resources" :key="r.id" class="bg-cream-deep rounded-2xl p-4">
+            <div v-if="editingResource === r.id" class="space-y-2">
+              <input v-model="r.name" type="text" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm" placeholder="الاسم" />
+              <input v-model="r.url" type="url" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm" placeholder="https://..." dir="ltr" />
+              <input v-model="r.description" type="text" class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm" placeholder="وصف" />
+              <div class="flex gap-2">
+                <button @click="updateResource(r)" :disabled="saving" class="bg-[#15803D] text-white rounded-xl px-4 py-1.5 text-xs font-semibold">حفظ</button>
+                <button @click="editingResource = null" class="border border-black/10 rounded-xl px-4 py-1.5 text-xs font-semibold">إلغاء</button>
+              </div>
+            </div>
+            <div v-else>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0 flex-1">
+                  <a :href="r.url" target="_blank" class="font-semibold text-ink hover:text-[#15803D] transition-colors underline underline-offset-2 text-sm">
+                    {{ r.name }}
+                  </a>
+                  <p v-if="r.description" class="text-xs text-ink-mute mt-0.5">{{ r.description }}</p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <button @click="editingResource = r.id" class="text-ink-mute hover:text-ink transition-colors text-xs">تعديل</button>
+                  <button @click="deleteResource(r.id)" class="text-red-500 hover:text-red-600 transition-colors text-xs">حذف</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
