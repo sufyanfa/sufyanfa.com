@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB(event)
   const project = await db
-    .prepare('SELECT id, name, password_hash, status, start_date, end_date FROM projects WHERE slug = ?')
+    .prepare('SELECT id, name, customer_id, password_hash, status, start_date, end_date FROM projects WHERE slug = ?')
     .bind(slug)
     .first<any>()
 
