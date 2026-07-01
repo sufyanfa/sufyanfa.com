@@ -14,6 +14,7 @@ const password = ref('')
 const unlockError = ref('')
 const submitting = ref(false)
 
+const tab = ref<'board' | 'resources'>('board')
 const listKeys = ['future', 'this_week', 'today', 'in_progress', 'done']
 
 const listLabels: Record<string, string> = {
@@ -157,7 +158,7 @@ onMounted(loadMeta)
     <div v-else-if="status === 'unlocked' && board" class="min-h-screen bg-white">
       <div class="px-6 sm:px-8 py-6">
         <div class="max-w-5xl mx-auto mb-6">
-          <div class="flex items-start justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
             <div>
               <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
@@ -174,7 +175,18 @@ onMounted(loadMeta)
           </div>
         </div>
 
-        <div class="flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
+        <!-- Tabs -->
+        <div class="max-w-5xl mx-auto mb-4 flex gap-1 border-b border-black/[0.06]">
+          <button @click="tab = 'board'" :class="['px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-[1px]', tab === 'board' ? 'border-[#15803D] text-ink' : 'border-transparent text-ink-mute hover:text-ink']">
+            البورد
+          </button>
+          <button @click="tab = 'resources'" :class="['px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-[1px]', tab === 'resources' ? 'border-[#15803D] text-ink' : 'border-transparent text-ink-mute hover:text-ink']">
+            الموارد
+            <span v-if="board.resources?.length" class="mr-1 text-xs font-normal opacity-60">{{ board.resources.length }}</span>
+          </button>
+        </div>
+
+        <div v-if="tab === 'board'" class="flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
           <div v-for="listKey in listKeys" :key="listKey" class="flex-shrink-0 w-72">
             <div :class="['rounded-2xl overflow-hidden', listColors[listKey]]">
               <div :class="['px-4 py-3 text-sm font-bold', listHeaderColors[listKey]]">
@@ -211,6 +223,26 @@ onMounted(loadMeta)
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Public Resources -->
+        <div v-if="tab === 'resources'" class="max-w-5xl mx-auto">
+          <div v-if="!board.resources?.length" class="text-center text-sm text-ink-mute py-8">
+            لا توجد موارد.
+          </div>
+          <div v-else class="grid gap-3 sm:grid-cols-2">
+            <a
+              v-for="r in board.resources"
+              :key="r.id"
+              :href="r.url"
+              target="_blank"
+              class="bg-cream-deep rounded-2xl p-4 hover:shadow-sm transition-shadow block"
+            >
+              <div class="font-semibold text-ink text-sm underline underline-offset-2 decoration-[#15803D]/30">{{ r.name }}</div>
+              <div v-if="r.description" class="text-xs text-ink-mute mt-1">{{ r.description }}</div>
+              <div class="text-[11px] text-ink-mute/50 mt-1.5 truncate dir-ltr">{{ r.url }}</div>
+            </a>
           </div>
         </div>
 
