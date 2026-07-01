@@ -186,7 +186,7 @@ onMounted(loadMeta)
           </button>
         </div>
 
-        <div v-if="tab === 'board'" class="flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
+        <div v-if="tab === 'board'" class="max-w-5xl mx-auto flex gap-4 overflow-x-auto pb-4" style="min-height: 60vh;">
           <div v-for="listKey in listKeys" :key="listKey" class="flex-shrink-0 w-72">
             <div :class="['rounded-2xl overflow-hidden', listColors[listKey]]">
               <div :class="['px-4 py-3 text-sm font-bold', listHeaderColors[listKey]]">
