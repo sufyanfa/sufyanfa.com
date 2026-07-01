@@ -78,7 +78,7 @@ useHead({ title: 'مشروع جديد · لوحة التحكم', meta: [{ name: 
       <div>
         <label class="text-sm font-semibold block mb-1.5">رابط المشروع (slug)</label>
         <div class="flex items-center gap-2 rounded-xl border border-black/10 px-4 py-2.5 text-sm bg-white dir-ltr">
-          <span class="text-ink-soft shrink-0 text-[13px]">sufyanfa.com/p/</span>
+          <span class="text-ink-soft shrink-0 text-[13px]">sufyanfa.com/project/</span>
           <input v-model="slug" type="text" class="flex-1 border-0 outline-none p-0 bg-transparent" dir="ltr" @input="slugDirty = true" />
         </div>
         <p class="text-xs text-ink-mute mt-1">يسمح بالأحرف العربية واللاتينية والأرقام والشرطات فقط. الرابط اللي العميل يستخدمه.</p>

@@ -282,8 +282,8 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
             <p class="text-sm text-ink-soft mt-1">{{ board.customer?.name }}</p>
           </div>
           <div class="flex flex-col sm:items-end gap-2">
-            <a v-if="board.project.slug" :href="`/p/${board.project.slug}`" target="_blank" class="text-[12px] text-ink-mute hover:text-[#15803D] transition-colors underline underline-offset-2">
-              /p/{{ board.project.slug }}
+            <a v-if="board.project.slug" :href="`/project/${board.project.slug}`" target="_blank" class="text-[12px] text-ink-mute hover:text-[#15803D] transition-colors underline underline-offset-2">
+              /project/{{ board.project.slug }}
             </a>
             <div class="flex items-center gap-2 text-sm text-ink-mute">
               <span v-if="board.project.start_date" class="text-[13px]">{{ board.project.start_date }}</span>
