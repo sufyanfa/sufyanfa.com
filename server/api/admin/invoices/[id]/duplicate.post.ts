@@ -9,6 +9,11 @@ function addDaysISO(iso: string, days: number): string {
   d.setUTCDate(d.getUTCDate() + days)
   return d.toISOString().slice(0, 10)
 }
+function diffDaysISO(a: string, b: string): number {
+  const ta = new Date(a + 'T00:00:00Z').getTime()
+  const tb = new Date(b + 'T00:00:00Z').getTime()
+  return Math.round((tb - ta) / 86400000)
+}
 
 export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
@@ -81,6 +86,26 @@ export default defineEventHandler(async (event) => {
     await db
       .prepare('INSERT INTO invoice_items (invoice_id, position, description, amount) VALUES (?, ?, ?, ?)')
       .bind(newId, it.position, it.description, it.amount)
+      .run()
+  }
+
+  // Clone installment plan, shifting each installment's due date by the same
+  // offset it had from the source invoice's due date.
+  const { results: installments } = await db
+    .prepare('SELECT position, label, percentage, amount, due_date FROM invoice_installments WHERE invoice_id = ? ORDER BY position ASC')
+    .bind(id)
+    .all<{ position: number; label: string; percentage: number | null; amount: number; due_date: string }>()
+  const now2 = Date.now()
+  for (const inst of installments) {
+    const offset = diffDaysISO(src.due_date, inst.due_date)
+    const newDue = addDaysISO(due, offset)
+    await db
+      .prepare(`
+        INSERT INTO invoice_installments
+          (invoice_id, position, label, percentage, amount, due_date, status, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, 'pending', ?, ?)
+      `)
+      .bind(newId, inst.position, inst.label, inst.percentage, inst.amount, newDue, now2, now2)
       .run()
   }
 

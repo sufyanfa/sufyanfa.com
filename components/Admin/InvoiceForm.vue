@@ -2,6 +2,7 @@
 import { useMoney } from '~/composables/useMoney'
 
 interface Item { description: string; amount: number }
+interface InstallmentRow { label: string; percentage: number; due_date: string }
 interface FormShape {
   customer_id: number | null
   issue_date: string
@@ -10,6 +11,7 @@ interface FormShape {
   adjustment: number
   adjustment_label: string
   notes: string
+  installments: InstallmentRow[]
 }
 
 const props = defineProps<{
@@ -18,6 +20,7 @@ const props = defineProps<{
   defaultNotes?: string
   submitLabels: { draft: string; sent: string }
   showSentButton?: boolean
+  locked?: boolean
 }>()
 const emit = defineEmits<{
   (e: 'submit', body: { status: 'draft' | 'sent'; data: FormShape }): void
@@ -45,11 +48,38 @@ const form = reactive<FormShape>({
   adjustment: props.initial?.adjustment ?? 0,
   adjustment_label: props.initial?.adjustment_label ?? '',
   notes: props.initial?.notes ?? props.defaultNotes ?? '',
+  installments: [],
 })
 
 const adjustmentOpen = ref((form.adjustment ?? 0) !== 0 || !!form.adjustment_label)
 const saving = ref(false)
 const error = ref<string | null>(null)
+
+const loadedInstallments = props.initial?.installments?.length ? props.initial.installments : null
+const splitOpen = ref(!!loadedInstallments && loadedInstallments.length > 1)
+const installmentRows = reactive<InstallmentRow[]>(
+  loadedInstallments
+    ? loadedInstallments.map(r => ({ label: r.label, percentage: r.percentage, due_date: r.due_date }))
+    : [
+        { label: 'دفعة مقدمة', percentage: 40, due_date: issueInit },
+        { label: 'الدفعة النهائية', percentage: 60, due_date: dueInit },
+      ],
+)
+
+function toggleSplit(on: boolean) {
+  splitOpen.value = on
+  if (!on) {
+    installmentRows.splice(0, installmentRows.length, { label: 'دفعة مقدمة', percentage: 40, due_date: issueInit })
+  }
+}
+function addInstallment() {
+  installmentRows.push({ label: '', percentage: 0, due_date: form.due_date })
+}
+function removeInstallment(i: number) {
+  installmentRows.splice(i, 1)
+}
+
+const installmentPercentTotal = computed(() => installmentRows.reduce((s, r) => s + (r.percentage || 0), 0))
 
 // Amounts edited as decimal SAR, stored as halalas.
 const itemViews = reactive(form.items.map(i => ({ description: i.description, sar: i.amount / 100 })))
@@ -71,6 +101,11 @@ function buildBody(): FormShape {
     adjustment: adjustmentOpen.value ? adjustmentHalalas.value : 0,
     adjustment_label: adjustmentOpen.value ? form.adjustment_label.trim() : '',
     notes: form.notes,
+    installments: props.locked
+      ? (undefined as any)
+      : splitOpen.value
+        ? installmentRows.map(r => ({ label: r.label.trim(), percentage: r.percentage, due_date: r.due_date }))
+        : [{ label: 'الدفعة الكاملة', percentage: 100, due_date: form.due_date }],
   }
 }
 
@@ -78,6 +113,13 @@ async function submit(status: 'draft' | 'sent') {
   if (!form.customer_id) { error.value = 'اختر عميلاً'; return }
   if (itemViews.length === 0) { error.value = 'أضف بنداً واحداً على الأقل'; return }
   if (form.due_date < form.issue_date) { error.value = 'تاريخ الاستحقاق قبل تاريخ الإصدار'; return }
+  if (!props.locked && splitOpen.value) {
+    if (installmentPercentTotal.value !== 100) { error.value = 'مجموع نسب الدفعات يجب أن يساوي 100%'; return }
+    for (const r of installmentRows) {
+      if (!r.label.trim()) { error.value = 'وصف كل دفعة مطلوب'; return }
+      if (r.due_date < form.issue_date) { error.value = 'تاريخ استحقاق الدفعة قبل تاريخ الإصدار'; return }
+    }
+  }
   saving.value = true
   error.value = null
   try {
@@ -115,6 +157,48 @@ async function submit(status: 'draft' | 'sent') {
         <button type="button" @click="removeItem(idx)" class="px-3 py-2 border border-black/10 rounded-lg text-red-600">×</button>
       </div>
       <button type="button" @click="addItem" class="text-sm text-forest underline">+ إضافة بند</button>
+    </section>
+
+    <section class="bg-white border border-black/10 rounded-2xl p-6 space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm font-semibold">خطة الدفع</h2>
+        <div v-if="locked" class="text-xs text-ink-mute">تم تسجيل دفعة — لا يمكن تعديل الخطة</div>
+      </div>
+
+      <div v-if="!locked" class="flex gap-2">
+        <button type="button" @click="toggleSplit(false)"
+          :class="['px-3 py-1.5 text-xs rounded-lg border', !splitOpen ? 'bg-ink text-white border-ink' : 'border-black/10']">
+          دفعة واحدة
+        </button>
+        <button type="button" @click="toggleSplit(true)"
+          :class="['px-3 py-1.5 text-xs rounded-lg border', splitOpen ? 'bg-ink text-white border-ink' : 'border-black/10']">
+          تقسيم لدفعات
+        </button>
+      </div>
+
+      <div v-if="splitOpen" class="space-y-3">
+        <div v-for="(row, idx) in installmentRows" :key="idx" class="flex gap-2 items-end">
+          <div class="flex-1">
+            <label class="block text-xs text-ink-mute mb-1">الوصف</label>
+            <input v-model="row.label" :disabled="locked" placeholder="مثلاً: دفعة مقدمة" class="w-full px-3 py-2 border border-black/10 rounded-lg disabled:bg-cream-deep" />
+          </div>
+          <div class="w-24">
+            <label class="block text-xs text-ink-mute mb-1">النسبة %</label>
+            <input v-model.number="row.percentage" :disabled="locked" type="number" min="0" max="100" class="w-full px-3 py-2 border border-black/10 rounded-lg text-left disabled:bg-cream-deep" dir="ltr" />
+          </div>
+          <div class="w-40">
+            <label class="block text-xs text-ink-mute mb-1">تاريخ الاستحقاق</label>
+            <input v-model="row.due_date" :disabled="locked" type="date" class="w-full px-3 py-2 border border-black/10 rounded-lg disabled:bg-cream-deep" />
+          </div>
+          <button v-if="!locked" type="button" @click="removeInstallment(idx)" class="px-3 py-2 border border-black/10 rounded-lg text-red-600">×</button>
+        </div>
+        <div class="flex items-center justify-between">
+          <button v-if="!locked" type="button" @click="addInstallment" class="text-sm text-forest underline">+ إضافة دفعة</button>
+          <div :class="['text-xs font-semibold', installmentPercentTotal === 100 ? 'text-ink-mute' : 'text-red-600']">
+            المتبقي: {{ 100 - installmentPercentTotal }}%
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="bg-white border border-black/10 rounded-2xl p-6">

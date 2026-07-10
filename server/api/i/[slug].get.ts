@@ -30,6 +30,11 @@ export default defineEventHandler(async (event) => {
     .bind(invoice.id)
     .all()
 
+  const { results: installments } = await db
+    .prepare('SELECT id, position, label, percentage, amount, due_date, status, paid_at FROM invoice_installments WHERE invoice_id = ? ORDER BY position ASC')
+    .bind(invoice.id)
+    .all()
+
   const settings = await db
     .prepare(`
       SELECT business_name, logo_url, email, phone, address,
@@ -39,5 +44,5 @@ export default defineEventHandler(async (event) => {
     .first()
 
   // Don't expose customer.notes or settings.default_notes/default_due_days.
-  return { invoice, customer, items, settings }
+  return { invoice, customer, items, installments, settings }
 })

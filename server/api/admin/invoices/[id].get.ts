@@ -21,5 +21,10 @@ export default defineEventHandler(async (event) => {
     .bind(id)
     .all()
 
-  return { invoice, customer, items }
+  const { results: installments } = await db
+    .prepare('SELECT id, position, label, percentage, amount, due_date, status, paid_at FROM invoice_installments WHERE invoice_id = ? ORDER BY position ASC')
+    .bind(id)
+    .all()
+
+  return { invoice, customer, items, installments }
 })

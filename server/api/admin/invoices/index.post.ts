@@ -1,5 +1,6 @@
 import { useDB } from '~/server/utils/db'
 import { randomSlug } from '~/server/utils/slug'
+import { buildInstallmentPlan, insertInstallments } from '~/server/utils/installments'
 
 interface ItemInput {
   description: string
@@ -15,6 +16,7 @@ interface CreateBody {
   adjustment_label?: string
   notes?: string
   status?: 'draft' | 'sent'  // defaults to 'draft'
+  installments?: import('~/server/utils/installments').InstallmentInput[]
 }
 
 function isISODate(s: string): boolean {
@@ -48,6 +50,9 @@ export default defineEventHandler(async (event) => {
   const status = body.status === 'sent' ? 'sent' : 'draft'
   const adjustment = Number.isFinite(body.adjustment) ? Math.trunc(body.adjustment as number) : 0
   const now = Date.now()
+
+  const invoiceTotal = body.items.reduce((s, it) => s + Math.trunc(it.amount), 0) + adjustment
+  const plan = buildInstallmentPlan(body.installments, invoiceTotal, body.issue_date, body.due_date)
 
   const db = useDB(event)
 
@@ -104,6 +109,8 @@ export default defineEventHandler(async (event) => {
           .bind(invoiceId, i, it.description.trim(), Math.trunc(it.amount))
           .run()
       }
+
+      await insertInstallments(db, invoiceId, plan)
 
       // Read back the assigned number + slug.
       const created = await db

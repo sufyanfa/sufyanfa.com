@@ -1,4 +1,5 @@
 import { useDB } from '~/server/utils/db'
+import { buildInstallmentPlan, replaceInstallments } from '~/server/utils/installments'
 
 interface ItemInput {
   description: string
@@ -13,6 +14,7 @@ interface UpdateBody {
   adjustment?: number
   adjustment_label?: string
   notes?: string
+  installments?: import('~/server/utils/installments').InstallmentInput[]
 }
 
 function isISODate(s: string): boolean {
@@ -79,6 +81,12 @@ export default defineEventHandler(async (event) => {
       .prepare('INSERT INTO invoice_items (invoice_id, position, description, amount) VALUES (?, ?, ?, ?)')
       .bind(id, i, it.description.trim(), Math.trunc(it.amount))
       .run()
+  }
+
+  if (body.installments) {
+    const invoiceTotal = body.items.reduce((s, it) => s + Math.trunc(it.amount), 0) + adjustment
+    const plan = buildInstallmentPlan(body.installments, invoiceTotal, body.issue_date, body.due_date)
+    await replaceInstallments(db, id, plan)
   }
 
   return { ok: true }

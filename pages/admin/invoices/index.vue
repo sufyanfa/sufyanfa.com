@@ -7,7 +7,7 @@ interface InvoiceRow {
   id: number
   slug: string
   number: string
-  status: 'draft' | 'sent' | 'paid'
+  status: 'draft' | 'sent' | 'partially_paid' | 'paid'
   issue_date: string
   due_date: string
   currency: string
@@ -15,6 +15,12 @@ interface InvoiceRow {
   customer_id: number
   customer_name: string
   subtotal: number
+  collected: number
+  has_overdue: boolean
+}
+interface Stats {
+  counts: { draft: number; sent: number; partially_paid: number; paid: number; overdue: number }
+  totals: { invoiced: number; collected: number; outstanding: number }
 }
 
 const route = useRoute()
@@ -24,45 +30,33 @@ const { formatSAR } = useMoney()
 const filter = computed(() => (route.query.status as string) || 'all')
 
 const queryParam = computed(() => filter.value === 'all' ? '' : `?status=${filter.value}`)
-const { data, refresh } = await useFetch<{ invoices: InvoiceRow[] }>(
+const { data, refresh } = await useFetch<{ invoices: InvoiceRow[]; stats: Stats }>(
   () => `/api/admin/invoices${queryParam.value}`,
 )
-
-const todayISO = new Date().toISOString().slice(0, 10)
 
 function setFilter(f: string) {
   router.push({ path: '/admin/invoices', query: f === 'all' ? {} : { status: f } })
 }
 
 function isOverdue(inv: InvoiceRow): boolean {
-  return inv.status === 'sent' && inv.due_date < todayISO
+  return (inv.status === 'sent' || inv.status === 'partially_paid') && inv.has_overdue
 }
 
 function badgeClass(inv: InvoiceRow): string {
   if (isOverdue(inv)) return 'bg-red-50 text-red-700 border-red-100'
   if (inv.status === 'paid') return 'bg-green-50 text-green-700 border-green-100'
+  if (inv.status === 'partially_paid') return 'bg-amber-50 text-amber-700 border-amber-100'
   if (inv.status === 'sent') return 'bg-blue-50 text-blue-700 border-blue-100'
   return 'bg-gray-50 text-gray-700 border-gray-100'
 }
 
 function badgeText(inv: InvoiceRow): string {
   if (isOverdue(inv)) return 'متأخرة'
-  if (inv.status === 'paid') return 'مدفوعة'
+  if (inv.status === 'paid') return 'مكتملة'
+  if (inv.status === 'partially_paid') return 'مدفوعة جزئياً'
   if (inv.status === 'sent') return 'مرسلة'
   return 'مسودة'
 }
-
-const totals = computed(() => {
-  let outstanding = 0, overdue = 0, overdueCount = 0
-  for (const inv of data.value?.invoices ?? []) {
-    const total = inv.subtotal + (inv.adjustment ?? 0)
-    if (inv.status === 'sent') {
-      outstanding += total
-      if (isOverdue(inv)) { overdue += total; overdueCount++ }
-    }
-  }
-  return { outstanding, overdue, overdueCount }
-})
 </script>
 
 <template>
@@ -90,16 +84,44 @@ const totals = computed(() => {
         </NuxtLink>
       </div>
 
+      <!-- Stats -->
+      <div v-if="data?.stats" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+        <div class="bg-cream-deep rounded-2xl p-4">
+          <div class="text-[11px] text-ink-mute font-semibold uppercase tracking-wide mb-1">مسودة</div>
+          <div class="text-xl font-bold text-ink">{{ data.stats.counts.draft }}</div>
+        </div>
+        <div class="bg-cream-deep rounded-2xl p-4">
+          <div class="text-[11px] text-ink-mute font-semibold uppercase tracking-wide mb-1">مرسلة</div>
+          <div class="text-xl font-bold text-ink">{{ data.stats.counts.sent }}</div>
+        </div>
+        <div class="bg-cream-deep rounded-2xl p-4">
+          <div class="text-[11px] text-ink-mute font-semibold uppercase tracking-wide mb-1">مدفوعة جزئياً</div>
+          <div class="text-xl font-bold text-ink">{{ data.stats.counts.partially_paid }}</div>
+        </div>
+        <div class="bg-cream-deep rounded-2xl p-4">
+          <div class="text-[11px] text-ink-mute font-semibold uppercase tracking-wide mb-1">مكتملة</div>
+          <div class="text-xl font-bold text-ink">{{ data.stats.counts.paid }}</div>
+        </div>
+        <div class="bg-red-50 rounded-2xl p-4">
+          <div class="text-[11px] text-red-700 font-semibold uppercase tracking-wide mb-1">متأخرة</div>
+          <div class="text-xl font-bold text-red-700">{{ data.stats.counts.overdue }}</div>
+        </div>
+        <div class="bg-cream-deep rounded-2xl p-4">
+          <div class="text-[11px] text-ink-mute font-semibold uppercase tracking-wide mb-1">المتبقي</div>
+          <div class="text-xl font-bold text-[#15803D]" dir="ltr">{{ formatSAR(data.stats.totals.outstanding) }}</div>
+        </div>
+      </div>
+
       <!-- Filters -->
       <div class="flex flex-wrap items-center gap-2 mb-6">
-        <button v-for="opt in ['all', 'draft', 'sent', 'paid']" :key="opt"
+        <button v-for="opt in ['all', 'draft', 'sent', 'partially_paid', 'paid']" :key="opt"
           @click="setFilter(opt)"
           :class="[
             'inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors',
             filter === opt ? 'bg-ink text-white' : 'bg-cream-deep text-ink-soft hover:bg-black/[0.06]'
           ]"
         >
-          {{ ({ all: 'الكل', draft: 'مسودة', sent: 'مرسلة', paid: 'مدفوعة' } as any)[opt] }}
+          {{ ({ all: 'الكل', draft: 'مسودة', sent: 'مرسلة', partially_paid: 'مدفوعة جزئياً', paid: 'مكتملة' } as any)[opt] }}
         </button>
       </div>
 
@@ -112,11 +134,11 @@ const totals = computed(() => {
           <thead>
             <tr class="grid grid-cols-12 gap-4 px-6 py-4 text-[11px] font-semibold uppercase tracking-wide text-ink-mute border-b border-black/[0.06]">
               <th class="col-span-2 text-start font-semibold">الرقم</th>
-              <th class="col-span-4 text-start font-semibold">العميل</th>
+              <th class="col-span-3 text-start font-semibold">العميل</th>
               <th class="col-span-2 text-start font-semibold">الإصدار</th>
               <th class="col-span-2 text-start font-semibold">الاستحقاق</th>
               <th class="col-span-1 text-center font-semibold">الحالة</th>
-              <th class="col-span-1 text-end font-semibold">الإجمالي</th>
+              <th class="col-span-2 text-end font-semibold">الإجمالي</th>
             </tr>
           </thead>
           <tbody>
@@ -124,7 +146,7 @@ const totals = computed(() => {
               <td class="col-span-2 font-mono text-ink font-semibold">
                 <NuxtLink :to="`/admin/invoices/${inv.id}`" class="hover:underline">{{ inv.number }}</NuxtLink>
               </td>
-              <td class="col-span-4 text-ink-soft font-semibold truncate">{{ inv.customer_name }}</td>
+              <td class="col-span-3 text-ink-soft font-semibold truncate">{{ inv.customer_name }}</td>
               <td class="col-span-2 text-ink-mute" dir="ltr">{{ inv.issue_date }}</td>
               <td class="col-span-2 text-ink-mute" dir="ltr">{{ inv.due_date }}</td>
               <td class="col-span-1 text-center">
@@ -132,7 +154,7 @@ const totals = computed(() => {
                   {{ badgeText(inv) }}
                 </span>
               </td>
-              <td class="col-span-1 text-end font-semibold text-ink" dir="ltr">{{ formatSAR(inv.subtotal + (inv.adjustment ?? 0)) }}</td>
+              <td class="col-span-2 text-end font-semibold text-ink" dir="ltr">{{ formatSAR(inv.subtotal + (inv.adjustment ?? 0)) }}</td>
             </tr>
           </tbody>
         </table>

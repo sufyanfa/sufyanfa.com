@@ -1,4 +1,5 @@
 import { useDB } from '~/server/utils/db'
+import { recomputeInvoiceStatus } from '~/server/utils/installments'
 
 export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
@@ -13,8 +14,9 @@ export default defineEventHandler(async (event) => {
 
   const now = Date.now()
   await db
-    .prepare(`UPDATE invoices SET status = 'paid', paid_at = COALESCE(paid_at, ?), updated_at = ? WHERE id = ?`)
+    .prepare(`UPDATE invoice_installments SET status = 'paid', paid_at = COALESCE(paid_at, ?), updated_at = ? WHERE invoice_id = ? AND status != 'paid'`)
     .bind(now, now, id)
     .run()
+  await recomputeInvoiceStatus(db, id)
   return { ok: true }
 })

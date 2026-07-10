@@ -9,7 +9,7 @@ const preview = route.query.preview === '1' ? '?preview=1' : ''
 
 interface Invoice {
   id: number; slug: string; number: string
-  status: 'draft' | 'sent' | 'paid'
+  status: 'draft' | 'sent' | 'partially_paid' | 'paid'
   issue_date: string; due_date: string
   currency: string
   adjustment: number
@@ -18,6 +18,10 @@ interface Invoice {
 }
 interface Customer { name: string; email: string | null; phone: string | null; company: string | null }
 interface ItemRow { id: number; position: number; description: string; amount: number }
+interface InstallmentRow {
+  id: number; position: number; label: string; percentage: number | null
+  amount: number; due_date: string; status: 'pending' | 'paid'; paid_at: number | null
+}
 interface Settings {
   business_name: string; logo_url: string | null
   email: string | null; phone: string | null; address: string | null
@@ -26,7 +30,7 @@ interface Settings {
 }
 
 const { data, error } = await useFetch<{
-  invoice: Invoice; customer: Customer; items: ItemRow[]; settings: Settings
+  invoice: Invoice; customer: Customer; items: ItemRow[]; installments: InstallmentRow[]; settings: Settings
 }>(`/api/i/${slug}${preview}`)
 
 if (error.value) {
@@ -42,6 +46,10 @@ const total = computed(() => subtotal.value + adjustment.value)
 const todayISO = new Date().toISOString().slice(0, 10)
 const isOverdue = computed(() => data.value?.invoice.status === 'sent' && data.value.invoice.due_date < todayISO)
 const isPaid = computed(() => data.value?.invoice.status === 'paid')
+
+function formatDate(ms: number): string {
+  return new Date(ms).toISOString().slice(0, 10)
+}
 
 useHead(() => ({
   title: data.value ? `${data.value.invoice.number} — فاتورة` : 'فاتورة',
@@ -119,6 +127,26 @@ function printIt() { window.print() }
           <div class="flex justify-between text-base font-bold pt-3 border-t-2 border-[#15803D]">
             <span>الإجمالي</span>
             <span dir="ltr">{{ formatSAR(total) }}</span>
+          </div>
+        </div>
+
+        <div v-if="data.installments.length > 1" class="mt-8 border-t border-black/10 pt-6">
+          <h3 class="text-xs uppercase tracking-wide text-gray-500 mb-3">خطة الدفع</h3>
+          <div class="space-y-2">
+            <div v-for="inst in data.installments" :key="inst.id" class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2">
+                <span :class="inst.status === 'paid' ? 'text-[#15803D]' : (inst.due_date < todayISO ? 'text-red-600' : 'text-gray-400')">
+                  {{ inst.status === 'paid' ? '✓' : '○' }}
+                </span>
+                <span>{{ inst.label }}<span v-if="inst.percentage" class="text-gray-500"> ({{ inst.percentage }}%)</span></span>
+              </div>
+              <div class="flex items-center gap-3" dir="ltr">
+                <span class="font-semibold">{{ formatSAR(inst.amount) }}</span>
+                <span :class="inst.status === 'paid' ? 'text-[#15803D]' : (inst.due_date < todayISO ? 'text-red-600' : 'text-gray-500')">
+                  {{ inst.status === 'paid' ? `دُفعت ${formatDate(inst.paid_at!)}` : `تستحق ${inst.due_date}` }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

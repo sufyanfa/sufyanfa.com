@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMoney } from '~/composables/useMoney'
+
 definePageMeta({ layout: 'bare', middleware: 'admin-auth' })
 
 const route = useRoute()
@@ -6,17 +8,27 @@ const id = route.params.id
 
 interface Invoice {
   id: number; slug: string; number: string
-  status: 'draft' | 'sent' | 'paid'
+  status: 'draft' | 'sent' | 'partially_paid' | 'paid'
   customer_id: number
   issue_date: string; due_date: string
   adjustment: number; adjustment_label: string | null
   notes: string | null
 }
 interface ItemRow { id: number; position: number; description: string; amount: number }
+interface Installment {
+  id: number; position: number; label: string; percentage: number | null
+  amount: number; due_date: string; status: 'pending' | 'paid'; paid_at: number | null
+}
 
-const { data, refresh } = await useFetch<{ invoice: Invoice; items: ItemRow[] }>(
+const { data, refresh } = await useFetch<{ invoice: Invoice; items: ItemRow[]; installments: Installment[]; customer: any }>(
   () => `/api/admin/invoices/${id}`,
 )
+
+const { formatSAR } = useMoney()
+
+const statusLabels: Record<string, string> = {
+  draft: 'مسودة', sent: 'مرسلة', partially_paid: 'مدفوعة جزئياً', paid: 'مكتملة',
+}
 
 const error = ref<string | null>(null)
 const busy = ref(false)
@@ -53,6 +65,14 @@ async function markPaid() {
   catch (e: any) { error.value = e?.data?.statusMessage || e?.message || 'حدث خطأ' }
   finally { busy.value = false }
 }
+const locked = computed(() => data.value?.installments?.some(i => i.status === 'paid') ?? false)
+
+async function markInstallmentPaid(iid: number) {
+  busy.value = true; error.value = null
+  try { await $fetch(`/api/admin/invoices/${id}/installments/${iid}/mark-paid`, { method: 'POST' }); await refresh() }
+  catch (e: any) { error.value = e?.data?.statusMessage || e?.message || 'حدث خطأ' }
+  finally { busy.value = false }
+}
 async function duplicate() {
   busy.value = true; error.value = null
   try {
@@ -83,6 +103,7 @@ const initial = computed(() => {
     adjustment: data.value.invoice.adjustment,
     adjustment_label: data.value.invoice.adjustment_label ?? '',
     notes: data.value.invoice.notes ?? '',
+    installments: data.value.installments.map(i => ({ label: i.label, percentage: i.percentage ?? 0, due_date: i.due_date })),
   }
 })
 </script>
@@ -94,12 +115,12 @@ const initial = computed(() => {
     <div class="flex items-center justify-between mb-6 gap-3 flex-wrap">
       <div>
         <h1 class="text-2xl font-bold font-mono">{{ data.invoice.number }}</h1>
-        <div class="text-sm text-gray-500 mt-1">الحالة: {{ data.invoice.status }}</div>
+        <div class="text-sm text-gray-500 mt-1">الحالة: {{ statusLabels[data.invoice.status] ?? data.invoice.status }}</div>
       </div>
       <div class="flex gap-2 flex-wrap">
         <button type="button" @click="duplicate" :disabled="busy" class="px-3 py-1.5 text-sm border border-black/10 rounded-lg">تكرار للشهر القادم</button>
         <button v-if="data.invoice.status === 'draft'" type="button" @click="markSent" :disabled="busy" class="px-3 py-1.5 text-sm bg-black text-white rounded-lg">وضع كمرسلة</button>
-        <button v-if="data.invoice.status === 'sent'" type="button" @click="markPaid" :disabled="busy" class="px-3 py-1.5 text-sm bg-[#15803D] text-white rounded-lg">وضع كمدفوعة</button>
+        <button v-if="data.invoice.status === 'sent' || data.invoice.status === 'partially_paid'" type="button" @click="markPaid" :disabled="busy" class="px-3 py-1.5 text-sm bg-[#15803D] text-white rounded-lg">تسجيل الكل كمدفوع</button>
         <button v-if="data.invoice.status !== 'draft'" type="button" @click="waOpen = true" class="px-3 py-1.5 text-sm border border-[#25D366] text-[#15803D] hover:bg-[#25D366]/5 rounded-lg flex items-center gap-1.5">
           <Icon name="mdi:whatsapp" class="w-4 h-4 text-[#25D366]" />
           تذكير واتساب
@@ -110,11 +131,23 @@ const initial = computed(() => {
       </div>
     </div>
 
+    <div v-if="data.installments.length > 1" class="mb-6 border border-black/10 rounded-xl divide-y divide-black/5">
+      <div v-for="inst in data.installments" :key="inst.id" class="flex items-center justify-between px-4 py-3 text-sm">
+        <div>
+          <div class="font-semibold">{{ inst.label }}<span v-if="inst.percentage" class="text-gray-500 font-normal"> ({{ inst.percentage }}%)</span></div>
+          <div class="text-gray-500" dir="ltr">{{ formatSAR(inst.amount) }} — {{ inst.status === 'paid' ? `دُفعت` : `تستحق ${inst.due_date}` }}</div>
+        </div>
+        <button v-if="inst.status === 'pending'" type="button" @click="markInstallmentPaid(inst.id)" :disabled="busy" class="px-3 py-1.5 text-xs bg-[#15803D] text-white rounded-lg">تسجيل كمدفوعة</button>
+        <span v-else class="text-xs text-[#15803D] font-semibold">✓ مدفوعة</span>
+      </div>
+    </div>
+
     <div v-if="error" class="text-red-600 text-sm mb-3">{{ error }}</div>
 
     <AdminInvoiceForm
       v-if="initial"
       :initial="initial"
+      :locked="locked"
       :submit-labels="{ draft: 'حفظ التغييرات', sent: 'حفظ ووضع كمرسلة' }"
       :show-sent-button="data.invoice.status === 'draft'"
       @submit="onSubmit"
