@@ -21,13 +21,26 @@ function todayISO(): string {
 }
 
 export default defineEventHandler(async (event) => {
-  const status = getQuery(event).status as string | undefined
+  const query = getQuery(event)
+  const status = query.status as string | undefined
+  const dateField = query.dateField === 'due_date' ? 'due_date' : 'issue_date'
+  const monthRaw = query.month as string | undefined
+  const month = monthRaw && /^\d{4}-\d{2}$/.test(monthRaw) ? monthRaw : undefined
+
   const db = useDB(event)
   const today = todayISO()
 
-  const where = status && ['draft', 'sent', 'partially_paid', 'paid'].includes(status)
-    ? 'WHERE i.status = ?'
-    : ''
+  const listConditions: string[] = []
+  const listParams: unknown[] = [today]
+  if (status && ['draft', 'sent', 'partially_paid', 'paid'].includes(status)) {
+    listConditions.push('i.status = ?')
+    listParams.push(status)
+  }
+  if (month) {
+    listConditions.push(`strftime('%Y-%m', i.${dateField}) = ?`)
+    listParams.push(month)
+  }
+  const listWhere = listConditions.length ? `WHERE ${listConditions.join(' AND ')}` : ''
 
   const listStmt = db.prepare(`
     SELECT i.id, i.slug, i.number, i.status, i.issue_date, i.due_date,
@@ -41,12 +54,16 @@ export default defineEventHandler(async (event) => {
            ) AS has_overdue
     FROM invoices i
     JOIN customers c ON c.id = i.customer_id
-    ${where}
+    ${listWhere}
     ORDER BY i.created_at DESC
   `)
-  const boundList = where ? listStmt.bind(today, status) : listStmt.bind(today)
-  const { results } = await boundList.all<ListRow>()
+  const { results } = await listStmt.bind(...listParams).all<ListRow>()
   const invoices = results.map(r => ({ ...r, has_overdue: !!r.has_overdue }))
+
+  // Stats scope to the month filter (a monthly report when a month is picked)
+  // but never to the status filter, since they break down counts BY status.
+  const statsWhere = month ? `WHERE strftime('%Y-%m', i.${dateField}) = ?` : ''
+  const statsParams = month ? [today, month] : [today]
 
   const statsStmt = db.prepare(`
     SELECT i.status,
@@ -57,8 +74,9 @@ export default defineEventHandler(async (event) => {
            COALESCE((SELECT SUM(amount) FROM invoice_items WHERE invoice_id = i.id), 0) + i.adjustment AS total,
            COALESCE((SELECT SUM(amount) FROM invoice_installments WHERE invoice_id = i.id AND status = 'paid'), 0) AS collected
     FROM invoices i
+    ${statsWhere}
   `)
-  const { results: statRows } = await statsStmt.bind(today).all<{
+  const { results: statRows } = await statsStmt.bind(...statsParams).all<{
     status: string; has_overdue: number; total: number; collected: number
   }>()
 

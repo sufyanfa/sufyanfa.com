@@ -28,14 +28,42 @@ const router = useRouter()
 const { formatSAR } = useMoney()
 
 const filter = computed(() => (route.query.status as string) || 'all')
+const month = computed(() => (route.query.month as string) || '')
+const dateField = computed(() => (route.query.dateField as string) === 'due_date' ? 'due_date' : 'issue_date')
 
-const queryParam = computed(() => filter.value === 'all' ? '' : `?status=${filter.value}`)
+const queryParam = computed(() => {
+  const params = new URLSearchParams()
+  if (filter.value !== 'all') params.set('status', filter.value)
+  if (month.value) {
+    params.set('month', month.value)
+    params.set('dateField', dateField.value)
+  }
+  const qs = params.toString()
+  return qs ? `?${qs}` : ''
+})
 const { data, refresh } = await useFetch<{ invoices: InvoiceRow[]; stats: Stats }>(
   () => `/api/admin/invoices${queryParam.value}`,
 )
 
+function currentQuery() {
+  return { ...(filter.value !== 'all' ? { status: filter.value } : {}), ...(month.value ? { month: month.value, dateField: dateField.value } : {}) }
+}
 function setFilter(f: string) {
-  router.push({ path: '/admin/invoices', query: f === 'all' ? {} : { status: f } })
+  const query = currentQuery()
+  if (f === 'all') delete (query as any).status
+  else (query as any).status = f
+  router.push({ path: '/admin/invoices', query })
+}
+function setMonth(m: string) {
+  const query = currentQuery()
+  if (!m) { delete (query as any).month; delete (query as any).dateField }
+  else { (query as any).month = m; (query as any).dateField = dateField.value }
+  router.push({ path: '/admin/invoices', query })
+}
+function setDateField(f: string) {
+  const query = currentQuery()
+  if (month.value) (query as any).dateField = f
+  router.push({ path: '/admin/invoices', query })
 }
 
 function isOverdue(inv: InvoiceRow): boolean {
@@ -122,6 +150,19 @@ function badgeText(inv: InvoiceRow): string {
           ]"
         >
           {{ ({ all: 'الكل', draft: 'مسودة', sent: 'مرسلة', partially_paid: 'مدفوعة جزئياً', paid: 'مكتملة' } as any)[opt] }}
+        </button>
+
+        <span class="w-px h-6 bg-black/10 mx-1"></span>
+
+        <select :value="dateField" @change="setDateField(($event.target as HTMLSelectElement).value)"
+          class="rounded-full bg-cream-deep text-ink-soft text-[13px] font-semibold px-3 py-2 border-0">
+          <option value="issue_date">تاريخ الإصدار</option>
+          <option value="due_date">تاريخ الاستحقاق</option>
+        </select>
+        <input type="month" :value="month" @change="setMonth(($event.target as HTMLInputElement).value)"
+          class="rounded-full bg-cream-deep text-ink-soft text-[13px] font-semibold px-3 py-2 border-0" dir="ltr" />
+        <button v-if="month" @click="setMonth('')" class="text-[13px] text-ink-mute hover:text-ink underline">
+          مسح الشهر
         </button>
       </div>
 
