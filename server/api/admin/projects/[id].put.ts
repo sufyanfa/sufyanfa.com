@@ -22,6 +22,10 @@ export default defineEventHandler(async (event) => {
   if (body.start_date !== undefined) { updates.push('start_date = ?'); values.push(body.start_date || null) }
   if (body.end_date !== undefined) { updates.push('end_date = ?'); values.push(body.end_date || null) }
   if (body.notes !== undefined) { updates.push('notes = ?'); values.push(body.notes || null) }
+  if (body.completion_md !== undefined) {
+    const trimmed = typeof body.completion_md === 'string' ? body.completion_md.trim() : ''
+    updates.push('completion_md = ?'); values.push(trimmed || null)
+  }
   if (body.password) {
     const password_hash = await hashPassword(body.password)
     updates.push('password_hash = ?'); values.push(password_hash)
