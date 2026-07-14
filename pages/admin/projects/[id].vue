@@ -19,12 +19,38 @@ const saving = ref(false)
 const editCardTitle = ref<{ id: number; title: string } | null>(null)
 const editPersonName = ref<{ id: number; name: string } | null>(null)
 
-const tab = ref<'board' | 'resources'>('board')
+const tab = ref<'board' | 'resources' | 'completion'>('board')
 const newResourceName = ref('')
 const newResourceUrl = ref('')
 const newResourceDesc = ref('')
 const editingResource = ref<number | null>(null)
 const resourceErrors = ref<string | null>(null)
+
+const completionMd = ref('')
+const savingCompletion = ref(false)
+const completionError = ref<string | null>(null)
+
+watch(board, (v) => { completionMd.value = v?.project?.completion_md ?? '' }, { immediate: true })
+
+const completionPublicUrl = computed(() => {
+  if (!board.value?.project?.slug) return ''
+  if (typeof window === 'undefined') return `/done/${board.value.project.slug}`
+  return `${window.location.origin}/done/${board.value.project.slug}`
+})
+
+async function saveCompletion() {
+  savingCompletion.value = true; completionError.value = null
+  try {
+    await $fetch(`/api/admin/projects/${id}`, { method: 'PUT', body: { completion_md: completionMd.value } })
+    await refresh()
+  } catch { completionError.value = 'فشل الحفظ' }
+  savingCompletion.value = false
+}
+
+async function copyCompletionLink() {
+  if (!completionPublicUrl.value) return
+  try { await navigator.clipboard.writeText(completionPublicUrl.value) } catch {}
+}
 
 const listKeys = ['future', 'this_week', 'today', 'in_progress', 'done']
 
@@ -311,6 +337,9 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
           الموارد
           <span v-if="board.resources?.length" class="mr-1 text-xs font-normal opacity-60">{{ board.resources.length }}</span>
         </button>
+        <button @click="tab = 'completion'" :class="['px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-[1px]', tab === 'completion' ? 'border-[#15803D] text-ink' : 'border-transparent text-ink-mute hover:text-ink']">
+          الإكمال
+        </button>
       </div>
 
       <!-- Kanban Board -->
@@ -523,6 +552,33 @@ useHead({ title: () => `${board.value?.project?.name || 'مشروع'} · لوح�
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Completion Tab -->
+      <div v-if="tab === 'completion'" class="max-w-5xl mx-auto">
+        <div v-if="completionError" class="text-red-600 text-sm mb-3">{{ completionError }}</div>
+
+        <textarea
+          v-model="completionMd"
+          rows="16"
+          class="w-full border border-black/10 rounded-2xl px-4 py-3 text-sm font-mono leading-relaxed outline-none focus:border-[#15803D]"
+          placeholder="# اكتمال المشروع — اسم المشروع&#10;&#10;نظرة عامة، التقنيات المستخدمة، الصفحات المكتملة، الميزات، نطاق التسليم، مدة الدعم..."
+        ></textarea>
+
+        <div class="flex items-center gap-3 mt-3">
+          <button @click="saveCompletion" :disabled="savingCompletion" class="bg-ink text-white rounded-xl px-4 py-2 text-sm font-semibold">
+            {{ savingCompletion ? 'جارٍ الحفظ...' : 'حفظ' }}
+          </button>
+        </div>
+
+        <div v-if="board.project.completion_md" class="mt-6 bg-cream-deep rounded-2xl p-4 flex items-center justify-between gap-3">
+          <a :href="`/done/${board.project.slug}`" target="_blank" class="text-sm text-ink-mute hover:text-[#15803D] transition-colors underline underline-offset-2 truncate" dir="ltr">
+            {{ completionPublicUrl }}
+          </a>
+          <button @click="copyCompletionLink" class="text-xs text-ink-mute hover:text-ink border border-black/[0.06] rounded-full px-3 py-1.5 transition-colors flex-shrink-0">
+            نسخ الرابط
+          </button>
         </div>
       </div>
     </div>
