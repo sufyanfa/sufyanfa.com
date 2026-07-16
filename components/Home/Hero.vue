@@ -82,7 +82,7 @@
                   class="flip-face absolute inset-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-cream-deep ring-1 ring-black/[0.04] shadow-[0_24px_56px_-16px_rgba(0,0,0,0.18)] [backface-visibility:hidden]"
                 >
                   <NuxtImg
-                    src="/sufyan.jpeg"
+                    src="/sufyan.png"
                     alt="سفيان فارع"
                     class="absolute inset-0 w-full h-full object-cover grayscale"
                     sizes="320px sm:400px lg:440px"

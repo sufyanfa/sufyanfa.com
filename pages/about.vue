@@ -21,7 +21,7 @@
         <article class="max-w-3xl prose-journey">
           <div class="flex items-start gap-5 sm:gap-6 mb-8">
             <NuxtImg
-              src="/sufyan.jpeg"
+              src="/sufyan.png"
               alt="سفيان فارع"
               class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover ring-1 ring-black/[0.04] shadow-[0_20px_50px_-20px_rgba(59,90,59,0.25)] flex-shrink-0"
               format="webp"

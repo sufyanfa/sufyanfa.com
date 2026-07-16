@@ -20,7 +20,7 @@ useHead({
   htmlAttrs: { lang: "ar", dir: "rtl" },
   link: [
     { rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
-    { rel: "apple-touch-icon", href: "/sufyan.jpeg" },
+    { rel: "apple-touch-icon", href: "/sufyan.png" },
     { rel: "manifest", href: "/site.webmanifest" },
     { rel: "preconnect", href: "https://cloud.umami.is" },
     { rel: "dns-prefetch", href: "https://cloud.umami.is" },
@@ -44,7 +44,7 @@ useHead({
             jobTitle: "شريك تقني لبناء منتجات رقمية",
             description: SITE_DESC,
             url: SITE_URL,
-            image: `${SITE_URL}/sufyan.jpeg`,
+            image: `${SITE_URL}/sufyan.png`,
             email: "mailto:hi@sufyanfa.com",
             address: {
               "@type": "PostalAddress",

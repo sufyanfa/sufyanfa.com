@@ -12,7 +12,7 @@
       class="w-[72px] h-[72px] sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-cream-deep ring-1 ring-black/[0.04] mb-7"
     >
       <NuxtImg
-        src="/sufyan.jpeg"
+        src="/sufyan.png"
         alt="سفيان فارع"
         class="w-full h-full object-cover"
         sizes="80px sm:96px"
