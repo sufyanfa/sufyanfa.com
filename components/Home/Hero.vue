@@ -54,7 +54,7 @@
         </div>
 
         <div class="order-1 lg:order-2 lg:col-span-5">
-          <div class="relative max-w-[260px] sm:max-w-[340px] lg:max-w-[420px] mx-auto lg:mx-0">
+          <div class="relative max-w-[220px] sm:max-w-[280px] lg:max-w-[340px] mx-auto lg:mx-0">
             <div
               class="absolute inset-0 rounded-3xl sm:rounded-[28px] bg-gradient-to-br from-[#DCFCE7] via-[#E5F7EA] to-[#F0FDF4] -rotate-2"
               aria-hidden="true"
