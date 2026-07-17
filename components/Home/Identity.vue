@@ -48,11 +48,11 @@
         class="inline-flex items-center gap-2 bg-ink hover:bg-ink/90 text-white rounded-full px-6 py-3 text-[14px] font-semibold transition-colors"
       >
         <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-        احجز جلسة مجانية ٣٠ دقيقة
+        احجز جلسة 30 دقيقة
       </NuxtLink>
 
       <a
-        href="mailto:hi@sufyanfa.com"
+        href="mailto:sfmu1998@gmail.com"
         class="text-[14px] font-medium text-ink hover:opacity-60 transition-opacity inline-flex items-center gap-1.5"
       >
         أو راسلني

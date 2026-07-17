@@ -25,8 +25,8 @@
 
           <p class="text-[15px] sm:text-[17px] text-ink-soft leading-[1.85] max-w-xl">
             عيّنة من المشاريع التي بنيتها مع
-            <strong class="font-semibold text-ink">جهات حكومية وجامعات وشركات ناشئة</strong>
-            — منتجات حيّة يستخدمها الناس.
+            <strong class="font-semibold text-ink">جهات حكومية وجامعات وشركات ناشئة</strong>:
+            منتجات حيّة يستخدمها الناس.
           </p>
         </div>
 

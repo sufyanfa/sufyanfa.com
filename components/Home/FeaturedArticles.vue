@@ -13,7 +13,7 @@
           <h2
             class="font-bold text-ink leading-[1.3] tracking-display text-[30px] sm:text-[40px] lg:text-[48px] mb-5"
           >
-            أكتب عمّا
+            أكتب ما
             <span class="relative inline-block">
               <span class="relative">أتعلّمه</span>
               <span

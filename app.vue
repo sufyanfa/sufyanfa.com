@@ -44,8 +44,8 @@ useHead({
             jobTitle: "شريك تقني لبناء منتجات رقمية",
             description: SITE_DESC,
             url: SITE_URL,
-            image: `${SITE_URL}/sufyan.png`,
-            email: "mailto:hi@sufyanfa.com",
+            image: `${SITE_URL}/preview.png`,
+            email: "mailto:sfmu1998@gmail.com",
             address: {
               "@type": "PostalAddress",
               addressCountry: "SA",
@@ -84,7 +84,7 @@ useHead({
             contactPoint: {
               "@type": "ContactPoint",
               contactType: "Sales",
-              email: "hi@sufyanfa.com",
+              email: "sfmu1998@gmail.com",
               url: "https://cal.com/sufyanfa/15min/",
               availableLanguage: ["Arabic", "English"],
             },

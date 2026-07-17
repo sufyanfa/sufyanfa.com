@@ -31,6 +31,35 @@
       </span>
     </div>
 
+    <div
+      v-else
+      class="relative aspect-[16/10] overflow-hidden flex items-center justify-center px-8"
+      :class="toneBg"
+    >
+      <span
+        class="w-1.5 h-1.5 rounded-full absolute top-4 right-4"
+        :class="toneDot"
+        aria-hidden="true"
+      ></span>
+      <span
+        class="select-none text-center font-extrabold text-ink/85 leading-tight tracking-tight text-2xl sm:text-3xl transition-transform duration-500 group-hover:scale-[1.04]"
+      >
+        {{ project.name }}
+      </span>
+      <span
+        v-if="project.status === 'live'"
+        class="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#15803D] inline-flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+      >
+        حيّ
+        <span class="relative flex w-1.5 h-1.5">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-[#15803D] opacity-60 animate-ping"
+          ></span>
+          <span class="relative inline-flex rounded-full w-1.5 h-1.5 bg-[#15803D]"></span>
+        </span>
+      </span>
+    </div>
+
     <div class="p-7 sm:p-8 flex flex-col flex-1">
       <header class="flex justify-between items-start mb-5">
         <div class="flex items-center gap-3">
@@ -44,13 +73,6 @@
             {{ project.role }} · {{ project.year }}
           </span>
         </div>
-        <span
-          v-if="!project.thumbnail && project.status === 'live'"
-          class="text-[11px] font-semibold text-[#15803D] inline-flex items-center gap-1.5"
-        >
-          حيّ
-          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-        </span>
       </header>
 
       <h3
@@ -88,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     project: {
       name: string;
@@ -107,4 +129,16 @@ withDefaults(
     index: 0,
   }
 );
+
+const toneBg = computed(() => {
+  if (props.project.tone === "lavender") {
+    return "bg-gradient-to-br from-[#EDE9FE] via-[#F1EEFB] to-cream-deep";
+  }
+  return "bg-gradient-to-br from-[#DCFCE7] via-[#E8F5EA] to-cream-deep";
+});
+
+const toneDot = computed(() => {
+  if (props.project.tone === "lavender") return "bg-[#7C3AED]";
+  return "bg-[#15803D]";
+});
 </script>

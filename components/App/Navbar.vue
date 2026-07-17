@@ -29,7 +29,7 @@
         external
         class="hidden sm:inline-flex items-center gap-2 bg-ink text-white rounded-full px-5 py-2 text-[13px] font-semibold hover:bg-ink/90 transition-colors"
       >
-        احجز جلسة مجانية
+        احجز جلسة
       </NuxtLink>
 
       <button
@@ -64,7 +64,7 @@
             class="block bg-ink text-white text-center rounded-full px-5 py-3 text-[14px] font-semibold"
             @click="open = false"
           >
-            احجز جلسة مجانية
+            احجز جلسة
           </NuxtLink>
         </li>
       </ul>

@@ -96,7 +96,7 @@ const services = [
 
 const links = [
   { label: "احجز جلسة", url: "https://cal.com/sufyanfa/15min/", icon: "lucide:calendar" },
-  { label: "البريد", url: "mailto:hi@sufyanfa.com", icon: "lucide:mail" },
+  { label: "البريد", url: "mailto:sfmu1998@gmail.com", icon: "lucide:mail" },
   { label: "اكس", url: "https://x.com/sufyanfa", icon: "simple-icons:x" },
   { label: "لينكدإن", url: "https://linkedin.com/in/sufyanfa", icon: "lucide:linkedin" },
 ];

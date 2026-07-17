@@ -21,8 +21,8 @@
         <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-3">انتهت الصلاحية</div>
         <h1 class="text-2xl font-bold text-ink mb-3">هذا العرض لم يعد متاحًا</h1>
         <p class="text-ink-soft text-sm leading-[1.7]">للحصول على نسخة محدّثة، تواصل معي مباشرة.</p>
-        <a href="mailto:hi@sufyanfa.com" class="inline-flex items-center gap-2 mt-6 bg-ink text-white rounded-full px-5 py-2.5 text-sm">
-          <Icon name="lucide:mail" class="w-4 h-4" /> hi@sufyanfa.com
+        <a href="mailto:sfmu1998@gmail.com" class="inline-flex items-center gap-2 mt-6 bg-ink text-white rounded-full px-5 py-2.5 text-sm">
+          <Icon name="lucide:mail" class="w-4 h-4" /> sfmu1998@gmail.com
         </a>
       </div>
     </div>

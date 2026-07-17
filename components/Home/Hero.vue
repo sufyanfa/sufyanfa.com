@@ -7,7 +7,7 @@
             class="inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold uppercase tracking-wide text-ink-mute mb-5"
           >
             <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-            <span>أهلًا، أنا سفيان</span>
+            <span>سفيان فارع</span>
           </div>
 
           <h1
@@ -28,9 +28,9 @@
           <p
             class="text-[15px] sm:text-[17px] text-ink-soft leading-[1.85] max-w-xl mb-9"
           >
-            أساعد رواد الأعمال على بناء منتجاتهم الرقمية —
+            أساعد رواد الأعمال على بناء منتجاتهم الرقمية:
             <strong class="font-semibold text-ink">خطة واضحة خلال 30 دقيقة</strong>،
-            ثم تنفيذ بميزانية ووقت واقعيَّيْن.
+            ثم تنفيذها بميزانية ووقت واقعيَّيْن.
           </p>
 
           <div class="flex flex-wrap items-center gap-3">
@@ -40,7 +40,7 @@
               external
               class="inline-flex items-center gap-2 bg-ink hover:bg-ink/90 text-white rounded-full px-7 py-4 text-[14px] font-semibold transition-colors"
             >
-              احجز جلسة مجانية
+              احجز جلسة
               <Icon name="lucide:arrow-left" class="w-4 h-4" />
             </NuxtLink>
 
@@ -84,7 +84,7 @@
                   <NuxtImg
                     src="/sufyan.png"
                     alt="سفيان فارع"
-                    class="absolute inset-0 w-full h-full object-cover grayscale"
+                    class="absolute inset-0 w-full h-full object-cover"
                     sizes="320px sm:400px lg:440px"
                     format="webp"
                     loading="eager"

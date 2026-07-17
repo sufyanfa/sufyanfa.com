@@ -24,7 +24,7 @@
           </h2>
 
           <p class="text-[15px] sm:text-[17px] text-ink-soft leading-[1.85] max-w-xl">
-            ثلاث طرق نشتغل بها معًا — مع
+            ثلاث طرق نعمل بها معًا، مع
             <strong class="font-semibold text-ink">شريك تقني واحد</strong>
             يفهم السياق التجاري والتقني.
           </p>

@@ -9,9 +9,9 @@
 </template>
 
 <script setup>
-const title = "سفيان فارع | شريك تقني لرواد الأعمال في السعودية";
+const title = "سفيان فارع | شريك تقني لرواد الأعمال";
 const description =
-  "شريك تقني لرواد الأعمال — نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن. خبرة +8 سنوات مع مؤسسات حكومية، جامعات، وشركات ناشئة.";
+  "شريك تقني لرواد الأعمال: نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن. خبرة +8 سنوات مع مؤسسات حكومية، جامعات، وشركات ناشئة.";
 const url = "https://sufyanfa.com";
 const ogImage = "https://sufyanfa.com/preview.png";
 const ogImageAlt = "سفيان فارع — شريك تقني لبناء منتجات رقمية";
@@ -25,8 +25,8 @@ useSeoMeta({
   ogDescription: description,
   ogImage,
   ogImageAlt,
-  ogImageWidth: 1905,
-  ogImageHeight: 767,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   ogImageType: "image/png",
   ogUrl: url,
   ogType: "website",
