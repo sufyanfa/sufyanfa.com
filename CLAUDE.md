@@ -3,7 +3,7 @@
 ## Stack
 - **Nuxt 3** (Vue) on **Cloudflare Pages** (Workers runtime via `nitro: { preset: 'cloudflare-pages' }`)
 - **Cloudflare D1** for the proposal system (binding `DB`)
-- **Tailwind** for styling; **Rubik** font; brand DNA: cream `#F5F5F7`, ink `#000`, forest green `#15803D`
+- **Tailwind** for styling; **Thmanyah Sans** font (self-hosted, `public/fonts/thmanyah-sans/`, weights 300/400/500/700/900 — no 600, see Known pitfalls); brand DNA: cream `#F5F5F7`, ink `#000`, forest green `#15803D`
 - Site is **Arabic / RTL** (`lang="ar" dir="rtl"`)
 
 ## Package manager
@@ -52,6 +52,8 @@ Use **yarn** for everything (install, scripts). Never npm.
 
 If step 3, 4, 6, or 7 fails: stop and diagnose. Do not promote a broken build.
 
+**Timing:** a normal deploy is ~3–5 minutes total (build ~90–150s, smoke test ~15s, upload ~60–90s). If a build looks suspicious (step 3 fails, or a build that was clean minutes ago suddenly leaks vite-node with no source changes to explain it), don't just retry blindly — clear `node_modules/.cache` entirely (not just `dist`/`.nuxt`) and rebuild. A partially-cleared cache (e.g. only `.cache/nitro` or only `.cache/vite` removed) has caused a real, reproducible vite-node leak in this repo even with source code unchanged.
+
 ## Known pitfalls
 - **`nitro-cloudflare-dev`** must be guarded to dev only in `nuxt.config.ts`:
   ```ts
@@ -60,6 +62,9 @@ If step 3, 4, 6, or 7 fails: stop and diagnose. Do not promote a broken build.
   Otherwise it leaks vite-node into the prod bundle and breaks SSR with `undefined.startsWith`.
 - **No `isomorphic-dompurify`** on Cloudflare Workers (it pulls jsdom which needs a DOM). Proposal markdown is admin-trusted; render via `marked` directly.
 - **`_routes.json`** routes `/` through the worker (only specific static files are excluded), so any SSR regression takes the homepage down too — not just dynamic pages.
+- **Stale `node_modules/.cache`** (especially `.cache/nitro` or `.cache/vite` cleared individually rather than together) can cause the vite-node prod leak above to reappear even with no source changes. If a build that was clean is suddenly leaking, `rm -rf node_modules/.cache` and rebuild before assuming it's a code regression.
+- **Thmanyah Sans license**: self-hosted font files require confirmed web-embedding rights from thmanyah (the default license only permits compiled/packaged/obfuscated embedding, not raw `@font-face` web serving) — already confirmed for this project. Don't swap in a different downloaded font family without checking its license permits `@font-face` web serving first.
+- **Thmanyah Sans has no weight 600.** Tailwind's `font-semibold` is remapped in `tailwind.config.ts` (`theme.extend.fontWeight.semibold: "500"`) so it resolves to an actual shipped weight instead of forcing browsers to synthesize a fake bold — unremapped, this rendered as visibly broken/clipped strokes on iOS Safari. Don't remove that override.
 
 ## Git / commits
 - **Never include `Co-Authored-By` lines** in commits.
@@ -68,6 +73,9 @@ If step 3, 4, 6, or 7 fails: stop and diagnose. Do not promote a broken build.
 
 ## Content / UI rules
 - **No emojis** in UI, copy, or markdown. Brand voice is editorial, not playful.
+- **No em-dash (or " - ") as a sentence connector** in copy (e.g. "X, ثم Y - لمن يريد Z"). Reads as AI-generated; restructure into two direct sentences or use a comma/colon instead. Doesn't apply to the site's existing "Title — Subtitle" separator convention in `<title>`/alt text/JSON-LD, or the `'—'` placeholder used in admin tables for empty values — those are fine.
+- **First-person singular voice** ("أنا/أبني/أحوّل"), not "we" (نحن/نبني) — Sufyan is a solo technical partner, not an agency. Exception: genuinely reciprocal phrasing about working *with* the client (e.g. "كيف نعمل معًا؟") is fine.
+- **Positioning order: product builder first, technical partner second.** Lead copy with what he builds/ships, not with "شريك تقني" as the opening identity — that undersells founders with an existing product into thinking he only does MVPs. See Hero eyebrow/H1 for the current phrasing to match.
 - Proposal pages live at `/p/<slug>` and use the `bare` layout. Viewer prose has its own editorial styles in `pages/p/[slug].vue` `<style>` block.
 - Admin dashboard lives at `/admin/*`, password-gated via D1 + JWT cookie.
 
