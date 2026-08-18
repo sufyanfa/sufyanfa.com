@@ -33,7 +33,7 @@
     >
       <span>شريك تقني · مطوّر منتجات</span>
       <span
-        class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#15803D] text-white text-[9px] font-bold"
+        class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-ink text-white text-[9px] font-bold"
         aria-label="موثّق"
       >
         ✓
@@ -45,9 +45,9 @@
         to="https://cal.com/sufyanfa/15min/"
         target="_blank"
         external
-        class="inline-flex items-center gap-2 bg-ink hover:bg-ink/90 text-white rounded-full px-6 py-3 text-[14px] font-semibold transition-colors"
+        class="inline-flex items-center gap-2 bg-ink hover:bg-black text-white rounded-full px-6 py-3 text-[14px] font-semibold transition-colors"
       >
-        <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
         احجز جلسة 30 دقيقة
       </NuxtLink>
 

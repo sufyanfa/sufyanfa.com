@@ -13,31 +13,50 @@ module.exports = {
       colors: {
         cream: {
           DEFAULT: "#FFFFFF",
-          deep: "#F5F5F7",
+          deep: "#F6F6F6",
         },
         forest: {
-          DEFAULT: "#1D1D1F",
+          DEFAULT: "#111111",
           deep: "#000000",
-          soft: "#F5F5F7",
+          soft: "#F6F6F6",
         },
         ink: {
-          DEFAULT: "#000000",
-          soft: "#424245",
-          mute: "#6E6E73",
+          DEFAULT: "#111111",
+          soft: "#555555",
+          mute: "#888888",
         },
-        success: "#166534",
+        makoa: {
+          bg: "#FFFFFF",
+          card: "#F6F6F6",
+          cardHover: "#EFEFF1",
+          border: "rgba(0, 0, 0, 0.05)",
+          text: "#111111",
+          secondary: "#555555",
+          muted: "#888888",
+        },
+        success: "#111111",
       },
       fontFamily: {
-        sans: ["Rubik", "sans-serif"],
-        rubik: ["Rubik", "sans-serif"],
+        sans: ["Thmanyah Sans", "IBM Plex Sans Arabic", "sans-serif"],
+        thmanyah: ["Thmanyah Sans", "IBM Plex Sans Arabic", "sans-serif"],
+      },
+      fontWeight: {
+        // Thmanyah Sans only ships 300/400/500/700/900 — no 600. Without this,
+        // every `font-semibold` request forces browsers to synthesize a fake
+        // bold, which renders as visibly broken/clipped strokes on iOS Safari.
+        semibold: "500",
       },
       maxWidth: {
-        site: "1080px",
+        site: "980px",
+        wide: "1160px",
+      },
+      borderRadius: {
+        'card': '20px',
+        'container': '24px',
       },
       letterSpacing: {
-        display: "-0.04em",
-        h2: "-0.03em",
-        wide: "0.18em",
+        normal: "0",
+        wide: "0.05em",
       },
     },
   },

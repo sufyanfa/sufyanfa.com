@@ -2,19 +2,21 @@
   <div>
     <HomeHero />
     <HomeApproach />
+    <HomeProcess />
     <HomeFeaturedProjects />
     <HomeFeaturedArticles />
+    <HomeTestimonials />
     <HomeFinalCTA />
   </div>
 </template>
 
 <script setup>
-const title = "سفيان فارع | شريك تقني لرواد الأعمال";
+const title = "سفيان فارع | أبني منتجات رقمية لرواد الأعمال والمؤسسات";
 const description =
-  "شريك تقني لرواد الأعمال: نخرج معًا بخطة واضحة لمنتجك خلال 30 دقيقة، ونبنيه بميزانية ووقت واقعيَّيْن. خبرة +8 سنوات مع مؤسسات حكومية، جامعات، وشركات ناشئة.";
+  "أحوّل الأفكار إلى منتجات رقمية يستخدمها الناس. خطة واضحة خلال 30 دقيقة، ثم بناء بميزانية ووقت واقعيَّيْن. أكثر من 10 سنوات خبرة مع مؤسسات حكومية، جامعات، وشركات ناشئة.";
 const url = "https://sufyanfa.com";
 const ogImage = "https://sufyanfa.com/preview.png";
-const ogImageAlt = "سفيان فارع — شريك تقني لبناء منتجات رقمية";
+const ogImageAlt = "سفيان فارع، باني منتجات رقمية وشريك تقني";
 
 useSeoMeta({
   title,

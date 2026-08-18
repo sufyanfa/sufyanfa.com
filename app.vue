@@ -1,5 +1,5 @@
 <template>
-  <NuxtLoadingIndicator color="#15803D" />
+  <NuxtLoadingIndicator color="#111111" />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
@@ -7,7 +7,7 @@
 
 <script setup>
 const SITE_URL = "https://sufyanfa.com";
-const SITE_DESC = "شريك تقني لرواد الأعمال في السعودية. أبني منتجات رقمية واضحة الهدف بميزانية ووقت واقعيَّيْن.";
+const SITE_DESC = "أبني منتجات رقمية لرواد الأعمال والمؤسسات في السعودية، بميزانية ووقت واقعيَّيْن.";
 
 useSeoMeta({
   ogSiteName: "سفيان فارع",
@@ -41,7 +41,7 @@ useHead({
             "@id": `${SITE_URL}/#person`,
             name: "سفيان فارع",
             alternateName: "Sufyan Farea",
-            jobTitle: "شريك تقني لبناء منتجات رقمية",
+            jobTitle: "باني منتجات رقمية، وشريك تقني لرواد الأعمال",
             description: SITE_DESC,
             url: SITE_URL,
             image: `${SITE_URL}/preview.png`,
@@ -123,7 +123,7 @@ useHead({
 
 <style>
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Thmanyah Sans", "IBM Plex Sans Arabic", sans-serif;
 }
 .page-enter-active,
 .page-leave-active {

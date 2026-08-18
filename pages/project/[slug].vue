@@ -123,7 +123,7 @@ onMounted(loadMeta)
             <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
             مشروع
           </div>
-          <h1 class="text-[26px] sm:text-[32px] font-bold text-ink leading-[1.3] tracking-tight mb-3">{{ meta?.name }}</h1>
+          <h1 class="text-[26px] sm:text-[32px] font-bold text-ink leading-[1.5] tracking-tight mb-3">{{ meta?.name }}</h1>
           <p v-if="meta?.customer_name" class="text-ink-soft text-sm">{{ meta.customer_name }}</p>
         </div>
 

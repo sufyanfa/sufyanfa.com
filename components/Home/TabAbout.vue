@@ -12,8 +12,7 @@
       شريك تقني لرواد الأعمال — أبني منتجات رقمية واضحة الهدف، بفهم عميق
       للسياق التجاري والتقني معًا. أكثر من ٨ سنوات بناء مع مؤسسات حكومية
       وجامعات وشركات ناشئة. أؤمن أن الإتقان يبدأ من التفاصيل الصغيرة،
-      وأن قيمة المنتج تبدأ من نظرتك له
-      <span class="text-[#15803D]">.</span>
+      وأن قيمة المنتج تبدأ من نظرتك له.
     </p>
 
     <div class="flex flex-wrap items-center gap-3 mb-12">
@@ -21,7 +20,7 @@
         to="/about"
         class="inline-flex items-center gap-2 bg-cream-deep hover:bg-[#EDEDF0] transition-colors rounded-full px-4 py-2 text-sm text-ink"
       >
-        <Icon name="lucide:file-text" class="w-4 h-4 text-[#15803D]" />
+        <Icon name="lucide:file-text" class="w-4 h-4 text-ink" />
         صفحة عني
       </NuxtLink>
       <span class="text-sm text-ink-mute">← اقرأ القصة كاملة</span>

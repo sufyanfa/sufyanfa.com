@@ -1,50 +1,36 @@
 <template>
   <main>
-    <section class="bg-cream">
-      <AppHeader title="المشاريع" :description="description" eyebrow="أعمال مختارة" />
+    <AppHeader title="المشاريع والأعمال" :description="description" eyebrow="ما بنيته" />
 
-      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 pb-14 sm:pb-16">
-        <div
-          class="text-center text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-6"
-        >
-          بنيت لهم
-        </div>
-        <div class="relative overflow-hidden" dir="ltr">
-          <div class="companies-scroll inline-flex gap-12">
-            <div
-              v-for="(company, index) in [...companies, ...companies]"
-              :key="`${company.name}-${index}`"
-              class="flex-shrink-0"
-            >
-              <img
-                :src="company.logo"
-                :alt="`شعار ${company.name}`"
-                class="block h-10 sm:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="bg-gray-50 border-y border-black/[0.04]">
-      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-16 sm:py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section class="bg-white py-16 sm:py-20 border-b border-black/[0.04]">
+      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
           <AppProjectCard
             v-for="(project, id) in projects"
             :key="id"
             :project="(project as any)"
+            :index="id"
+            @open="openProject"
           />
         </div>
       </div>
     </section>
 
     <HomeFinalCTA />
+
+    <AppProjectDetailModal v-model="modalOpen" :project="activeProject" />
   </main>
 </template>
 
 <script setup lang="ts">
+const modalOpen = ref(false);
+const activeProject = ref<any>(null);
+
+const openProject = (project: unknown) => {
+  activeProject.value = project;
+  modalOpen.value = true;
+};
+
 const title = "المشاريع التقنية | سفيان فارع";
 const description =
   "مجموعة من المشاريع التقنية التي بنيتها: منتجات رقمية لمؤسسات حكومية وشركات ناشئة.";

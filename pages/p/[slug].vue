@@ -35,10 +35,10 @@
             <img src="/logo.svg" alt="سفيان فارع" class="h-7 w-auto mx-auto" />
           </NuxtLink>
           <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
             عرض خاص
           </div>
-          <h1 class="text-[26px] sm:text-[32px] font-bold text-ink leading-[1.3] tracking-tight mb-3">{{ meta?.title }}</h1>
+          <h1 class="text-[26px] sm:text-[32px] font-bold text-ink leading-[1.5] tracking-tight mb-3">{{ meta?.title }}</h1>
           <p v-if="meta?.client_label" class="text-ink-soft text-sm">{{ meta.client_label }} · {{ formattedDate }}</p>
           <p v-else class="text-ink-soft text-sm">{{ meta?.client_name }} · {{ formattedDate }}</p>
         </div>
@@ -51,7 +51,7 @@
             autocomplete="off"
             :disabled="submitting"
             placeholder="••••••••"
-            class="w-full bg-white border border-black/[0.12] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
+            class="w-full bg-white border border-black/[0.12] focus:border-ink focus:ring-2 focus:ring-black/5 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
           />
           <p v-if="unlockError" class="text-[13px] text-red-600 mt-3">{{ unlockError }}</p>
           <button
@@ -75,11 +75,11 @@
       <!-- Header card -->
       <header class="bg-cream-deep rounded-3xl p-8 sm:p-10 mb-10">
         <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-5">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
           عرض
         </div>
         <div class="text-[12px] text-ink-soft mb-3">{{ formattedDate }} · {{ proposal.client_name }}</div>
-        <h1 class="text-[32px] sm:text-[44px] font-bold text-ink leading-[1.3] tracking-tight">
+        <h1 class="text-[32px] sm:text-[44px] font-bold text-ink leading-[1.5] tracking-tight">
           {{ proposal.title }}
         </h1>
         <div class="text-[13px] text-ink-mute mt-5 pt-5 border-t border-black/[0.08]">
@@ -96,7 +96,7 @@
       <!-- CTA block -->
       <div v-if="proposal.cta_label && proposal.cta_url" class="mt-14 pt-10 border-t border-black/[0.08]">
         <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
           الخطوة التالية
         </div>
         <a
@@ -113,7 +113,7 @@
       <!-- Decision card -->
       <div v-if="!decisionMade" class="mt-14 pt-10 border-t border-black/[0.08]">
         <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
           قرارك
         </div>
         <h2 class="text-xl font-bold text-ink mb-5">هل توافق على هذا العرض؟</h2>
@@ -143,7 +143,7 @@
             v-model="declineNote"
             rows="3"
             placeholder="ملاحظاتك للاطلاع عليها لاحقًا…"
-            class="w-full bg-white border border-black/[0.12] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all resize-none"
+            class="w-full bg-white border border-black/[0.12] focus:border-ink focus:ring-2 focus:ring-black/5 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all resize-none"
           ></textarea>
           <div class="flex gap-3 mt-4">
             <button
@@ -167,8 +167,8 @@
       <!-- Post-decision state -->
       <div v-else class="mt-14 pt-10 border-t border-black/[0.08]">
         <div v-if="currentStatus === 'accepted'" class="bg-cream-deep rounded-3xl p-8 text-center">
-          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#15803D]/10 mb-4">
-            <Icon name="lucide:check" class="w-6 h-6 text-[#15803D]" />
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-cream-deep mb-4">
+            <Icon name="lucide:check" class="w-6 h-6 text-ink" />
           </div>
           <h2 class="text-xl font-bold text-ink mb-2">تم قبول العرض</h2>
           <p class="text-ink-soft text-sm leading-[1.7]">سأتواصل معك قريبًا للخطوة التالية.</p>
@@ -392,7 +392,7 @@ onMounted(loadMeta)
 
 /* Links */
 .proposal-prose a {
-  color: #15803D;
+  color: #111111;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
@@ -437,7 +437,7 @@ onMounted(loadMeta)
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 9999px;
-  background: #15803D;
+  background: #111111;
 }
 
 /* Ordered list — tabular markers */
@@ -501,7 +501,7 @@ onMounted(loadMeta)
   width: 60px;
   height: 4px;
   background-image:
-    radial-gradient(circle, #15803D 50%, transparent 55%),
+    radial-gradient(circle, #111111 50%, transparent 55%),
     radial-gradient(circle, rgba(0,0,0,0.18) 50%, transparent 55%),
     radial-gradient(circle, rgba(0,0,0,0.18) 50%, transparent 55%);
   background-size: 4px 4px;

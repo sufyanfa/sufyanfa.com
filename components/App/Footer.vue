@@ -1,37 +1,26 @@
 <template>
-  <footer class="bg-ink border-t border-white/[0.08]">
+  <footer class="bg-white border-t border-black/[0.05] py-8">
     <div
-      class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-8 flex flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-6 text-sm"
+      class="max-w-site mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-5 text-sm text-ink-soft"
     >
-      <div class="flex items-center gap-3 flex-wrap justify-center">
+      <div class="flex items-center gap-3.5 flex-wrap justify-center text-xs">
         <NuxtLink to="/" aria-label="الصفحة الرئيسية" class="hover:opacity-80 transition-opacity">
-          <img src="/logo.svg" alt="سفيان فارع" class="h-6 sm:h-7 w-auto brightness-0 invert" />
+          <img src="/logo.svg" alt="سفيان فارع" class="h-5 sm:h-6 w-auto" />
         </NuxtLink>
-        <span class="text-white/30 hidden sm:inline">·</span>
-        <span class="text-white/50 text-xs">© {{ year }}</span>
+        <span class="text-black/20">·</span>
+        <span class="text-ink-mute">© {{ year }} جميع الحقوق محفوظة</span>
       </div>
 
-      <ul class="flex items-center gap-5 sm:gap-6 text-white/50 text-[13px]">
-        <li v-for="page in pages" :key="page.name">
-          <NuxtLink
-            :to="page.path"
-            class="hover:text-white transition-colors"
-          >
-            {{ page.name }}
-          </NuxtLink>
-        </li>
-      </ul>
-
-      <ul class="flex items-center gap-5 text-white/50">
+      <ul class="flex items-center gap-2">
         <li v-for="link in links" :key="link.name">
           <NuxtLink
             :to="link.url"
             target="_blank"
             external
-            class="hover:text-white transition-colors block p-1 -m-1"
+            class="w-8 h-8 rounded-full bg-cream-deep hover:bg-ink hover:text-white flex items-center justify-center text-ink transition-all shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
             :aria-label="link.name"
           >
-            <Icon :name="link.icon" class="w-5 h-5" />
+            <Icon :name="link.icon" class="w-3.5 h-3.5" />
           </NuxtLink>
         </li>
       </ul>
@@ -41,11 +30,6 @@
 
 <script setup lang="ts">
 const year = new Date().getFullYear();
-
-const pages = [
-  { name: "عني", path: "/about" },
-  { name: "الموارد", path: "/resources" },
-];
 
 const links = [
   { name: "X", url: "https://x.com/sufyanfa", icon: "simple-icons:x" },

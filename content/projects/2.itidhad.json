@@ -1,0 +1,15 @@
+{
+  "name": "إعتضاد للمحاماة",
+  "url": "itidhadlawfirm.sa",
+  "tagline": "مكتب محاماة معتمد",
+  "outcome": "موقع وهوية رقمية متكاملة لمكتب محاماة سعودي يقدم استشارات وخدمات قانونية متقدمة للشركات.",
+  "thumbnail": "/projects/itidhad.jpg",
+  "gallery": ["/projects/itidhad1.png","/projects/itidhad2.png","/projects/itidhad3.png","/projects/itidhad4.png"],
+  "status": "live",
+  "role": "أعمال",
+  "year": "2026",
+  "tone": "lavender",
+  "order": "03",
+  "services": ["مدونة", "لوحة تحكم","موقع إلكتروني","تحسين مركات البحث"],
+  "result": "صممت وطورت الموقع وولوحة التحكم لمكتب المحاماة."
+}

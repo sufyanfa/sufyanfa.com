@@ -1,10 +1,10 @@
 <template>
   <main>
-    <AppHeader title="الخدمات" :description="description" eyebrow="ما أقدّمه" />
+    <AppHeader title="كيف أساعدك؟" :description="description" eyebrow="الخدمات" />
 
-    <section class="bg-gray-50 border-y border-black/[0.04]">
-      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-16 sm:py-20">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <section class="bg-white py-16 sm:py-20 border-b border-black/[0.04]">
+      <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <AppServiceCard
             v-for="(service, id) in services"
             :key="id"
@@ -14,6 +14,8 @@
         </div>
       </div>
     </section>
+
+    <HomeProcess />
 
     <HomeFinalCTA />
 

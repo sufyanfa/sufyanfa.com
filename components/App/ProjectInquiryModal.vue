@@ -35,7 +35,7 @@
                 <div
                   class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wide uppercase text-ink-mute mb-3"
                 >
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
                   <span>{{ eyebrow }}</span>
                 </div>
                 <h2
@@ -198,9 +198,9 @@
               class="p-8 sm:p-10 text-center flex flex-col items-center gap-4"
             >
               <div
-                class="w-14 h-14 rounded-full bg-[#15803D]/10 text-[#15803D] flex items-center justify-center"
+                class="w-14 h-14 rounded-full bg-cream-deep text-ink flex items-center justify-center"
               >
-                <Icon name="lucide:check" class="w-7 h-7" stroke-width="3" />
+                <Icon name="lucide:check" class="w-7 h-7" stroke-width="2.5" />
               </div>
               <h3 class="text-xl font-bold text-ink">تم الاستلام، شكرًا!</h3>
               <p class="text-sm text-ink-soft leading-relaxed max-w-sm">
@@ -312,7 +312,7 @@ const inputClass = (hasError?: string) => [
   "rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-mute/70 transition-all focus:outline-none bg-white",
   hasError
     ? "border border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-    : "border border-black/[0.12] hover:border-black/[0.2] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15",
+    : "border border-black/[0.12] hover:border-black/[0.2] focus:border-ink focus:ring-2 focus:ring-black/5",
 ];
 
 watch(

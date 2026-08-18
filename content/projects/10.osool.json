@@ -2,11 +2,14 @@
   "name": "أصول التمثيل",
   "url": "https://osoollaw.sa",
   "tagline": "مكتب محاماة معتمد",
-  "outcome": "موقع لمكتب محاماة سعودي يقدم استشارات وخدمات قانونية للأفراد والشركات.",
-  "thumbnail": "/projects/osool.png",
+  "outcome": "موقع وهوية رقمية متكاملة لمكتب محاماة سعودي يقدم استشارات وخدمات قانونية متقدمة للشركات.",
+  "thumbnail": "/projects/osool.jpg",
+  "gallery": ["/projects/osool1.png","/projects/osool2.png","/projects/osool3.png"],
   "status": "live",
-  "role": "مطور",
+  "role": "أعمال",
   "year": "2026",
   "tone": "lavender",
-  "order": "13"
+  "order": "07",
+  "services": ["موقع إلكتروني", "تحسين محركات البحث","مدونة"],
+  "result": "صممت وطورت الموقع لمكتب المحاماة يشمل مدونة وتحسين محركات البحث SEO"
 }

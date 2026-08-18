@@ -107,7 +107,7 @@
                 عرض
               </div>
               <div class="text-[12px] text-ink-soft mb-2">{{ form.proposal_date || '—' }} · {{ form.client_name || '—' }}</div>
-              <h2 class="text-2xl font-bold text-ink leading-[1.3] tracking-tight">{{ form.title || 'عنوان العرض' }}</h2>
+              <h2 class="text-2xl font-bold text-ink leading-[1.5] tracking-tight">{{ form.title || 'عنوان العرض' }}</h2>
             </div>
             <div class="proposal-prose text-ink-soft text-[14px] leading-[1.85]" v-html="renderedPreview"></div>
           </div>

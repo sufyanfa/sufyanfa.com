@@ -1,5 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: process.env.NODE_ENV !== 'production' },
+  css: ["~/assets/css/fonts.css"],
   site: {
     url: 'https://sufyanfa.com',
     name: 'سفيان فارع',
@@ -81,7 +82,7 @@ export default defineNuxtConfig({
         },
       ],
       bodyAttrs: {
-        class: "antialiased bg-white text-ink min-h-screen font-rubik",
+        class: "antialiased bg-white text-ink min-h-screen font-thmanyah",
       },
     },
   },
@@ -97,7 +98,7 @@ export default defineNuxtConfig({
     display: "swap",
     download: true,
     families: {
-      Rubik: [400, 500, 600, 700, 800],
+      "IBM Plex Sans Arabic": [400, 500, 600, 700],
     },
   },
 });

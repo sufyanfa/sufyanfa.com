@@ -1,15 +1,20 @@
 <template>
-  <section class="bg-cream">
-    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 text-center">
-      <AppEyebrow v-if="eyebrow" tone="white" class="mb-6">{{ eyebrow }}</AppEyebrow>
+  <section class="bg-white py-14 sm:py-18 lg:py-20 border-b border-black/[0.04]">
+    <div class="max-w-site mx-auto px-6 sm:px-8 lg:px-12 text-right">
+      <div v-if="eyebrow" class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ink-mute mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
+        <span>{{ eyebrow }}</span>
+      </div>
+
       <h1
-        class="font-extrabold text-ink leading-tight tracking-display text-[36px] sm:text-[44px] lg:text-[52px] mb-5"
+        class="text-3xl sm:text-4xl lg:text-[44px] font-bold text-ink leading-tight mb-4"
       >
         {{ title }}
       </h1>
+
       <p
         v-if="description"
-        class="text-base sm:text-lg text-ink-soft leading-relaxed max-w-2xl mx-auto"
+        class="text-base sm:text-lg text-ink-soft leading-relaxed max-w-2xl"
       >
         {{ description }}
       </p>

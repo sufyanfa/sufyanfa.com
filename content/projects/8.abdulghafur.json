@@ -4,9 +4,12 @@
   "tagline": "هوية بصرية لمصمم متخصص",
   "outcome": "موقع شخصي لمصمم هويات بصرية، يعرض أعماله وقصته المهنية عبر أكثر من 40 مشروعًا في 12 مجالًا.",
   "thumbnail": "/projects/abdulghafur.jpg",
+  "gallery": ["/projects/abdulghafur1.png","/projects/abdulghafur2.png"],
   "status": "live",
   "role": "مصمم ومطور",
   "year": "2026",
   "tone": "lavender",
-  "order": "11"
+  "order": "05",
+  "services": ["تصميم", "تطوير موقع"],
+  "result": "صممت وطورت الموقع الشخصي الذي يعرض أكثر من 40 مشروعًا للمصمم."
 }

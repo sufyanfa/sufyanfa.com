@@ -6,7 +6,7 @@
           <img src="/logo.svg" alt="سفيان فارع" class="h-7 w-auto mx-auto" />
         </NuxtLink>
         <div class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
           لوحة التحكم
         </div>
         <h1 class="text-2xl font-bold text-ink">تسجيل الدخول</h1>
@@ -20,7 +20,7 @@
             type="email"
             autocomplete="email"
             required
-            class="w-full bg-white border border-black/[0.12] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
+            class="w-full bg-white border border-black/[0.12] focus:border-ink focus:ring-2 focus:ring-black/5 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
             dir="ltr"
           />
         </div>
@@ -31,7 +31,7 @@
             type="password"
             autocomplete="current-password"
             required
-            class="w-full bg-white border border-black/[0.12] focus:border-[#15803D] focus:ring-2 focus:ring-[#15803D]/15 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
+            class="w-full bg-white border border-black/[0.12] focus:border-ink focus:ring-2 focus:ring-black/5 rounded-2xl px-4 py-3 text-sm text-ink outline-none transition-all"
           />
         </div>
         <p v-if="error" class="text-[13px] text-red-600">{{ error }}</p>
