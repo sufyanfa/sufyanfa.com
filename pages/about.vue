@@ -21,8 +21,8 @@
 
           <div class="grid grid-cols-4 gap-3 sm:gap-5 pb-10 border-b border-black/[0.06]">
             <div>
-              <div class="text-lg sm:text-2xl font-bold text-ink">120+</div>
-              <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">مؤسسة</div>
+              <div class="text-lg sm:text-2xl font-bold text-ink">25+</div>
+              <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">جهة</div>
             </div>
             <div>
               <div class="text-lg sm:text-2xl font-bold text-ink">700K+</div>

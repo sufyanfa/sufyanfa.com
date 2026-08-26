@@ -31,11 +31,11 @@
               <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">معاملة</div>
             </div>
             <div>
-              <div class="text-lg sm:text-2xl font-bold text-ink">120+</div>
-              <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">مؤسسة</div>
+              <div class="text-lg sm:text-2xl font-bold text-ink">25+</div>
+              <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">جهة</div>
             </div>
             <div>
-              <div class="text-lg sm:text-2xl font-bold text-ink">6+</div>
+              <div class="text-lg sm:text-2xl font-bold text-ink">8+</div>
               <div class="text-[10px] sm:text-xs text-ink-mute leading-snug">سنوات خبرة</div>
             </div>
           </div>
