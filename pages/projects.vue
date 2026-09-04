@@ -23,12 +23,15 @@
 </template>
 
 <script setup lang="ts">
+const { track } = useAnalytics();
+
 const modalOpen = ref(false);
 const activeProject = ref<any>(null);
 
-const openProject = (project: unknown) => {
+const openProject = (project: any) => {
   activeProject.value = project;
   modalOpen.value = true;
+  track("project-modal-open", { source: "projects-page", project: project?.name ?? "" });
 };
 
 const title = "المشاريع التقنية | سفيان فارع";

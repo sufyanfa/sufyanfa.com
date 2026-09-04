@@ -16,10 +16,13 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const { track } = useAnalytics()
+
 const shareOnWhatsApp = () => {
   const currentUrl = props.url || window.location.href
   const text = encodeURIComponent(`${props.title} - ${currentUrl}`)
   const whatsappUrl = `https://wa.me/?text=${text}`
   window.open(whatsappUrl, '_blank')
+  track('article-share', { channel: 'whatsapp', title: props.title })
 }
 </script>

@@ -17,6 +17,8 @@
             :to="link.url"
             target="_blank"
             external
+            data-umami-event="footer-link-click"
+            :data-umami-event-network="link.name"
             class="w-8 h-8 rounded-full bg-cream-deep hover:bg-ink hover:text-white flex items-center justify-center text-ink transition-all shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
             :aria-label="link.name"
           >

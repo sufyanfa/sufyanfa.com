@@ -47,6 +47,8 @@
         :to="service.linkType === 'external' ? service.linkUrl : service.url"
         :target="service.linkType === 'external' ? '_blank' : undefined"
         :external="service.linkType === 'external' || undefined"
+        data-umami-event="service-cta-click"
+        :data-umami-event-service="service.name"
         class="text-[13px] font-semibold text-ink hover:opacity-60 transition-opacity inline-flex items-center gap-1.5"
       >
         <span>{{ ctaLabel }}</span>

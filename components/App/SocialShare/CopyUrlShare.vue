@@ -16,13 +16,15 @@ interface Props {
 
 const props = defineProps<Props>()
 const copied = ref(false)
+const { track } = useAnalytics()
 
 const copyToClipboard = async () => {
   const currentUrl = props.url || window.location.href
-  
+
   try {
     await navigator.clipboard.writeText(currentUrl)
     copied.value = true
+    track('article-share', { channel: 'copy-link', title: currentUrl })
     setTimeout(() => {
       copied.value = false
     }, 2000)

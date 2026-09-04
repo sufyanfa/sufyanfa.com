@@ -79,6 +79,8 @@ export default defineNuxtConfig({
           src: "https://cloud.umami.is/script.js",
           async: true,
           "data-website-id": "0de1b8da-46e2-4a95-b550-425dcf3b2bb3",
+          "data-domains": "sufyanfa.com",
+          "data-do-not-track": "true",
         },
       ],
       bodyAttrs: {

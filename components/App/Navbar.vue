@@ -14,6 +14,8 @@
           <li v-for="item in items" :key="item.path">
             <NuxtLink
               :to="item.path"
+              data-umami-event="nav-link-click"
+              :data-umami-event-target="item.path"
               class="hover:text-ink transition-colors font-medium py-1"
               active-class="text-ink font-semibold"
             >
@@ -28,6 +30,8 @@
           to="https://cal.com/sufyanfa/15min/"
           target="_blank"
           external
+          data-umami-event="cta-book-call"
+          data-umami-event-position="navbar-desktop"
           class="hidden sm:inline-flex items-center justify-center bg-ink hover:bg-black text-white rounded-full px-5 py-2 text-[13px] font-medium transition-all shadow-sm"
         >
           احجز جلسة
@@ -36,6 +40,7 @@
         <button
           class="md:hidden p-2 -mr-2 text-ink rounded-lg hover:bg-cream-deep transition-colors"
           aria-label="القائمة"
+          data-umami-event="nav-mobile-menu-toggle"
           @click="open = !open"
         >
           <Icon :name="open ? 'lucide:x' : 'lucide:menu'" class="w-5 h-5" />
@@ -51,6 +56,8 @@
         <li v-for="item in items" :key="item.path">
           <NuxtLink
             :to="item.path"
+            data-umami-event="nav-link-click"
+            :data-umami-event-target="item.path"
             class="block py-2.5 text-ink-soft hover:text-ink font-medium"
             active-class="text-ink font-semibold"
             @click="open = false"
@@ -63,6 +70,8 @@
             to="https://cal.com/sufyanfa/15min/"
             target="_blank"
             external
+            data-umami-event="cta-book-call"
+            data-umami-event-position="navbar-mobile"
             class="block bg-ink text-white text-center rounded-full px-5 py-2.5 text-[14px] font-medium"
             @click="open = false"
           >

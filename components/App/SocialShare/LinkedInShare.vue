@@ -16,10 +16,13 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const { track } = useAnalytics()
+
 const shareOnLinkedIn = () => {
   const currentUrl = props.url || window.location.href
   const encodedUrl = encodeURIComponent(currentUrl)
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
   window.open(linkedInUrl, '_blank')
+  track('article-share', { channel: 'linkedin', title: props.title })
 }
 </script>

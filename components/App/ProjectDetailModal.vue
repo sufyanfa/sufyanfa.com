@@ -114,6 +114,8 @@
                   :to="project.url"
                   target="_blank"
                   external
+                  data-umami-event="project-visit-site-click"
+                  :data-umami-event-project="project.name"
                   class="inline-flex items-center gap-2 bg-ink hover:bg-black text-white rounded-full px-6 py-3 text-sm font-semibold transition-all mt-7"
                 >
                   <span>زيارة الموقع</span>

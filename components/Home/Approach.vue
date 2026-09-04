@@ -21,6 +21,8 @@
         <div class="flex items-center gap-2">
           <NuxtLink
             to="/services"
+            data-umami-event="services-link-click"
+            data-umami-event-position="approach"
             class="inline-flex items-center gap-2 border border-black/20 hover:border-black/45 active:bg-cream-deep rounded-full px-5 py-2 text-xs font-medium text-ink transition-all hover:bg-cream-deep"
           >
             <span>تفاصيل الخدمات</span>
@@ -79,6 +81,8 @@
               :to="s.url!"
               :target="s.external ? '_blank' : undefined"
               :external="s.external || undefined"
+              data-umami-event="approach-external-cta-click"
+              :data-umami-event-cta="s.solution"
               class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:opacity-60 transition-opacity"
             >
               <span>{{ s.cta }}</span>
@@ -156,6 +160,8 @@ const active = ref({
   placeholder: "",
 });
 
+const { track } = useAnalytics();
+
 const openModal = (s: Scenario) => {
   active.value = {
     service: s.service ?? "",
@@ -164,5 +170,6 @@ const openModal = (s: Scenario) => {
     placeholder: s.placeholder ?? "اشرح لي مشروعك باختصار.",
   };
   modalOpen.value = true;
+  track("inquiry-modal-open", { source: "homepage-approach", service: active.value.service });
 };
 </script>

@@ -84,6 +84,8 @@ useHead({
   ],
 });
 
+const { track } = useAnalytics();
+
 const modalOpen = ref(false);
 const active = ref({
   service: "",
@@ -100,5 +102,6 @@ const openInquiry = (s: any) => {
     placeholder: s.inquiryPlaceholder ?? "اشرح لي مشروعك باختصار.",
   };
   modalOpen.value = true;
+  track("inquiry-modal-open", { source: "services-page", service: active.value.service });
 };
 </script>

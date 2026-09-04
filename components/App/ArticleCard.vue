@@ -1,5 +1,10 @@
 <template>
-  <NuxtLink :to="article._path" class="block group">
+  <NuxtLink
+    :to="article._path"
+    data-umami-event="article-card-click"
+    :data-umami-event-title="article.title"
+    class="block group"
+  >
     <article
       class="rounded-[20px] bg-cream-deep hover:bg-[#ECECED] border border-black/[0.03] p-5 sm:p-6 transition-all duration-300 flex flex-col justify-between"
     >

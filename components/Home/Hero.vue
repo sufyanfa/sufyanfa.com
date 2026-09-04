@@ -46,6 +46,8 @@
               to="https://cal.com/sufyanfa/15min/"
               target="_blank"
               external
+              data-umami-event="cta-book-call"
+              data-umami-event-position="hero"
               class="inline-flex items-center gap-2 bg-ink hover:bg-black text-white rounded-full px-7 py-3.5 text-sm font-semibold transition-all shadow-sm"
             >
               <span>احجز جلسة 30 دقيقة</span>
@@ -54,6 +56,8 @@
 
             <NuxtLink
               to="/projects"
+              data-umami-event="cta-view-projects"
+              data-umami-event-position="hero"
               class="inline-flex items-center gap-2 border border-black/25 hover:border-black/50 active:bg-cream-deep bg-transparent text-ink rounded-full px-7 py-3.5 text-sm font-medium transition-all hover:bg-cream-deep"
             >
               <span>استكشف أعمالي</span>

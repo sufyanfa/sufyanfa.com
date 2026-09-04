@@ -18,11 +18,14 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const { track } = useAnalytics()
+
 const shareOnX = () => {
   const currentUrl = props.url || window.location.href
   const text = encodeURIComponent(props.title)
   const encodedUrl = encodeURIComponent(currentUrl)
   const xUrl = `https://twitter.com/intent/tweet?text=${text}&url=${encodedUrl}`
   window.open(xUrl, '_blank')
+  track('article-share', { channel: 'x', title: props.title })
 }
 </script>

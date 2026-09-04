@@ -21,6 +21,8 @@
         <div class="flex items-center gap-2">
           <NuxtLink
             to="/projects"
+            data-umami-event="projects-view-all-click"
+            data-umami-event-position="homepage"
             class="inline-flex items-center gap-2 border border-black/20 hover:border-black/45 active:bg-cream-deep rounded-full px-5 py-2 text-xs font-medium text-ink transition-all hover:bg-cream-deep"
           >
             <span>كل المشاريع</span>
@@ -50,11 +52,14 @@ const { data: projects } = await useAsyncData("projects-home", () =>
   queryContent("/projects").sort({ order: 1 }).limit(4).find()
 );
 
+const { track } = useAnalytics();
+
 const modalOpen = ref(false);
 const activeProject = ref<any>(null);
 
-const openProject = (project: unknown) => {
+const openProject = (project: any) => {
   activeProject.value = project;
   modalOpen.value = true;
+  track("project-modal-open", { source: "homepage", project: project?.name ?? "" });
 };
 </script>

@@ -30,6 +30,8 @@
             <span class="text-xs font-semibold text-ink-mute uppercase tracking-wider">البريد الإلكتروني</span>
             <a
               href="mailto:sfmu1998@gmail.com"
+              data-umami-event="contact-email-click"
+              data-umami-event-position="final-cta"
               class="text-[15px] font-semibold text-ink hover:underline inline-flex items-center gap-1.5"
             >
               <span>sfmu1998@gmail.com</span>
@@ -46,6 +48,8 @@
               to="https://cal.com/sufyanfa/15min/"
               target="_blank"
               external
+              data-umami-event="cta-book-call"
+              data-umami-event-position="final-cta"
               class="text-[15px] font-semibold text-ink hover:underline inline-flex items-center gap-1.5"
             >
               <span>جلسة استكشاف (30 دقيقة)</span>
@@ -67,6 +71,8 @@
                 target="_blank"
                 external
                 :aria-label="s.name"
+                data-umami-event="final-cta-social-click"
+                :data-umami-event-network="s.name"
                 class="w-9 h-9 rounded-full bg-white border border-black/[0.06] hover:bg-ink hover:text-white flex items-center justify-center text-ink transition-all shadow-[0_2px_6px_rgba(0,0,0,0.03)]"
               >
                 <Icon :name="s.icon" class="w-4 h-4" />

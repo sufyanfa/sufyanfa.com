@@ -160,6 +160,8 @@
                     :to="whatsappLink"
                     target="_blank"
                     external
+                    data-umami-event="inquiry-fallback-whatsapp-click"
+                    :data-umami-event-service="service"
                     class="inline-flex items-center gap-2 bg-[#25D366] text-white rounded-full px-4 py-2 text-[13px] font-semibold hover:opacity-90 transition-opacity"
                   >
                     <Icon name="mdi:whatsapp" class="w-4 h-4" />
@@ -169,6 +171,8 @@
                     to="https://www.linkedin.com/in/sufyanfa/"
                     target="_blank"
                     external
+                    data-umami-event="inquiry-fallback-linkedin-click"
+                    :data-umami-event-service="service"
                     class="inline-flex items-center gap-2 bg-[#0A66C2] text-white rounded-full px-4 py-2 text-[13px] font-semibold hover:opacity-90 transition-opacity"
                   >
                     <Icon name="mdi:linkedin" class="w-4 h-4" />
@@ -218,6 +222,8 @@
                     :to="whatsappLink"
                     target="_blank"
                     external
+                    data-umami-event="inquiry-fallback-whatsapp-click"
+                    :data-umami-event-service="service"
                     class="inline-flex items-center gap-2 bg-[#25D366] text-white rounded-full px-4 py-2 text-[13px] font-semibold hover:opacity-90 transition-opacity"
                   >
                     <Icon name="mdi:whatsapp" class="w-4 h-4" />
@@ -227,6 +233,8 @@
                     to="https://www.linkedin.com/in/sufyanfa/"
                     target="_blank"
                     external
+                    data-umami-event="inquiry-fallback-linkedin-click"
+                    :data-umami-event-service="service"
                     class="inline-flex items-center gap-2 bg-[#0A66C2] text-white rounded-full px-4 py-2 text-[13px] font-semibold hover:opacity-90 transition-opacity"
                   >
                     <Icon name="mdi:linkedin" class="w-4 h-4" />
@@ -298,6 +306,8 @@ const validateAll = () => {
   return Object.keys(errors.value).length === 0;
 };
 
+const { track } = useAnalytics();
+
 const close = () => emit("update:modelValue", false);
 
 const reset = () => {
@@ -364,8 +374,10 @@ const submit = async () => {
       },
     });
     sent.value = true;
+    track("inquiry-form-submit", { service: props.service });
   } catch (e) {
     error.value = true;
+    track("inquiry-form-error", { service: props.service });
   } finally {
     loading.value = false;
   }
