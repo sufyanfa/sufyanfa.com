@@ -42,6 +42,16 @@
         <Icon name="lucide:arrow-left" class="w-3.5 h-3.5" />
       </button>
 
+      <button
+        v-else-if="service.linkType === 'details'"
+        type="button"
+        class="text-[13px] font-semibold text-ink hover:opacity-60 transition-opacity inline-flex items-center gap-1.5"
+        @click="$emit('details', service)"
+      >
+        <span>{{ ctaLabel }}</span>
+        <Icon name="lucide:arrow-left" class="w-3.5 h-3.5" />
+      </button>
+
       <NuxtLink
         v-else
         :to="service.linkType === 'external' ? service.linkUrl : service.url"
@@ -68,8 +78,10 @@ type Service = {
   tag?: string;
   deliverables?: string[];
   timing?: string;
+  price?: string;
+  audience?: string[];
   cta?: string;
-  linkType?: "modal" | "external" | "internal";
+  linkType?: "modal" | "external" | "internal" | "details";
   linkUrl?: string;
   inquiryService?: string;
   inquiryPlaceholder?: string;
@@ -79,6 +91,7 @@ const props = defineProps<{ service: Service }>();
 
 defineEmits<{
   inquiry: [service: Service];
+  details: [service: Service];
 }>();
 
 const ctaLabel = computed(() => props.service.cta ?? "اعرف أكثر");

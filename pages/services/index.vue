@@ -10,6 +10,7 @@
             :key="id"
             :service="(service as any)"
             @inquiry="openInquiry"
+            @details="openDetails"
           />
         </div>
       </div>
@@ -25,6 +26,18 @@
       :eyebrow="active.eyebrow"
       :headline="active.headline"
       :message-placeholder="active.placeholder"
+    />
+
+    <AppConsultationDetailsModal
+      v-model="detailsOpen"
+      :eyebrow="activeDetails.eyebrow"
+      :headline="activeDetails.headline"
+      :price="activeDetails.price"
+      :timing="activeDetails.timing"
+      :audience="activeDetails.audience"
+      :deliverables="activeDetails.deliverables"
+      :booking-url="activeDetails.bookingUrl"
+      position="services-page"
     />
   </main>
 </template>
@@ -103,5 +116,34 @@ const openInquiry = (s: any) => {
   };
   modalOpen.value = true;
   track("inquiry-modal-open", { source: "services-page", service: active.value.service });
+};
+
+const detailsOpen = ref(false);
+const activeDetails = ref({
+  eyebrow: "",
+  headline: "",
+  price: "",
+  timing: "",
+  audience: [] as string[],
+  deliverables: [] as string[],
+  bookingUrl: "",
+});
+
+const openDetails = (s: any) => {
+  activeDetails.value = {
+    eyebrow: s.tag ?? "",
+    headline: s.name,
+    price: s.price ?? "",
+    timing: s.timing ?? "",
+    audience: s.audience ?? [],
+    deliverables: s.deliverables ?? [],
+    bookingUrl: s.linkUrl,
+  };
+  detailsOpen.value = true;
+  track("consultation-details-open", {
+    source: "services-page",
+    service: s.name,
+    price: s.price ?? "",
+  });
 };
 </script>

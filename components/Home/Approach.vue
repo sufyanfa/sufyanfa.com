@@ -76,6 +76,18 @@
                 class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1"
               />
             </button>
+            <button
+              v-else-if="s.detailsModal"
+              type="button"
+              class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink hover:opacity-60 transition-opacity"
+              @click="openDetailsModal(s)"
+            >
+              <span>{{ s.cta }}</span>
+              <Icon
+                name="lucide:arrow-left"
+                class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1"
+              />
+            </button>
             <NuxtLink
               v-else
               :to="s.url!"
@@ -104,6 +116,18 @@
     :headline="active.headline"
     :message-placeholder="active.placeholder"
   />
+
+  <AppConsultationDetailsModal
+    v-model="detailsModalOpen"
+    :eyebrow="activeDetails.eyebrow"
+    :headline="activeDetails.headline"
+    :price="activeDetails.price"
+    :timing="activeDetails.timing"
+    :audience="activeDetails.audience"
+    :deliverables="activeDetails.deliverables"
+    :booking-url="activeDetails.bookingUrl"
+    position="homepage-approach"
+  />
 </template>
 
 <script setup lang="ts">
@@ -118,6 +142,11 @@ type Scenario = {
   placeholder?: string;
   url?: string;
   external?: boolean;
+  detailsModal?: boolean;
+  price?: string;
+  timing?: string;
+  audience?: string[];
+  deliverables?: string[];
 };
 
 const scenarios: Scenario[] = [
@@ -147,6 +176,15 @@ const scenarios: Scenario[] = [
     description: "جلسة مركزة لفهم المشكلة، ترتيب الخيارات، والخروج بقرارات وخطوات قابلة للتنفيذ.",
     cta: "احجز استشارة",
     icon: "lucide:compass",
+    detailsModal: true,
+    price: "700 ريال",
+    timing: "من 60 دقيقة",
+    audience: [
+      "مؤسس لديه فكرة ويحتاج قرار واضح قبل بدء البناء",
+      "صاحب منتج قائم عالق في قرار تقني أو مشكلة تصميم",
+      "فريق يريد تقييم خياراته التقنية قبل التوسع أو الاستثمار",
+    ],
+    deliverables: ["خطوات تنفيذية واضحة للمرحلة القادمة", "اختيار التقنيات المناسبة", "تقدير ميزانية واقعي"],
     url: "https://cal.com/sufyanfa/consultation",
     external: true,
   },
@@ -171,5 +209,34 @@ const openModal = (s: Scenario) => {
   };
   modalOpen.value = true;
   track("inquiry-modal-open", { source: "homepage-approach", service: active.value.service });
+};
+
+const detailsModalOpen = ref(false);
+const activeDetails = ref({
+  eyebrow: "",
+  headline: "",
+  price: "",
+  timing: "",
+  audience: [] as string[],
+  deliverables: [] as string[],
+  bookingUrl: "",
+});
+
+const openDetailsModal = (s: Scenario) => {
+  activeDetails.value = {
+    eyebrow: s.condition,
+    headline: s.solution,
+    price: s.price ?? "",
+    timing: s.timing ?? "",
+    audience: s.audience ?? [],
+    deliverables: s.deliverables ?? [],
+    bookingUrl: s.url ?? "",
+  };
+  detailsModalOpen.value = true;
+  track("consultation-details-open", {
+    source: "homepage-approach",
+    service: s.solution,
+    price: s.price ?? "",
+  });
 };
 </script>
