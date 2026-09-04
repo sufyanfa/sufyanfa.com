@@ -3,15 +3,29 @@
     :to="article._path"
     data-umami-event="article-card-click"
     :data-umami-event-title="article.title"
-    class="block group"
+    class="block group rounded-[20px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-white"
   >
     <article
-      class="rounded-[20px] bg-cream-deep hover:bg-[#ECECED] border border-black/[0.03] p-5 sm:p-6 transition-all duration-300 flex flex-col justify-between"
+      :class="[
+        'rounded-[20px] bg-cream-deep hover:bg-[#ECECED] border border-black/[0.03] transition-all duration-300 flex flex-col justify-between',
+        featured ? 'p-6 sm:p-8' : 'p-5 sm:p-6',
+      ]"
     >
       <div>
+        <span
+          v-if="featured"
+          class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-ink-mute mb-3"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
+          <span>الأحدث</span>
+        </span>
+
         <div class="flex items-center justify-between gap-4 mb-2">
           <h3
-            class="text-base sm:text-lg font-bold text-ink leading-snug group-hover:text-black transition-colors"
+            :class="[
+              'font-bold text-ink leading-snug group-hover:text-black transition-colors',
+              featured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
+            ]"
           >
             {{ article.title }}
           </h3>
@@ -24,7 +38,12 @@
           </span>
         </div>
 
-        <p class="text-[13px] sm:text-[14px] text-ink-soft leading-[1.7] mb-3 line-clamp-2">
+        <p
+          :class="[
+            'text-ink-soft leading-[1.7] mb-3',
+            featured ? 'text-[14px] sm:text-[15px] line-clamp-3' : 'text-[13px] sm:text-[14px] line-clamp-2',
+          ]"
+        >
           {{ article.description }}
         </p>
       </div>
@@ -57,17 +76,22 @@ const props = withDefaults(
       description: string;
       published?: string;
       _path: string;
+      readingTime?: number;
     };
     index?: number;
+    featured?: boolean;
   }>(),
   {
     index: 0,
+    featured: false,
   }
 );
 
 const readingTime = computed(() => {
+  if (props.article.readingTime) return props.article.readingTime;
+  // Fallback for callers that haven't fetched `readingTime` from content yet.
   const words = (props.article.description ?? "").split(/\s+/).length;
-  return Math.max(3, Math.ceil(words / 40));
+  return Math.max(1, Math.ceil(words / 40));
 });
 
 const getReadableDate = (dateString?: string) => {

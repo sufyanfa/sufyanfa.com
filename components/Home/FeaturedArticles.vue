@@ -38,6 +38,7 @@
           :key="i"
           :article="(article as any)"
           :index="i"
+          :featured="i === 0"
         />
       </div>
     </div>
@@ -49,7 +50,7 @@ const { data: articles } = await useAsyncData("articles-home", () =>
   queryContent("/articles")
     .sort({ published: -1 })
     .limit(3)
-    .only(["title", "description", "published", "_path"])
+    .only(["title", "description", "published", "_path", "readingTime"])
     .find()
 );
 </script>

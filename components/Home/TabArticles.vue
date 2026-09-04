@@ -32,7 +32,7 @@ const { data: articles } = await useAsyncData("home-tab-articles", () =>
   queryContent("/articles")
     .sort({ published: -1 })
     .limit(4)
-    .only(["title", "description", "published", "_path"])
+    .only(["title", "description", "published", "_path", "readingTime"])
     .find()
 );
 </script>
